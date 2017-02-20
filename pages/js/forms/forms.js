@@ -6,8 +6,9 @@
 
 new Vue({
     el: '#formsPage',
+    delimiters: ['[{', '}]'],
     data: {
-        formList: {},
+        formList: null,
         enketo: {
             enabled: false,
             omk_url: '',
@@ -15,12 +16,17 @@ new Vue({
             api_key: ''
         }
     },
-    ready: function () {
+    mounted: function () {
 
         this.getFormListData();
 
     },
     methods: {
+        getUrlSubmissions: function (id) {
+
+            return "/omk/pages/submissions/?form=" + id
+
+        },
         getFormListData: function(){
 
             // GET request
@@ -29,7 +35,9 @@ new Vue({
                 console.log(response);
 
                 // set data on vm
-                this.$set('formList', response.data);
+                // this.$set('formList', response.data);
+
+                this.formList = response.data;
 
                 //register the mdl menus on each card
                 setTimeout(function () {
