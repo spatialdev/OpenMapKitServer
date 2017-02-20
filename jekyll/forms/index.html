@@ -30,11 +30,11 @@ controllerjs: forms
                     XLSX Form
                 </a>
 
-                <button id="{{ val.formID }}"
+                <button :id="val.formID"
                         class="mdl-button mdl-js-button mdl-button--icon buttonRight">
                     <i class="material-icons">more_vert</i>
                 </button>
-                <ul class="mdl-menu mdl-menu--top-right mdl-js-menu" for="{{ val.formID }}">
+                <ul class="mdl-menu mdl-menu--top-right mdl-js-menu" :for="val.formID">
                     <li class="mdl-menu__item">
                         <a target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                            href="/omk/data/forms/{{ val.formID }}.xml">
@@ -42,7 +42,7 @@ controllerjs: forms
                         </a>
                     </li>
                     <li id="get-enketo-url" class="mdl-menu__item"
-                        v-if="enketo.enabled === true" v-on:click="getEnketoURL(val.formID)">
+                        v-if="enketo.enabled === true" :click="getEnketoURL(val.formID)">
                         <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Fetch Enketo URL</div>
                     </li>
 
@@ -52,7 +52,7 @@ controllerjs: forms
 
 
         <!-- Enketo Dialog -->
-        <!-- <dialog id="enketo-dialog" class="mdl-dialog">
+        <dialog id="enketo-dialog" class="mdl-dialog">
             <h6 class="mdl-dialog__title">Enketo Express</h6>
             <div class="mdl-dialog__content">
                 <p>Fill out survey online with Enketo Express</p>
@@ -63,7 +63,7 @@ controllerjs: forms
                 </a>
                 <button type="button" class="mdl-button mdl-js-button mdl-button--raised close">Close</button>
             </div>
-        </dialog> -->
+        </dialog>
     </div>
 
 </div>

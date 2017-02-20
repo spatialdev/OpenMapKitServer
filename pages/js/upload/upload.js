@@ -122,6 +122,7 @@ Vue.component('ajax-form', AjaxFormComponent);
 
 new Vue({
     el: '#uploadPage',
+    delimiters: ['[{', '}]'],
     data: {
         response: {},
         progress: 0,
@@ -129,7 +130,7 @@ new Vue({
         uploadMessage: '',
         fileName: ''
     },
-    ready: function (){
+    mounted: function (){
         componentHandler.upgradeDom();
     },
     events: {
