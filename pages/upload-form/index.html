@@ -60,15 +60,10 @@
 
     <div class="mdl-grid">
 
-    <script type="text/x-template" id="uploadForm">
-      <form id="{{ id }}" class="{{ class }}" name="{{ name }}" action="{{ action }}" method="{{ method }}" v-on:submit.prevent="handleAjaxFormSubmit" @change="onFileChange"><slot></slot></form>
-      </div>
-    </script>
-
         
 
 
-        <ajax-form id="formOne" class="my-form" name="myCoolForm" action="/omk/odk/upload-form" method="POST" enctype="multipart/form-data" v-response-type="json">
+        <ajax-form id="formOne" class="my-form" name="myCoolForm" action="/omk/odk/upload-form" method="POST" enctype="multipart/form-data">
             <div class="dropzone-area" @dragenter="hovering = true" @dragleave="hovering = false" :class="{'dropzone-hover': hovering}">
                 <div class="dropzone-text">
 

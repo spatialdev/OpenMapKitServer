@@ -5,17 +5,17 @@
 /* globals FormData, Vue */
 
 var AjaxFormComponent = Vue.extend({
-    template: '<form id="{{ id }}" class="{{ class }}" name="{{ name }}" action="{{ action }}" method="{{ method }}" v-on:submit.prevent="handleAjaxFormSubmit" @change="onFileChange"><slot></slot></form>',
+    template: '<form id="[{id }]" class="[{class}]" name="[{ name }]" action="[{ action }]" method="[{ method }]" :submit.prevent="handleAjaxFormSubmit" @change="onFileChange"><slot></slot></form>',
     props: {
-        'id': String,
-        'fileName': '',
+        id: String,
+        fileName: '',
         fileData: null,
-        'class': String,
-        'action': {
+        class: String,
+        action: {
             type: String,
             required: true
         },
-        'method': {
+        method: {
             type: String,
             required: true,
             validator: function(value){
@@ -128,9 +128,10 @@ new Vue({
         progress: 0,
         showProgess: true,
         uploadMessage: '',
-        fileName: ''
+        fileName: '',
+        hovering: true
     },
-    mounted: function (){
+    ready: function (){
         componentHandler.upgradeDom();
     },
     events: {
