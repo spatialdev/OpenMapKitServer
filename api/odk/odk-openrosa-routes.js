@@ -7,13 +7,16 @@ var SaveMedia = require('./middlewares/save-media');
 
 var saveForm = require('./controllers/save-form');
 var getFormlist = require('./controllers/get-formlist');
+var auth = require('../../util/auth');
+
+var visstaMiddleware = require('./middlewares/vissta-auth-middleware');
 
 /**
  * OpenRosa Endpoints that ODK Collect uses.
  */
 router.route('/formList')
-    .all(OpenRosaHeaders())
-    .get(getFormlist);
+    .all(OpenRosaHeaders(),visstaMiddleware())
+    .post(getFormlist);
 
 router.route('/submission')
     .all(FormSubmissionMiddleware())

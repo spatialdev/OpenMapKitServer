@@ -20,6 +20,10 @@ var error = require('./api/odk/controllers/error-handler');
 var auth = require('./util/auth');
 var pkg = require('./package');
 var app = express();
+var jwt = require('express-jwt');
+var unless = require('express-unless');
+var jsonwebtoken = require('jsonwebtoken');
+var visstaAuth = require('./util/vissta-auth');
 
 // Enable CORS always.
 app.use(cors());
@@ -28,9 +32,41 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+if(typeof settings.formAuth !== "undefined") {
+    jwt.unless = unless;
+    // enable jwt token middleware
+    app.use(jwt({
+            secret: new Buffer(settings.formAuth.secret, 'base64'),
+            // https://www.npmjs.com/package/express-jwt#usage
+            getToken: function fromHeaderOrQuerystring(req) {
+                if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+                    req.token = req.headers.authorization.split(' ')[1]
+                    return req.headers.authorization.split(' ')[1];
+                } else if (req.query && req.query.token) {
+                    return req.query.token;
+                }
+                return null;
+            }
+        }).unless({
+        path: [
+            // TODO add paths that don't require authentication
+            '/',
+            new RegExp("\/omk\/pages", "g"),
+            '/favicon.ico',
+            '/omk/info',
+            '/omk/data/forms',
+            new RegExp("\/omk\/data\/forms\/", "g")
+        ]
+    }))
+}
+
+// authenticate user credentials route
+app.use('/authenticate', visstaAuth);
+
 // Basic Info
-app.get('/', redirectToForms);
-app.get('/omk', redirectToForms);
+app.get('/', redirectToLogin);
+app.get('/omk', redirectToLogin);
 app.get('/omk/info', info);
 
 
@@ -49,9 +85,9 @@ app.use('/', odkOpenRosa);
  * We can't lock down /omk/data/forms route, because that
  * breaks /formList
  */
-app.use('/omk/odk', auth);
-app.use('/omk/data/submissions', auth);
-app.use('/omk/pages', auth);
+app.get('/omk/odk');
+app.get('/omk/data/submissions');
+app.get('/omk/pages');
 
 
 // Open Data Kit Aggregate
@@ -72,7 +108,18 @@ app.use('/omk/pages', express.static(settings.pagesDir));
 app.use('/omk/pages', directory(settings.pagesDir));
 
 // Handle errors
-app.use(error);
+// Error Handler
+app.use(function (err, req, res, next) {
+
+    var status = err.status || 500;
+
+    res.status(status).json({
+        message: err.message,
+        status: status
+    });
+
+    redirectToLogin()
+});
 
 module.exports = app;
 
@@ -87,6 +134,6 @@ function info(req, res) {
     });
 }
 
-function redirectToForms(req, res, next) {
-    res.redirect('/omk/pages/forms');
+function redirectToLogin(req, res, next) {
+    res.redirect('/omk/pages/login');
 }

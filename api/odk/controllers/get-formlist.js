@@ -4,6 +4,9 @@ var createFormList = require('openrosa-formlist');
 var getFormUrls = require('../helpers/get-form-urls');
 var settings = require('../../../settings');
 var fs = require('fs');
+var CustomError = require('../../../util/error');
+var visstaUtil = require('../../../util/vissta-auth-util');
+
 
 /**
  * Searches for XForm XML Files on the file system and
@@ -21,6 +24,13 @@ module.exports = function (req, res, next) {
     var json = req.query.json || false;
     var formId = req.query.formid;
 
+    // throw error if user tries to filter by a form they don't have access
+    if(formId && typeof req.user === "object"){
+        if (!visstaUtil.hasAccessToForm(req.user,formId) && req.user.role !== "admin"){
+            throw new CustomError("The user is not authorized to make the request.",401)
+        }
+    }
+
     getFormUrls(options, function (err, formUrls) {
         if (err) return next(err);
         var formListOptions = {
@@ -29,37 +39,39 @@ module.exports = function (req, res, next) {
         createFormList(formUrls, formListOptions, function (err, xml) {
             if (err) return next(err);
 
-            // Default is XML, but JSON is an option
-            if (json) {
+            // We only want JSON...
+            // if (json) {
                 parser.parseString(xml, function (err, result) {
                     if (result === undefined) {
                         res.status(200).json(null);
                     } else {
                         if (typeof result.xforms.xform == "object") {
-
-                            // make sure xform is an array
-                            var xformarr = result.xforms.xform.length === undefined ? [result.xforms.xform] : result.xforms.xform;
-
-                            addSubmissionCount(xformarr, function (xformJson) {
-                                if(formId){
-                                    result.xforms.xform = xformJson.filter(function(arr){
-                                        return arr.formID == formId;
-                                    });
-                                } else {
-                                    result.xforms.xform = xformJson;
-                                }
-                                res.status(200).json(result);
-                            });
+                            // filter results by user role
+                            filterFormsByRole(req.user, result.xforms.xform, function(filteredXforms){
+                                addSubmissionCount(filteredXforms, function (xformJson) {
+                                    if(formId){
+                                        result.xforms.xform = xformJson.filter(function(arr){
+                                            return arr.formID == formId;
+                                        });
+                                    } else {
+                                        result.xforms.xform = xformJson;
+                                    }
+                                    res.status(200).json(result);
+                                });
+                            })
                         } else {
                             res.status(200).json(null);
                         }
                     }
                 });
 
-            } else {
-                res.set('content-type', 'text/xml; charset=utf-8');
-                res.status(200).send(xml);
-            }
+            // }
+
+            // else {
+            //
+            //     res.set('content-type', 'text/xml; charset=utf-8');
+            //     res.status(200).send(xml);
+            // }
         });
     });
 };
@@ -88,6 +100,35 @@ function addSubmissionCount(xformJson, cb) {
             }
         });
     })
+}
+
+/**
+ * Get list of forms are returned filtered list by user
+ * @param user
+ * @param xform
+ * @param cb
+ */
+function filterFormsByRole (user, xform, cb) {
+    if(typeof user === "object" && user.role !== "admin") {
+        // get form ids
+        var formids = user.formPermissions.map(function(f){return f.form_id});
+        var filteredForms = [];
+
+        formids.forEach(function(id){
+            // true if filter finds a match
+            if (xform.filter(function(x){return x.formID === id}).length>0){
+                // add to results
+                filteredForms.push(xform.filter(function(x){return x.formID === id})[0]);
+            }
+        });
+
+        // return filtered form
+        cb(filteredForms);
+
+    } else {
+        // return unfiltered form
+        cb(xform)
+    }
 }
 
 /**

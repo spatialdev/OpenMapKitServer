@@ -9,6 +9,22 @@ module.exports = {
         server: 'http://osm.posm.io',
         user: 'POSM',
         pass: ''
+    },
+
+    // Turn on form level user security
+    formAuth: {
+        enabled: true,
+        secret: "",
+        expiresIn: ""
+    },
+    database : {
+        readServer: "",
+        writeServer: "",
+        database: "",
+        port: "",
+        username: "",
+        password: "",
+        schema: ""
     }
 
     // To do simple authentication, you can have an object like so:

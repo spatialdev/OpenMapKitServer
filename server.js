@@ -2,6 +2,7 @@
 
 var settings;
 var checksumBlacklistHelper = require('./api/odk/helpers/checksum-hash');
+var pgbinding = require('./util/pg-binding');
 
 try {
     settings = require('./settings');
@@ -19,7 +20,27 @@ checksumBlacklistHelper.create(function(err){
         console.error(err);
         return;
     }
-    server.listen(port, function () {
-        console.log('OpenMapKit Server is listening on port %s.', port);
-    });
+
+    // make sure database is available
+    if (typeof settings.database === "object"){
+        var db = pgbinding.getDatabase();
+        var sql = "SELECT * FROM pg_tables where schemaname = $1";
+
+        // Request data from the database
+        db.manyOrNone(sql, [settings.database.schema])
+            .then(function (results) {
+                server.listen(port, function () {
+                    console.log('OpenMapKit Server is listening on port %s.', port);
+                });
+            })
+            .catch(function (error) {
+                console.error("Failed to start API:\n" + error);
+                process.exit(1);
+            });
+
+    } else {
+        server.listen(port, function () {
+            console.log('OpenMapKit Server is listening on port %s.', port);
+        });
+    }
 });

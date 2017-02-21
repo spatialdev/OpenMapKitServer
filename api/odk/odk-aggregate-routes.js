@@ -6,13 +6,15 @@ var getOsmSubmissions = require('./controllers/get-osm-submissions');
 var patchSubmissions = require('./controllers/patch-submissions');
 var uploadForm = require('./controllers/upload-form');
 var submitChangesets = require('./controllers/submit-changesets');
+var visstaMiddleware = require('./middlewares/vissta-auth-middleware');
 
 /**
  * Aggregate End Points
  */
-router.route('/submissions').get(getSubmissionsList);
-router.route('/submissions/:formName.json').get(getJsonSubmissions);
-router.route('/submissions/:formName.csv').get(getCsvSubmissions);
+
+router.route('/submissions').all(visstaMiddleware()).post(getSubmissionsList);
+router.route('/submissions/:formName.json').all(visstaMiddleware()).post(getJsonSubmissions);
+router.route('/submissions/:formName.csv').all(visstaMiddleware()).post(getCsvSubmissions);
 router.route('/submissions/:formName.osm')
                 .get(getOsmSubmissions)
                 .patch(patchSubmissions);
