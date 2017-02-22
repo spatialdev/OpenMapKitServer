@@ -52,7 +52,6 @@ if(typeof settings.formAuth !== "undefined") {
         path: [
             // TODO add paths that don't require authentication
             '/',
-            new RegExp("\/omk\/pages", "g"),
             '/favicon.ico',
             '/omk/info',
             '/omk/data/forms',
