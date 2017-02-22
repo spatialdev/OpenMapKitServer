@@ -1,0 +1,46 @@
+---
+layout: default
+controllerjs: login
+auth: auth
+---
+
+<div id="loginPage" class="page-content">
+<!-- MDL Progress Bar with Indeterminate Progress -->
+<div id="p2" v-show="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+
+    <div class="mdl-grid">
+
+        <div class="mdl-cell mdl-cell--4-col"></div>
+        <div class="mdl-cell mdl-cell--4-col">
+
+            <h2>Login</h2>
+            
+            <form action="#">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="email" id="email"
+                v-model="credentials.email">
+                <label class="mdl-textfield__label" for="email">email</label>
+              </div>
+            </form>
+
+            <form action="#">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" id="password"
+                v-model="credentials.password">
+                <label class="mdl-textfield__label" for="password">password</label>
+              </div>
+            </form>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"@click="submit()">
+              Log in
+            </button>
+
+        </div>
+        <div class="mdl-cell mdl-cell--4-col"></div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="../css/forms.css">
+<link rel="stylesheet" href="../css/dialog-polyfill.css">

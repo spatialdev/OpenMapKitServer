@@ -128,6 +128,7 @@ Vue.component('ajax-form', {
 
 var uploadFile = new Vue({
     el: '#uploadPage',
+    name: 'UploadPage',
     delimiters: ['[{', '}]'],
     data: {
         response: {},
@@ -135,9 +136,16 @@ var uploadFile = new Vue({
         showProgess: true,
         uploadMessage: '',
         fileName: '',
-        hovering: true
+        hovering: true,
+        auth: auth
     },
-    ready: function (){
+    mounted: function (){
+
+        //Check if authenticated, if not go to log in page
+        if(auth.user.required){
+            auth.checkAuth();
+        }
+
         componentHandler.upgradeDom();
     },
     events: {

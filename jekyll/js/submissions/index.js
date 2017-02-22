@@ -134,6 +134,11 @@ function doCSV(json) {
 
 $(function () {
 
+    //Check if authenticated, if not go to log in page
+    if(auth.user.required){
+        auth.checkAuth();
+    }
+
     var formId = getParam('form');
 
     $(".areas").hide();

@@ -28,6 +28,13 @@
       <script type="text/javascript" src="../js/vendor/toast.min.js"></script>
       <script type="text/javascript" src="../js/vendor/dialog-polyfill.js"></script>
 
+      <!--Inject AUTH dependency to template-->
+      {% if page.auth %}
+
+      <script src="../js/{{page.auth | downcase}}.js"></script>
+
+      {% endif %}
+
       <!--Inject Vue JS dependency if template-->
       {% if page.controllerjs %}
 

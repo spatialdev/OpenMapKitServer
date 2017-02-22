@@ -6,6 +6,7 @@
 
 new Vue({
     el: '#formsPage',
+    name: 'FormsPage',
     delimiters: ['[{', '}]'],
     data: {
         formList: null,
@@ -14,9 +15,16 @@ new Vue({
             omk_url: '',
             url: '',
             api_key: ''
-        }
+        },
+        auth: auth
     },
     mounted: function () {
+
+        //Check if authenticated, if not go to log in page
+        if(auth.user.required){
+            auth.checkAuth();
+        }
+        
 
         this.getFormListData();
 
