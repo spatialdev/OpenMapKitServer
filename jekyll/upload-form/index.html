@@ -8,22 +8,23 @@ auth: auth
 
     <div class="mdl-grid">
 
-        <ajax-form id="formOne" class="my-form" name="myCoolForm" action="/omk/odk/upload-form" method="POST" enctype="multipart/form-data" response-type="type">
+        <ajax-form id="formOne" class="my-form" name="myCoolForm" action="/omk/odk/upload-form" method="POST" enctype="multipart/form-data" :response-type="type"
+        v-on:filename_parent="filenameparent" v-on:notifywrongfile="notifywrongfile" v-on:onformcomplete="onformcomplete" v-on:onformprogress="onformprogress" v-on:onformerror="onformerror"
+        >
             <!-- <div class="dropzone-area" @dragenter="hovering = true" @dragleave="hovering = false" :class="{'dropzone-hover': hovering}"> -->
             <div class="dropzone-area">
 
                 <div class="dropzone-text">
 
-                    <span class="dropzone-title" v-if="!fileName">Drop image here or click to select</span>
+                    <span class="dropzone-title" v-if="!fileName">Drop file here or click to select</span>
                     <span class="dropzone-info" v-else>[{ fileName }]</span>
                 </div>
-
                 <input type="file" id="xls_file" name="xls_file">
 
             </div>
 
-            <input type="submit" name="submit" value="Submit" class="mdl-button mdl-button--raised mdl-button--colored submitButton">
-            <progress min="0" max="100" value="{{ progress }}" @click="showSnackBar()" v-show="fileName.length">{{ progress }}% complete</progress>
+            <input type="submit" name="submit" value="Submit" class="mdl-button mdl-button--raised mdl-button--colored submitButton" :disabled="disabled">
+            <progress min="0" max="100" value="progress" @click="showSnackBar()" v-show="progress > 0">[{ progress }]% complete</progress>
         </ajax-form>
 
     </div>
