@@ -54,8 +54,10 @@ if(typeof settings.formAuth !== "undefined") {
             '/',
             '/favicon.ico',
             '/omk/info',
-            '/omk/data/forms',
-            new RegExp("\/omk\/data\/forms\/", "g"),
+            // static pages
+            new RegExp("\/omk\/pages\/", "g"),
+            // '/omk/data/forms',
+            new RegExp("\/omk\/data\/forms\/", "g"),  // TODO add middleware to filter these
             '/authenticate'
         ]
     }))
