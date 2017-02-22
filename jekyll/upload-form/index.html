@@ -7,15 +7,14 @@ controllerjs: upload
 
     <div class="mdl-grid">
 
-        {% raw %}
-
-
         <ajax-form id="formOne" class="my-form" name="myCoolForm" action="/omk/odk/upload-form" method="POST" enctype="multipart/form-data" v-response-type="json">
-            <div class="dropzone-area" @dragenter="hovering = true" @dragleave="hovering = false" :class="{'dropzone-hover': hovering}">
+            <!-- <div class="dropzone-area" @dragenter="hovering = true" @dragleave="hovering = false" :class="{'dropzone-hover': hovering}"> -->
+            <div class="dropzone-area">
+
                 <div class="dropzone-text">
 
                     <span class="dropzone-title" v-if="!fileName">Drop image here or click to select</span>
-                    <span class="dropzone-info" v-else>{{ fileName }}</span>
+                    <span class="dropzone-info" v-else>[{ fileName }]</span>
                 </div>
 
                 <input type="file" id="xls_file" name="xls_file">
@@ -26,10 +25,6 @@ controllerjs: upload
             <progress min="0" max="100" value="{{ progress }}" @click="showSnackBar()" v-show="fileName.length">{{ progress }}% complete</progress>
         </ajax-form>
 
-
-
-
-        {% endraw %}
     </div>
 
 </div>

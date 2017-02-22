@@ -4,12 +4,10 @@
 
 /* globals FormData, Vue */
 
-var AjaxFormComponent = Vue.extend({
+Vue.component('ajax-form', {
     template: '<form id="[{id }]" class="[{class}]" name="[{ name }]" action="[{ action }]" method="[{ method }]" :submit.prevent="handleAjaxFormSubmit" @change="onFileChange"><slot></slot></form>',
     props: {
         id: String,
-        fileName: '',
-        fileData: null,
         class: String,
         action: {
             type: String,
@@ -26,6 +24,12 @@ var AjaxFormComponent = Vue.extend({
             }
         },
         'v-response-type': String
+    },
+    data () {
+        return {
+            fileName: '',
+            fileData: null
+        }
     },
     methods: {
         onFileChange: function (e) {
@@ -45,7 +49,9 @@ var AjaxFormComponent = Vue.extend({
 
 
             // fires when files has been loaded
-            this.$dispatch('getFilesName', this.fileName);
+            // this.$dispatch('getFilesName', this.fileName);
+
+            this.$emit('filename', this.fileName)
 
 
         },
@@ -117,10 +123,10 @@ var AjaxFormComponent = Vue.extend({
 });
 
 // register
-Vue.component('ajax-form', AjaxFormComponent);
+// Vue.component('ajax-form', AjaxFormComponent);
 
 
-new Vue({
+var uploadFile = new Vue({
     el: '#uploadPage',
     delimiters: ['[{', '}]'],
     data: {
@@ -135,11 +141,6 @@ new Vue({
         componentHandler.upgradeDom();
     },
     events: {
-        getFilesName: function(el){
-            this.fileName = el;
-
-
-        },
         NotifyWrongFile: function(){
             this.uploadMessage = "This file is not a valid XLSForm .xlsx file.";
             //toaster
@@ -200,7 +201,16 @@ new Vue({
             iqwerty.toast.Toast(this.uploadMessage, toastOptions);
         }
     },
+    created() {
+        this.$on('filename', function(id){
+            console.log('Event from parent component emitted', id)
+        });
+    },
     methods: {
+
+        filename: function(name){
+            this.fileName = name;
+        },
 
     }
 })
