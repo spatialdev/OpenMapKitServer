@@ -16,7 +16,8 @@ new Vue({
             url: '',
             api_key: ''
         },
-        auth: auth
+        auth: auth,
+        user: auth.getUser()
     },
     mounted: function () {
 
@@ -37,13 +38,15 @@ new Vue({
         },
         getFormListData: function(){
 
+            var url = this.auth.user.url
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
             // GET request
-            this.$http.get('/formList?json=true').then(function (response) {
+            this.$http.post(url+ '/formList', null, params).then(function (response) {
 
                 console.log(response);
-
-                // set data on vm
-                // this.$set('formList', response.data);
 
                 this.formList = response.data;
 

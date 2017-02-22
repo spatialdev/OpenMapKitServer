@@ -6,8 +6,7 @@ auth: auth
 
 <div id="loginPage" class="page-content">
 <!-- MDL Progress Bar with Indeterminate Progress -->
-<div id="p2" v-show="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-
+    <div id="p2" v-show="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
     <div class="mdl-grid">
 
         <!-- <div class="mdl-cell mdl-cell--4-col"></div> -->
@@ -17,9 +16,9 @@ auth: auth
             
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="email" id="email"
-                v-model="credentials.email">
-                <label class="mdl-textfield__label" for="email">email</label>
+                <input class="mdl-textfield__input" type="username" id="username"
+                v-model="credentials.username">
+                <label class="mdl-textfield__label" for="username">username</label>
               </div>
             </form>
 

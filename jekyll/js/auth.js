@@ -3,22 +3,24 @@ var auth =  {
   user: {
     authenticated: false,
     token: null,
-    profile:'',
+    user: null,
     invalid: false,
-    required: true
+    required: true,
+    url: "http://52.14.154.36:3210"
   },
   //call to the API and check against the credentials
   login(context, creds) {
-    return context.$http.post("https://reqres.in/api/login", creds, (data) => {
+    return context.$http.post( this.user.url +  "/authenticate", creds, (data) => {
       //if there's a token property, then its valid
       if(data.token){
+        
         localStorage.setItem('id_token', data.token)
 
-        localStorage.setItem('profile', 'admin')
+        localStorage.setItem('user', JSON.stringify(data.user))
 
         this.user.authenticated = true;
-
         this.user.token = data.token;
+        this.user.user = data.user;
     }
     }).catch((err) => {
       console.log(err);
@@ -28,7 +30,7 @@ var auth =  {
   //logging out will remove the token from local storage and auth as false
   logout() {
     localStorage.removeItem('id_token')
-    localStorage.removeItem('profile')
+    localStorage.removeItem('user')
     this.user.authenticated = false;
   },
   //Method to check if the local storage contains token
@@ -48,5 +50,8 @@ var auth =  {
     return {
       'Authorization': 'Bearer ' + localStorage.getItem('id_token')
     }
+  },
+  getUser() {
+    return JSON.parse(localStorage.getItem('user') || 'null')
   }
 }

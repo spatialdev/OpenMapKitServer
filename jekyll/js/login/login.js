@@ -11,18 +11,20 @@ new Vue({
     data() {
         return {
             credentials: {
-                email: 'peter@klaven',
-                password: 'cityslicka'
+                //SUPERUSER
+
+                username: 'superuser',
+                password: 'testsuperuser'
+
+                //READUSER
+                
+                // username: 'readuser',
+                // password: 'testreaduser'
             },
             error: '',
             invalid: false,
             loading: false,
             auth: auth
-        }
-    },
-    computed: {
-        authUser: function (){
-            return auth.user
         }
     },
     mounted: function () {
@@ -34,7 +36,7 @@ new Vue({
             this.loading = true;
             var vm = this;
               var credentials = {
-                email: this.credentials.email,
+                username: this.credentials.username,
                 password: this.credentials.password
               }
               //this takes the object, credentials and if valid the route it should go
