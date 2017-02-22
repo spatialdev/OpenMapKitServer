@@ -134,11 +134,6 @@ function info(req, res) {
     });
 }
 
-<<<<<<< HEAD
 function redirectToLogin(req, res, next) {
-=======
-function redirectToForms(req, res, next) {
-    // res.redirect('/omk/pages/forms');
->>>>>>> e72c421... Authentication in place for all routes of static pages.
     res.redirect('/omk/pages/login');
 }
