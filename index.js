@@ -56,7 +56,8 @@ if(typeof settings.formAuth !== "undefined") {
             '/favicon.ico',
             '/omk/info',
             '/omk/data/forms',
-            new RegExp("\/omk\/data\/forms\/", "g")
+            new RegExp("\/omk\/data\/forms\/", "g"),
+            '/authenticate'
         ]
     }))
 }

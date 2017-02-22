@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  *
  * @param message - error message

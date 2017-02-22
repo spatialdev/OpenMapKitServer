@@ -1,7 +1,6 @@
-'use strict';
-const jsonwebtoken = require('jsonwebtoken');
-const settings = require ('../../../settings');
-const CustomError = require('../../../util/error');
+var jsonwebtoken = require('jsonwebtoken');
+var settings = require ('../../../settings');
+var CustomError = require('../../../util/error');
 
 module.exports = function() {
     return function(req, res, next) {

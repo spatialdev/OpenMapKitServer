@@ -1,7 +1,6 @@
-'use strict';
-const pg = require('pg-promise')();
-const Q = require('q');
-const settings = require('../settings');
+var pg = require('pg-promise')();
+var Q = require('q');
+var settings = require('../settings');
 
 // Application connection object
 var connectionObject = {
@@ -13,7 +12,7 @@ var connectionObject = {
 };
 
 // set connection
-const db = pg(connectionObject);
+var db = pg(connectionObject);
 
 module.exports._getConnObj = function(){
     return connectionObject;

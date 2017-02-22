@@ -1,9 +1,7 @@
-'use strict';
-
-const settings = require('../settings');
-const CustomError = require('./error');
-const pgbinding = require('./pg-binding');
-const jsonwebtoken = require('jsonwebtoken');
+var settings = require('../settings');
+var CustomError = require('./error');
+var pgbinding = require('./pg-binding');
+var jsonwebtoken = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
     // let 'em through if no auth is specified in settings...
