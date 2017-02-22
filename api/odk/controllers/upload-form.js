@@ -5,6 +5,8 @@ var PythonShell = require('python-shell');
 
 var settings = require('../../../settings');
 var formsDir = settings.dataDir + '/forms/';
+var visstaUtil = require('../../../util/vissta-auth-util');
+var CustomError = require('../../../util/error');
 
 /**
  * User uploads an XLSForm (Excel ODK Form).
@@ -15,8 +17,25 @@ var formsDir = settings.dataDir + '/forms/';
  */
 module.exports = function (req, res, next) {
 
-    form = new multiparty.Form();
-    form.parse(req, function (err, fields, files) {
+    var form = new multiparty.Form();
+
+    // check if auth is enabled
+    if (visstaUtil.isAuthEnabled()) {
+
+        // only only admins can upload forms
+        if(req.user.role === "admin") {
+            form.parse(req, parseCallback);
+        } else {
+            next(new CustomError("The user is not authorized to make the request.",401));
+        }
+
+    } else {
+        // not auth enabled, let user pass through
+        form.parse(req, parseCallback);
+    }
+
+    // centralized parse callback
+    function parseCallback (err, fields, files) {
         var file = files.xls_file;
         if (!file) {
             res.status(400).json({
@@ -36,7 +55,7 @@ module.exports = function (req, res, next) {
             return;
         }
         var xlsPath = formsDir + xlsFilename;
-        mv(file[0].path, xlsPath, function(err) {
+        mv(file[0].path, xlsPath, function (err) {
             if (err) {
                 res.status(400).json({
                     status: 400,
@@ -71,5 +90,6 @@ module.exports = function (req, res, next) {
                 });
             });
         });
-    });
+    }
+
 };

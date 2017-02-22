@@ -22,7 +22,7 @@ router.route('/submissions/:formName.osm')
 /**
  * XLSForm Upload Endpoint
  */
-router.route('/upload-form').post(uploadForm);
+router.route('/upload-form').all(visstaMiddleware()).post(uploadForm);
 
 /**
  * Creates changesets for submissions and submits to

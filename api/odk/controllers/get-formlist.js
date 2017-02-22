@@ -24,13 +24,6 @@ module.exports = function (req, res, next) {
     var json = req.query.json || false;
     var formId = req.query.formid;
 
-    // throw error if user tries to filter by a form they don't have access
-    if(formId && typeof req.user === "object"){
-        if (!visstaUtil.hasAccessToForm(req.user,formId) && req.user.role !== "admin"){
-            throw new CustomError("The user is not authorized to make the request.",401)
-        }
-    }
-
     getFormUrls(options, function (err, formUrls) {
         if (err) return next(err);
         var formListOptions = {
@@ -41,17 +34,28 @@ module.exports = function (req, res, next) {
 
             // We only want JSON...
             // if (json) {
-                parser.parseString(xml, function (err, result) {
-                    if (result === undefined) {
-                        res.status(200).json(null);
-                    } else {
-                        if (typeof result.xforms.xform == "object") {
-                            // filter results by user role
-                            filterFormsByRole(req.user, result.xforms.xform, function(filteredXforms){
-                                if(filteredXforms.length > 0){
+            parser.parseString(xml, function (err, result) {
+                if (result === undefined) {
+                    res.status(200).json(null);
+                } else {
+
+                    if (typeof result.xforms.xform == "object") {
+
+                        // filter results by user role IF form authentication is turned on
+                        if (visstaUtil.isAuthEnabled()) {
+
+                            // throw error if user tries to filter by a form they don't have access
+                            if (formId && typeof req.user === "object") {
+                                if (!visstaUtil.hasAccessToForm(req.user, formId) && req.user.role !== "admin") {
+                                    next(new CustomError("The user is not authorized to make the request.", 401));
+                                }
+                            }
+
+                            filterFormsByRole(req.user, result.xforms.xform, function (filteredXforms) {
+                                if (filteredXforms.length > 0) {
                                     addSubmissionCount(filteredXforms, function (xformJson) {
-                                        if(formId){
-                                            result.xforms.xform = xformJson.filter(function(arr){
+                                        if (formId) {
+                                            result.xforms.xform = xformJson.filter(function (arr) {
                                                 return arr.formID == formId;
                                             });
                                         } else {
@@ -63,11 +67,27 @@ module.exports = function (req, res, next) {
                                     res.status(200).json(null);
                                 }
                             })
+                            
                         } else {
-                            res.status(200).json(null);
+
+                            // send unfiltered responses
+                            addSubmissionCount(result.xforms.xform, function (xformJson) {
+                                if (formId) {
+                                    result.xforms.xform = xformJson.filter(function (arr) {
+                                        return arr.formID == formId;
+                                    });
+                                } else {
+                                    result.xforms.xform = xformJson;
+                                }
+                                res.status(200).json(result);
+                            });
+
                         }
+                    } else {
+                        res.status(200).json(null);
                     }
-                });
+                }
+            });
 
             // }
 
@@ -112,17 +132,23 @@ function addSubmissionCount(xformJson, cb) {
  * @param xform
  * @param cb
  */
-function filterFormsByRole (user, xform, cb) {
-    if(typeof user === "object" && user.role !== "admin") {
+function filterFormsByRole(user, xform, cb) {
+    if (typeof user === "object" && user.role !== "admin") {
         // get form ids
-        var formids = user.formPermissions.map(function(f){return f.form_id});
+        var formids = user.formPermissions.map(function (f) {
+            return f.form_id
+        });
         var filteredForms = [];
 
-        formids.forEach(function(id){
+        formids.forEach(function (id) {
             // true if filter finds a match
-            if (xform.filter(function(x){return x.formID === id}).length>0){
+            if (xform.filter(function (x) {
+                    return x.formID === id
+                }).length > 0) {
                 // add to results
-                filteredForms.push(xform.filter(function(x){return x.formID === id})[0]);
+                filteredForms.push(xform.filter(function (x) {
+                    return x.formID === id
+                })[0]);
             }
         });
 
