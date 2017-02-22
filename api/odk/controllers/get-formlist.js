@@ -48,16 +48,20 @@ module.exports = function (req, res, next) {
                         if (typeof result.xforms.xform == "object") {
                             // filter results by user role
                             filterFormsByRole(req.user, result.xforms.xform, function(filteredXforms){
-                                addSubmissionCount(filteredXforms, function (xformJson) {
-                                    if(formId){
-                                        result.xforms.xform = xformJson.filter(function(arr){
-                                            return arr.formID == formId;
-                                        });
-                                    } else {
-                                        result.xforms.xform = xformJson;
-                                    }
-                                    res.status(200).json(result);
-                                });
+                                if(filteredXforms.length > 0){
+                                    addSubmissionCount(filteredXforms, function (xformJson) {
+                                        if(formId){
+                                            result.xforms.xform = xformJson.filter(function(arr){
+                                                return arr.formID == formId;
+                                            });
+                                        } else {
+                                            result.xforms.xform = xformJson;
+                                        }
+                                        res.status(200).json(result);
+                                    });
+                                } else {
+                                    res.status(200).json(null);
+                                }
                             })
                         } else {
                             res.status(200).json(null);
