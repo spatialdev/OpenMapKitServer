@@ -23,7 +23,7 @@ Vue.component('ajax-form', {
                 }
             }
         },
-        'v-response-type': String
+        'response-type': String
     },
     data () {
         return {
@@ -96,7 +96,7 @@ Vue.component('ajax-form', {
 
             // you can set the form response type via v-response-type
             if (this.vResponseType) {
-                xhr.responseType = this.vResponseType;
+                xhr.responseType = this.responseType;
             } else {
                 xhr.responseType = 'json';
             }
@@ -137,7 +137,8 @@ var uploadFile = new Vue({
         uploadMessage: '',
         fileName: '',
         hovering: true,
-        auth: auth
+        auth: auth,
+        type: 'json'
     },
     mounted: function (){
 
