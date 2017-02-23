@@ -25,7 +25,8 @@ module.exports = {
         username: "",
         password: "",
         schema: ""
-    }
+    },
+    customRoutes: []
 
     // To do simple authentication, you can have an object like so:
     // auth: {

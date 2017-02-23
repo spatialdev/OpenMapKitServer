@@ -5,7 +5,7 @@ var getFormUrls = require('../helpers/get-form-urls');
 var settings = require('../../../settings');
 var fs = require('fs');
 var CustomError = require('../../../util/error');
-var visstaUtil = require('../../../util/vissta-auth-util');
+var visstaUtil = require('../../custom/util/vissta-auth-util');
 
 
 /**

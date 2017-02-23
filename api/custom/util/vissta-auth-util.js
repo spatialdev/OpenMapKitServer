@@ -1,4 +1,4 @@
-var settings = require('../settings');
+var settings = require('../../../settings');
 var util = {};
 
 /**
@@ -15,6 +15,16 @@ util.hasAccessToForm = function(user, formid){
 
 util.isAuthEnabled = function () {
     return typeof settings.formAuth === "object" && settings.formAuth.enabled === true
+};
+
+util.isCustomRoute = function (table) {
+    var customRoutes = settings.customRoutes;
+
+    var filter = customRoutes.filter(function(item){
+        return (item === table)
+    });
+
+    return filter.length == 1
 };
 
 module.exports = util;

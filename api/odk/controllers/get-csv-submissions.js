@@ -1,6 +1,6 @@
 var aggregate = require('../helpers/aggregate-submissions');
 var json2csv = require('json2csv');
-var visstaUtil = require('../../../util/vissta-auth-util');
+var visstaUtil = require('../../custom/util/vissta-auth-util');
 var CustomError = require ('../../../util/error');
 
 /**

@@ -5,7 +5,7 @@ var PythonShell = require('python-shell');
 
 var settings = require('../../../settings');
 var formsDir = settings.dataDir + '/forms/';
-var visstaUtil = require('../../../util/vissta-auth-util');
+var visstaUtil = require('../../custom/util/vissta-auth-util');
 var CustomError = require('../../../util/error');
 
 /**

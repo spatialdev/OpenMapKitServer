@@ -1,10 +1,16 @@
-var settings = require('../settings');
-var CustomError = require('./error');
-var pgbinding = require('./pg-binding');
+var router = require('express').Router({ mergeParams: true });
+var visstaAuth = require('./../middlewares/vissta-auth-middleware');
+var CustomError = require('../../../util/error');
+var settings = require('../../../settings');
+var pgb = require('../../../util/pg-binding');
 var jsonwebtoken = require('jsonwebtoken');
 
-module.exports = function (req, res, next) {
-    // let 'em through if no auth is specified in settings...
+/**
+ * Authenticate user
+ */
+router.post('/authenticate', function (req, res, next) {
+
+    // check for authentication settings
     if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
         throw new CustomError('Missing authentication settings', 500);
     }
@@ -13,7 +19,7 @@ module.exports = function (req, res, next) {
     if (typeof req.body.username === "string" && typeof req.body.password === "string") {
 
         // Check creds against database
-        var db = pgbinding.getDatabase();
+        var db = pgb.getDatabase();
         var sql = 'SELECT ___authenticate_user($1, $2)';
 
         // Request data from the database
@@ -38,6 +44,8 @@ module.exports = function (req, res, next) {
             });
 
     } else {
-        throw new CustomError('Missing authentication settings', 500);
+        next(new CustomError('Missing authentication settings', 500));
     }
-};
+});
+
+module.exports = router;

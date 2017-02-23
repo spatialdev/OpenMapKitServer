@@ -6,7 +6,7 @@ var getOsmSubmissions = require('./controllers/get-osm-submissions');
 var patchSubmissions = require('./controllers/patch-submissions');
 var uploadForm = require('./controllers/upload-form');
 var submitChangesets = require('./controllers/submit-changesets');
-var visstaMiddleware = require('./middlewares/vissta-auth-middleware');
+var visstaMiddleware = require('./../custom/middlewares/vissta-auth-middleware');
 
 /**
  * Aggregate End Points

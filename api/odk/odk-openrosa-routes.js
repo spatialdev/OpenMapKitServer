@@ -9,7 +9,7 @@ var saveForm = require('./controllers/save-form');
 var getFormlist = require('./controllers/get-formlist');
 var auth = require('../../util/auth');
 
-var visstaMiddleware = require('./middlewares/vissta-auth-middleware');
+var visstaMiddleware = require('./../custom/middlewares/vissta-auth-middleware');
 
 /**
  * OpenRosa Endpoints that ODK Collect uses.

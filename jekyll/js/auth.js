@@ -10,7 +10,7 @@ var auth =  {
   },
   //call to the API and check against the credentials
   login(context, creds) {
-    return context.$http.post( this.user.url +  "/authenticate", creds, (data) => {
+    return context.$http.post( this.user.url +  "/custom/users/authenticate", creds, (data) => {
       //if there's a token property, then its valid
       if(data.token){
         

@@ -23,7 +23,8 @@ var app = express();
 var jwt = require('express-jwt');
 var unless = require('express-unless');
 var jsonwebtoken = require('jsonwebtoken');
-var visstaAuth = require('./util/vissta-auth');
+var userRoutes = require('./api/custom/routes/user-routes');
+var tableRoutes = require('./api/custom/routes/table-routes');
 
 // Enable CORS always.
 app.use(cors());
@@ -58,13 +59,10 @@ if(typeof settings.formAuth !== "undefined") {
             new RegExp("\/omk\/pages\/", "g"),
             // '/omk/data/forms',
             new RegExp("\/omk\/data\/forms\/", "g"),  // TODO add middleware to filter these
-            '/authenticate'
+            '/custom/users/authenticate'
         ]
     }))
 }
-
-// authenticate user credentials route
-app.use('/authenticate', visstaAuth);
 
 // Basic Info
 app.get('/', redirectToLogin);
@@ -79,6 +77,9 @@ app.get('/omk/info', info);
 // server path.
 app.use('/', odkOpenRosa);
 
+// Custom user routes
+app.use('/custom/users', userRoutes);
+app.use('/custom/tables', tableRoutes);
 
 /**
  * Authentication routes.
