@@ -42,4 +42,4 @@ data/forms/*
 
 ############## Jekyll Stuff ##################
 jekyll/.sass-cache/
-.pages/
+jekyll/pages/
