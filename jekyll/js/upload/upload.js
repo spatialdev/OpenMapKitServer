@@ -29,7 +29,8 @@ Vue.component('ajax-form', {
     data () {
         return {
             fileName: '',
-            fileData: null
+            fileData: null,
+            auth: auth
         }
     },
     methods: {
@@ -95,7 +96,9 @@ Vue.component('ajax-form', {
             }).bind(this);
 
             var xhr = new XMLHttpRequest();
-            xhr.open(this.method, this.action, true);
+            xhr.open(this.method, this.auth.user.url + this.action, true);
+
+            xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('id_token'));
 
             // you can set the form response type via v-response-type
             if (this.vResponseType) {
@@ -216,7 +219,7 @@ var uploadFile = new Vue({
             console.log('onFormError', err);
             // indicate the changes
             //Failed message
-            this.uploadMessage = "Failed uploading" + this.fileName + " file";
+            this.uploadMessage = "Failed uploading " + this.fileName + " file";
             this.response = err;
 
             //toaster
