@@ -11,10 +11,10 @@ new Vue({
     data: {
         formList: null,
         enketo: {
-            enabled: false,
-            omk_url: '',
-            url: '',
-            api_key: ''
+            enabled: true,
+            omk_url: 'http://127.0.0.1:3210',
+            url: 'http://127.0.0.1:8005/api/v2/survey/offline',
+            api_key: 'enketorules'
         },
         auth: auth,
         user: auth.getUser()
@@ -82,16 +82,19 @@ new Vue({
             // dialog with link to enketo-express URL
             var dialog = document.querySelector('dialog');
 
-            // close dialog
-            dialog.querySelector('.close').addEventListener('click', function () {
-                dialog.close();
-            });
+
+            if (dialog) {
+                // close dialog
+                dialog.querySelector('.close').addEventListener('click', function () {
+                    dialog.close();
+                });
+            }
 
             // Get enketo-express URL
             this.$http.post(this.$data.enketo.url, data, options).then(function (response) {
 
 
-                if (response.data.hasOwnProperty("url")) {
+                if (response.data.hasOwnProperty("offline_url")) {
 
                     if (!dialog.showModal) {
                         dialogPolyfill.registerDialog(dialog);
@@ -99,7 +102,7 @@ new Vue({
 
                     // add url to modal Button
                     var enketoButton = document.querySelector('#open-enketo-url');
-                    enketoButton.href = response.data.url;
+                    enketoButton.href = response.data.offline_url;
 
                     // show dialog
                     dialog.showModal();
