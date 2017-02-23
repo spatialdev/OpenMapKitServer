@@ -182,7 +182,7 @@ $(function () {
         .click(function (e) {
             e.preventDefault();
             var url = OMK.csvUrl()
-            OMK.downloadJSONCSV(url);
+            OMK.downloadCSV(url);
         });
     $("#downloadJson")
         .click(function (e) {
