@@ -11,15 +11,8 @@ new Vue({
     data() {
         return {
             credentials: {
-                //SUPERUSER
-
-                username: 'superuser',
-                password: 'testsuperuser'
-
-                //READUSER
-                
-                // username: 'readuser',
-                // password: 'testreaduser'
+                username: '',
+                password: ''
             },
             error: '',
             invalid: false,
