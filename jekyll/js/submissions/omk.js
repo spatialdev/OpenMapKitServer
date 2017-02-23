@@ -76,9 +76,7 @@ OMK.fetchJSON = function (url,cb) {
             $("#submissionPagespinner").hide();
             $("#alert").text("No data has been submitted for " + form + '.');
             console.log("Error fetching ODK submissions!");
-            console.log(xhr);
-            console.log(status);
-            console.log(errorThrown);        
+            console.log(data);        
         }
 
     });
@@ -154,15 +152,14 @@ OMK.getFormMetaData = function (cb) {
         error: function (data){
             var form = getParam('form');
             console.log("Error fetching ODK form metadata!");
-            console.log(xhr);
-            console.log(status);
-            console.log(errorThrown);       
+            console.log(data);
+                  
         }
 
     });
 };
 
-OMK.getJSONCSV = function (url) {
+OMK.downloadCSV = function (url) {
 
     $.ajax({
         url: url,
@@ -170,26 +167,56 @@ OMK.getJSONCSV = function (url) {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('id_token')
         },
-        dataType: 'json',
         success: function (data){
             console.log("success");
             console.log(data);
 
-            // // get title and total submissions
-            // var title = data.xforms.xform[0].name;
-            // var total = data.xforms.xform[0].totalSubmissions;
-            // $("h2.rows.count").text(title + " (" + total + ")");
-            // cb({
-            //     title: title,
-            //     total: total
-            // });
+            var downloadLink = document.createElement("a");
+            var blob = new Blob(["\ufeff", data]);
+            var url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = "data.csv";
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
         },
         error: function (data){
-            var form = getParam('form');
             console.log("Error fetching ODK form metadata!");
-            console.log(xhr);
-            console.log(status);
-            console.log(errorThrown);       
+            console.log(data);     
+        }
+
+    });
+};
+
+OMK.downloadJSON = function (url) {
+
+    $.ajax({
+        url: url,
+        type: 'post',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        },
+        success: function (data){
+            console.log("success");
+            console.log(data);
+
+            var downloadLink = document.createElement("a");
+            // var blob = new Blob(["\ufeff", data]);
+            // var url = URL.createObjectURL(blob);
+            var url = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+            downloadLink.href = url;
+            downloadLink.download = "data.json";
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+        },
+        error: function (data){
+            console.log("Error fetching ODK form metadata!");
+            console.log(data);     
         }
 
     });

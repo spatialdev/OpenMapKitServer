@@ -128,8 +128,10 @@ function doCSV(json) {
     // show raw data if people really want it
     $(".csv textarea").val(csv);
 
-    $("#downloadCsv").attr("href", OMK.csvUrl()).attr("download", getParam('form') + ".csv");
-    $("#downloadJson").attr("href", OMK.jsonUrl()).attr("download", getParam('form') + ".json");
+    // $("#downloadCsv").attr("href", OMK.csvUrl()).attr("download", getParam('form') + ".csv");
+    // $("#downloadJson").attr("href", OMK.jsonUrl()).attr("download", getParam('form') + ".json");
+    $("#downloadCsv").attr("href", "#");
+    $("#downloadJson").attr("href", "#");
 }
 
 $(function () {
@@ -175,6 +177,19 @@ $(function () {
             e.preventDefault();
             OMK.submitChangeset();
         });
+    // add href to submit changeset button
+    $("#downloadCsv")
+        .click(function (e) {
+            e.preventDefault();
+            var url = OMK.csvUrl()
+            OMK.downloadJSONCSV(url);
+        });
+    $("#downloadJson")
+        .click(function (e) {
+            e.preventDefault();
+            var url = OMK.jsonUrl();
+            OMK.downloadJSON(url);
+        });
 
     // process osm downloads
     $("#osm-options-list a")
@@ -197,6 +212,12 @@ $(function () {
                 $(o).prop("href", "/omk/odk/submissions/" + formId + ".osm?conflicting=true");
                 $(o).prop("download", "/omk/odk/submissions/" + formId + ".osm?conflicting=true");
             }
+        });
+
+    $("#osm-options-list a")
+        .click(function (e) {
+            var url = $(this).prop("href");
+            OMK.downloadOSM(url, this)
         });
 
     // get form name & number of submission
