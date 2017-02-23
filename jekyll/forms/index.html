@@ -23,11 +23,11 @@ auth: auth
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                   href="/omk/pages/submissions/?form={{ val.formID }}">
+                   :href="getHrefSubmissions(val.formID)">
                     View Submissions
                 </a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                   href="/omk/data/forms/{{ val.formID }}.xlsx">
+                   :href="getHrefForm(val.formID, 'xlsx')">
                     XLSX Form
                 </a>
 
@@ -38,7 +38,7 @@ auth: auth
                 <ul class="mdl-menu mdl-menu--top-right mdl-js-menu" :for="val.formID">
                     <li class="mdl-menu__item">
                         <a target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                           href="/omk/data/forms/{{ val.formID }}.xml">
+                           :href="getHrefForm(val.formID, 'xml')">
                             Download XForm XML
                         </a>
                     </li>

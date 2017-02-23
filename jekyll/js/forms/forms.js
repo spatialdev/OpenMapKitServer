@@ -31,6 +31,12 @@ new Vue({
 
     },
     methods: {
+        getHrefForm: function (id, ext) {
+            return '/omk/data/forms/' + id + "." + ext;
+        },
+        getHrefSubmissions: function (id) {
+            return "/omk/pages/submissions/?form=" + id
+        },
         getUrlSubmissions: function (id) {
 
             return "/omk/pages/submissions/?form=" + id

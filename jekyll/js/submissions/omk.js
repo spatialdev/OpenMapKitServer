@@ -3,9 +3,16 @@ window.OMK = {};
 OMK._paginationOffset = 0;
 OMK._PAGINATION_LIMIT = 5000;
 
+OMK._Auth = auth;
+
+console.log(OMK);
+
 OMK.fetch = function (cb) {
     OMK.getFormMetaData(function(metadata) {
-        OMK.fetchJSON(OMK.jsonUrl() + '?offset=0&limit=' + OMK._PAGINATION_LIMIT, function() {
+
+        var url = OMK.jsonUrl();
+
+        OMK.fetchJSON(url + '?offset=0&limit=' + OMK._PAGINATION_LIMIT, function() {
             cb();
             // pagination too slow
             // OMK.paginate(metadata.total);
@@ -51,17 +58,29 @@ function capitalizeFirstLetter(string) {
 OMK.fetchJSON = function (url,cb) {
     if (!url) return;
 
-    $.get(url, function(data, status, xhr) {
-        doCSV(data);
-        if(cb) cb()
-    }).fail(function(xhr, status, errorThrown) {
-        var form = getParam('form');
-        $("#submissionPagespinner").hide();
-        $("#alert").text("No data has been submitted for " + form + '.');
-        console.log("Error fetching ODK submissions!");
-        console.log(xhr);
-        console.log(status);
-        console.log(errorThrown);
+    $.ajax({
+        url: url,
+        type: 'post',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        },
+        dataType: 'json',
+        success: function (data){
+            // console.log("Outlet Created");
+            doCSV(data);
+            if(cb) cb()
+        },
+        error: function (data){
+            // console.log("Outlet Creation Failed, please try again.");
+            var form = getParam('form');
+            $("#submissionPagespinner").hide();
+            $("#alert").text("No data has been submitted for " + form + '.');
+            console.log("Error fetching ODK submissions!");
+            console.log(xhr);
+            console.log(status);
+            console.log(errorThrown);        
+        }
+
     });
 };
 
@@ -102,31 +121,83 @@ OMK.addPaginationData = function (data) {
  * @returns {*}
  */
 OMK.omkServerUrl = function () {
-    var omkServer = getParam('omk_server');
-    return (omkServer ? omkServer : window.location.origin);
+    // var omkServer = getParam('omk_server');
+    // return (omkServer ? omkServer : window.location.origin);
+    var url = OMK._Auth.user.url;
+
+    return url;
 };
 
 OMK.getFormMetaData = function (cb) {
     var formId = getParam('form');
 
-    $.get('/formList?json=true&formid=' + formId, function(data, status, xhr) {
-        // get title and total submissions
-        var title = data.xforms.xform[0].name;
-        var total = data.xforms.xform[0].totalSubmissions;
-        $("h2.rows.count").text(title + " (" + total + ")");
-        cb({
-            title: title,
-            total: total
-        });
 
-    }).fail(function(xhr, status, errorThrown) {
-        var form = getParam('form');
-        console.log("Error fetching ODK form metadata!");
-        console.log(xhr);
-        console.log(status);
-        console.log(errorThrown);
+    $.ajax({
+        url: OMK.omkServerUrl() + '/formList?json=true&formid=' + formId,
+        type: 'post',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        },
+        dataType: 'json',
+        success: function (data){
+            console.log("success");
+
+            // get title and total submissions
+            var title = data.xforms.xform[0].name;
+            var total = data.xforms.xform[0].totalSubmissions;
+            $("h2.rows.count").text(title + " (" + total + ")");
+            cb({
+                title: title,
+                total: total
+            });
+        },
+        error: function (data){
+            var form = getParam('form');
+            console.log("Error fetching ODK form metadata!");
+            console.log(xhr);
+            console.log(status);
+            console.log(errorThrown);       
+        }
+
     });
 };
+
+OMK.getJSONCSV = function (url) {
+
+    $.ajax({
+        url: url,
+        type: 'post',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        },
+        dataType: 'json',
+        success: function (data){
+            console.log("success");
+            console.log(data);
+
+            // // get title and total submissions
+            // var title = data.xforms.xform[0].name;
+            // var total = data.xforms.xform[0].totalSubmissions;
+            // $("h2.rows.count").text(title + " (" + total + ")");
+            // cb({
+            //     title: title,
+            //     total: total
+            // });
+        },
+        error: function (data){
+            var form = getParam('form');
+            console.log("Error fetching ODK form metadata!");
+            console.log(xhr);
+            console.log(status);
+            console.log(errorThrown);       
+        }
+
+    });
+};
+
+/*
+NOT IN USE ANYMORE
+*/
 
 OMK.submitChangeset = function () {
     var formId = getParam('form');
@@ -144,6 +215,10 @@ OMK.submitChangeset = function () {
     });
 
 };
+
+/*
+NOT IN USE ANYMORE
+*/
 
 OMK.downloadOSM = function (url, element) {
     $.get(url, function(data, status, xhr) {
