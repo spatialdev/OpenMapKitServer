@@ -16,7 +16,7 @@ var visstaMiddleware = require('./../custom/middlewares/vissta-auth-middleware')
  */
 router.route('/formList')
     .all(OpenRosaHeaders(),visstaMiddleware())
-    .post(getFormlist);
+    .post(getFormlist).get(getFormlist);
 
 router.route('/submission')
     .all(FormSubmissionMiddleware())

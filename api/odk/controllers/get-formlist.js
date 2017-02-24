@@ -33,7 +33,7 @@ module.exports = function (req, res, next) {
             if (err) return next(err);
 
             // We only want JSON...
-            // if (json) {
+            if (json) {
             parser.parseString(xml, function (err, result) {
                 if (result === undefined) {
                     res.status(200).json(null);
@@ -89,13 +89,13 @@ module.exports = function (req, res, next) {
                 }
             });
 
-            // }
+            }
 
-            // else {
-            //
-            //     res.set('content-type', 'text/xml; charset=utf-8');
-            //     res.status(200).send(xml);
-            // }
+            else {
+
+                res.set('content-type', 'text/xml; charset=utf-8');
+                res.status(200).send(xml);
+            }
         });
     });
 };

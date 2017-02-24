@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-if(typeof settings.formAuth !== "undefined") {
+if(typeof settings.formAuth !== "undefined" && settings.formAuth.enabled === true) {
     jwt.unless = unless;
     // enable jwt token middleware
     app.use(jwt({
@@ -61,7 +61,11 @@ if(typeof settings.formAuth !== "undefined") {
             new RegExp("\/omk\/data\/forms\/", "g"),  // TODO add middleware to filter these
             '/custom/users/authenticate',
             '/submission'
-        ]
+        ],
+        // let all requests from enketo-express fly through without jwt middleware
+        custom: function(req){
+            return typeof req.headers["x-openrosa-version"] === "string"
+        }
     }))
 }
 

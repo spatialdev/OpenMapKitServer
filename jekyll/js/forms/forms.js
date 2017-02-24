@@ -50,7 +50,7 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
             // GET request
-            this.$http.post(url+ '/formList', null, params).then(function (response) {
+            this.$http.post(url+ '/formList?json=true', null, params).then(function (response) {
 
                 console.log(response);
 
