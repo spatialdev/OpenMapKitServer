@@ -25,6 +25,11 @@ new Vue({
     },
     methods: {
 
+        getReturnURL: function () {
+            var url = location.href.slice(location.href.indexOf("=")+1, location.href.length);
+            return location.href.indexOf("=") > -1 && url.length > 0 ? url : null;
+        },
+
         submit() {
             this.loading = true;
             var vm = this;
@@ -41,7 +46,12 @@ new Vue({
                     vm.loading = false;
                 }else{
                     setTimeout(function () {
-                        window.location = '/omk/pages/forms';
+                        if(vm.getReturnURL()){
+                            window.location = vm.getReturnURL();
+                        } else {
+                            window.location = '/omk/pages/forms';
+                        }
+
                     }, 100);
                 }
               })

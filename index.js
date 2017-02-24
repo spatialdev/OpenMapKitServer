@@ -59,7 +59,8 @@ if(typeof settings.formAuth !== "undefined") {
             new RegExp("\/omk\/pages\/", "g"),
             // '/omk/data/forms',
             new RegExp("\/omk\/data\/forms\/", "g"),  // TODO add middleware to filter these
-            '/custom/users/authenticate'
+            '/custom/users/authenticate',
+            '/submission'
         ]
     }))
 }
