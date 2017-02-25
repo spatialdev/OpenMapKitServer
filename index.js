@@ -25,6 +25,7 @@ var unless = require('express-unless');
 var jsonwebtoken = require('jsonwebtoken');
 var userRoutes = require('./api/custom/routes/user-routes');
 var tableRoutes = require('./api/custom/routes/table-routes');
+var visstaUtil = require('./api/custom/util/vissta-auth-util')
 
 // Enable CORS always.
 app.use(cors());
@@ -41,11 +42,16 @@ if(typeof settings.formAuth !== "undefined" && settings.formAuth.enabled === tru
             secret: new Buffer(settings.formAuth.secret, 'base64'),
             // https://www.npmjs.com/package/express-jwt#usage
             getToken: function fromHeaderOrQuerystring(req) {
-                if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+                var cookieToken = visstaUtil.getCookieToken(req.headers);
+
+                if ((req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')) {
                     req.token = req.headers.authorization.split(' ')[1]
                     return req.headers.authorization.split(' ')[1];
                 } else if (req.query && req.query.token) {
                     return req.query.token;
+                } else if (typeof cookieToken === "string") {
+                    req.token = cookieToken;
+                    return req.token;
                 }
                 return null;
             }
@@ -61,11 +67,7 @@ if(typeof settings.formAuth !== "undefined" && settings.formAuth.enabled === tru
             new RegExp("\/omk\/data\/forms\/", "g"),  // TODO add middleware to filter these
             '/custom/users/authenticate',
             '/submission'
-        ],
-        // let all requests from enketo-express fly through without jwt middleware
-        custom: function(req){
-            return typeof req.headers["x-openrosa-version"] === "string"
-        }
+        ]
     }))
 }
 

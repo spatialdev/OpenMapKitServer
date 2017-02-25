@@ -1,5 +1,6 @@
 var settings = require('../../../settings');
 var util = {};
+var jsonwebtoken = require('jsonwebtoken');
 
 /**
  * Check if user has access to single formId
@@ -25,6 +26,24 @@ util.isCustomRoute = function (table) {
     });
 
     return filter.length == 1
+};
+
+/**
+ * Get token from header cookie
+ * @param headers
+ * @returns {*}
+ */
+
+util.getCookieToken = function (headers) {
+    var token;
+    
+    headers.cookie.split(";").forEach(function(s){
+        if(s.indexOf("token") > -1){
+            token = s.slice(s.indexOf("=") + 1, s.length)
+        }
+    })
+
+    return token;
 };
 
 module.exports = util;

@@ -22,6 +22,9 @@ new Vue({
     },
     mounted: function () {
 
+        // reset cookie
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+
     },
     methods: {
 
@@ -46,6 +49,13 @@ new Vue({
                     vm.loading = false;
                 }else{
                     setTimeout(function () {
+
+                        var date = new Date();
+                        var in3hours = new Date(date.getFullYear() , date.getMonth() , date.getDate() , date.getHours()+3 , date.getMinutes() , date.getSeconds())
+
+                        // add token to cooke for enketo-express
+                        document.cookie = 'token='+response.data.token + ';path=/;expires=' + in3hours.toGMTString();
+
                         if(vm.getReturnURL()){
                             window.location = vm.getReturnURL();
                         } else {
