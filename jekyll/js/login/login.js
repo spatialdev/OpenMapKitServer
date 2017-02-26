@@ -53,8 +53,8 @@ new Vue({
                         var date = new Date();
                         var in3hours = new Date(date.getFullYear() , date.getMonth() , date.getDate() , date.getHours()+3 , date.getMinutes() , date.getSeconds())
 
-                        // add token to cooke for enketo-express
-                        document.cookie = 'token='+response.data.token + ';path=/;expires=' + in3hours.toGMTString();
+                        // add token to cookie for enketo-express
+                        document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + in3hours.toGMTString();
 
                         if(vm.getReturnURL()){
                             window.location = vm.getReturnURL();

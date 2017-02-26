@@ -36,12 +36,17 @@ util.isCustomRoute = function (table) {
 
 util.getCookieToken = function (headers) {
     var token;
-    
-    headers.cookie.split(";").forEach(function(s){
-        if(s.indexOf("token") > -1){
-            token = s.slice(s.indexOf("=") + 1, s.length)
-        }
-    })
+
+    if(typeof headers.cookie === "string") {
+
+        headers.cookie.split(";").forEach(function (s) {
+            if (s.indexOf("token") > -1) {
+                token = s.slice(s.indexOf("=") + 1, s.length)
+            }
+        })
+    }
+
+    console.log(token)
 
     return token;
 };
