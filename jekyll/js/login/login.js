@@ -16,10 +16,27 @@ new Vue({
             },
             error: '',
             invalid: false,
-            loading: false,
+            loading: true,
             auth: auth
         }
     },
+    computed: {
+        disabled() {
+            if (this.credentials.username === '' && this.credentials.password === ''){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    },
+    watch:{
+        'credentials.username': function () {
+            this.invalid = false;
+        },
+        'credentials.password': function () {
+            this.invalid = false;
+        }
+      },
     mounted: function () {
 
         // reset cookie
@@ -44,31 +61,33 @@ new Vue({
               auth.login(this, credentials)
               .then(function (response) {
                 console.log(response);
-                if (!response.data.token){
-                    vm.invalid = true;
-                    vm.loading = false;
-                }else{
+
+                    if (!response){
+                        vm.invalid = true;
+                        vm.loading = false;
+                        return
+                    }
+
                     setTimeout(function () {
 
-                        var date = new Date();
-                        var in3hours = new Date(date.getFullYear() , date.getMonth() , date.getDate() , date.getHours()+3 , date.getMinutes() , date.getSeconds())
+                            var date = new Date();
+                            var in3hours = new Date(date.getFullYear() , date.getMonth() , date.getDate() , date.getHours()+3 , date.getMinutes() , date.getSeconds())
 
-                        // add token to cookie for enketo-express
-                        document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + in3hours.toGMTString();
+                            // add token to cookie for enketo-express
+                            document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + in3hours.toGMTString();
 
-                        if(vm.getReturnURL()){
-                            window.location = vm.getReturnURL();
-                        } else {
-                            window.location = '/omk/pages/forms';
-                        }
+                            if(vm.getReturnURL()){
+                                window.location = vm.getReturnURL();
+                            } else {
+                                window.location = '/omk/pages/forms';
+                            }
 
-                    }, 100);
-                }
+                        }, 100);
               })
               .catch(function (error) {
                 console.log(error);
               });
             }
-        
+
     }
 })

@@ -5,13 +5,10 @@
 
   <body>
 
-      {% if page.controllerjs %}
 
-      <!-- <script src="../js/{{page.auth | downcase}}.js"></script> -->
-
-      <div id="{{page.controllerjs | downcase}}Page">
-
-      {% endif %}
+    {% if page.controllerjs %}
+    <div id="{{page.controllerjs | downcase}}Page">
+    {% endif %}
 
     <!-- <div id="formsPage"> -->
 
