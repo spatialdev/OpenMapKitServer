@@ -13,7 +13,7 @@ auth: auth
         <div class="mdl-cell mdl-cell--4-col" style="margin: auto;">
 
             <h2>Login</h2>
-            
+
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="username" id="username"
@@ -25,7 +25,7 @@ auth: auth
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="password" id="password"
-                v-model="credentials.password">
+                v-model="credentials.password" @keyup.enter="submit()">
                 <label class="mdl-textfield__label" for="password">password</label>
               </div>
             </form>

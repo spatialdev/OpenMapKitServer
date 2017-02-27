@@ -5,6 +5,16 @@
 
   <body>
 
+      {% if page.controllerjs %}
+
+      <!-- <script src="../js/{{page.auth | downcase}}.js"></script> -->
+
+      <div id="{{page.controllerjs | downcase}}Page">
+
+      {% endif %}
+
+    <!-- <div id="formsPage"> -->
+
     <!-- Start Layout -->
     {% if site.header_type == 'drawer' %}
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
@@ -18,6 +28,8 @@
 
     </div>
     <!-- /End Layout -->
+
+    </div>
 
     <!-- Material Design Lite js Library -->
     <script type="text/javascript" src="../js/vendor/material.min.js"></script>
@@ -35,12 +47,21 @@
 
       {% endif %}
 
+      <!--Inject MIXINS to template-->
+      {% if page.mixins %}
+
+      <script src="../js/{{page.mixins | downcase}}.js"></script>
+
+      {% endif %}
+
       <!--Inject Vue JS dependency if template-->
       {% if page.controllerjs %}
 
       <script src="../js/{{page.controllerjs | downcase}}/{{page.controllerjs | downcase}}.js"></script>
 
       {% endif %}
+
+
 
       <!--Inject JS dependency for Submission From-->
       {% if page.jquery %}
@@ -53,6 +74,9 @@
       <script src="../js/submissions/{{page.datatable-material | downcase}}.js"></script>
 
       {% endif %}
+
+
+
 
 
 
