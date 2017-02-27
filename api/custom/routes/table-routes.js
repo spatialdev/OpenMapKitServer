@@ -33,7 +33,7 @@ router.post('/:table', [visstaAuth()], function (req, res, next) {
             require('./' + table).init(req, res, next);
         }
     } else {
-        throw new CustomError("The user is not authorized to make the request.", 401)
+        next(new CustomError("The user is not authorized to make the request.", 401));
     }
 
 });

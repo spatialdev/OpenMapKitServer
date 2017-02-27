@@ -45,9 +45,7 @@ util.getCookieToken = function (headers) {
             }
         })
     }
-
-    console.log(token)
-
+    
     return token;
 };
 

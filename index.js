@@ -25,7 +25,9 @@ var unless = require('express-unless');
 var jsonwebtoken = require('jsonwebtoken');
 var userRoutes = require('./api/custom/routes/user-routes');
 var tableRoutes = require('./api/custom/routes/table-routes');
-var visstaUtil = require('./api/custom/util/vissta-auth-util')
+var visstaUtil = require('./api/custom/util/vissta-auth-util');
+var expressValidator = require('express-validator');
+
 
 // Enable CORS always.
 app.use(cors());
@@ -33,7 +35,7 @@ app.use(cors());
 // Body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(expressValidator()); // this line must be immediately after any of the bodyParser middlewares!
 
 if(typeof settings.formAuth !== "undefined" && settings.formAuth.enabled === true) {
     jwt.unless = unless;
