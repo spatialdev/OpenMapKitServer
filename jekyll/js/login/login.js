@@ -16,7 +16,7 @@ new Vue({
             },
             error: '',
             invalid: false,
-            loading: true,
+            loading: false,
             auth: auth
         }
     },
