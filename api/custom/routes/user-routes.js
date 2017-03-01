@@ -33,9 +33,13 @@ router.post('/authenticate', function (req, res, next) {
                     expiresIn : settings.formAuth.expiresIn
                 });
 
+                // get the token expiration
+                var date = new Date();
+                var in3hours = new Date(date.getFullYear() , date.getMonth() , date.getDate() , date.getHours() + parseInt(settings.formAuth.expiresIn.charAt(0)) , date.getMinutes() , date.getSeconds())
+
                 res.set('Authorization', token)
                     .set('Access-Control-Expose-Headers', 'Authorization')
-                    .json({token:token, user:user});
+                    .json({token:token, tokenExpiration: in3hours, user:user});
 
             })
             .catch(function (error) {

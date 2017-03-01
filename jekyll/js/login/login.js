@@ -50,11 +50,11 @@ new Vue({
                 }else{
                     setTimeout(function () {
 
-                        var date = new Date();
-                        var in3hours = new Date(date.getFullYear() , date.getMonth() , date.getDate() , date.getHours()+3 , date.getMinutes() , date.getSeconds())
-
+                        var tokenExpiration = response.data.tokenExpiration;
+                        var date = new Date(tokenExpiration);
+                        
                         // add token to cookie for enketo-express
-                        document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + in3hours.toGMTString();
+                        document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + date.toGMTString();
 
                         if(vm.getReturnURL()){
                             window.location = vm.getReturnURL();
