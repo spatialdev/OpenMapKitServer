@@ -27,6 +27,28 @@ new Vue({
     },
     methods: {
 
+        addUser: function () {
+
+            console.log("click")
+            // dialog with link to enketo-express URL
+            var dialog = document.querySelector('dialog');
+
+
+            // if (dialog) {
+                // close dialog
+                dialog.querySelector('.close').addEventListener('click', function () {
+                    dialog.close();
+                });
+            // }
+
+            // show dialog
+            dialog.showModal();
+
+            dialog.querySelector('#addUser').addEventListener('click', function () {
+                dialog.close();
+            });
+
+        }
 
     }
 })

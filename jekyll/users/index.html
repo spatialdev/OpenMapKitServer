@@ -18,11 +18,12 @@ mixins: header-mixin
                 <h3>User Management</h3>
             </div>
             <div class="section inputs">
-                <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left">
+                <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
+                @click="addUser()">
                   <i class="material-icons">person_add</i> ADD USER
                 </button>
 
-                <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="password" id="password">
                     <label class="mdl-textfield__label" for="password">search</label>
                     <i class="s-icon material-icons">search</i>
@@ -62,23 +63,54 @@ mixins: header-mixin
 
         </div>
 
+
+        <!-- Enketo Dialog -->
+<dialog id="addUser" class="mdl-dialog">
+    <h6 class="mdl-dialog__title">
+      <i class="material-icons">person_add</i> Add user
+    </h6>
+    <div class="mdl-dialog__content">
+        <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="name" id="name">
+          <label class="mdl-textfield__label" for="name">name</label>
+        </div>
+        <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="email" id="email">
+          <label class="mdl-textfield__label" for="email">email</label>
+        </div>
+        <h5>Permissions:</h5>
+
+        <div>
+
+          <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+            <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+            <span class="mdl-radio__label">System Admin</span>
+          </label>
+          <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+            <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+            <span class="mdl-radio__label">Read only</span>
+          </label>
+          <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+            <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
+            <span class="mdl-radio__label">Read & edit</span>
+          </label>
+
+        </div>
+
+    </div>
+    <div class="mdl-dialog__actions">
+        <a>
+            <button type="button" class="mdl-button mdl-js-button">SUBMIT</button>
+        </a>
+        <button type="button" class="mdl-button mdl-js-button close">CANCEL</button>
+    </div>
+</dialog>
+
+
     </div>
 
 </div>
 
-<!-- Enketo Dialog -->
-<dialog id="enketo-dialog" class="mdl-dialog">
-    <h6 class="mdl-dialog__title">Enketo Express</h6>
-    <div class="mdl-dialog__content">
-        <p>Fill out survey online with Enketo Express</p>
-    </div>
-    <div class="mdl-dialog__actions">
-        <a id="open-enketo-url" href="#" target="_blank">
-            <button type="button" class="mdl-button mdl-js-button mdl-button--raised">Open</button>
-        </a>
-        <button type="button" class="mdl-button mdl-js-button mdl-button--raised close">Close</button>
-    </div>
-</dialog>
 
 <link rel="stylesheet" href="../css/users.scss">
 <link rel="stylesheet" href="../css/dialog-polyfill.css">
