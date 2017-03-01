@@ -7,9 +7,60 @@ mixins: header-mixin
 
 <div class="page-content">
 
-    <div class="mdl-grid" >
+    <div id="userManagement">
 
-        <h2>Users</h2>
+        <div class="mdl-grid" >
+
+            <a href="/omk/pages/forms/" class="backLink">
+                < Back to forms page
+            </a>
+            <div class="section header">
+                <h3>User Management</h3>
+            </div>
+            <div class="section inputs">
+                <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left">
+                  <i class="material-icons">person_add</i> ADD USER
+                </button>
+
+                <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="password" id="password">
+                    <label class="mdl-textfield__label" for="password">search</label>
+                    <i class="s-icon material-icons">search</i>
+                  </div>
+
+            </div>
+            <div class="section table">
+
+                <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                  <thead>
+                    <tr>
+                      <th class="mdl-data-table__cell--non-numeric">Material</th>
+                      <th>Quantity</th>
+                      <th>Unit price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                      <td>25</td>
+                      <td>$2.90</td>
+                    </tr>
+                    <tr>
+                      <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                      <td>50</td>
+                      <td>$1.25</td>
+                    </tr>
+                    <tr>
+                      <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                      <td>10</td>
+                      <td>$2.35</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -29,5 +80,5 @@ mixins: header-mixin
     </div>
 </dialog>
 
-<link rel="stylesheet" href="../css/users.css">
+<link rel="stylesheet" href="../css/users.scss">
 <link rel="stylesheet" href="../css/dialog-polyfill.css">

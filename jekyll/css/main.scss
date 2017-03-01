@@ -54,13 +54,15 @@ $color-warning-text: darken($color-warning-solid, 5);
 // MDL default Overwrites
 
 a {
-        color: #7ebc6f;
+        // color: #7ebc6f;
+        color: #2B9BF5;
         font-weight: 500;
 }
 
 .page-content{
     max-width: 1024px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .pageTitle{
@@ -107,6 +109,41 @@ a {
             font-weight: 500;
             text-decoration: none;
         }
+
+}
+
+#userManagement {
+
+    .backLink{
+        padding-top: 40px;
+    }
+    .section{
+        width: 100%;
+        position: relative;
+    }
+
+    .mdl-button {
+            background: #7ebc6f;
+            color: #fff;
+            margin-left: 10px;
+            line-height: 0px;
+            padding: 12px 20px;
+            border-radius: 5px;
+            height: 45px;
+        }
+
+        .search{
+            position: relative;
+            float: right;
+        }
+        .s-icon{
+            position: absolute;
+            right: 0px;
+            top: 22px;
+            color: #B1B1B1;
+        }
+
+
 
 }
 
