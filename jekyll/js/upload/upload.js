@@ -136,6 +136,7 @@ var uploadFile = new Vue({
     el: '#uploadPage',
     name: 'UploadPage',
     delimiters: ['[{', '}]'],
+    mixins: [headerMixin],
     data: function() {
         return  {
             response: {},
@@ -165,53 +166,6 @@ var uploadFile = new Vue({
         }
 
         componentHandler.upgradeDom();
-    },
-    events: {
-        // afterFormSubmit: function(el) {
-        //     // fired after fetch is called
-        //     console.log('afterFormSubmit', el);
-        // },
-        // onFormComplete: function(el, res) {
-        //     // the form is done, but there could still be errors
-        //     console.log('onFormComplete', el, res);
-        //     // indicate the changes
-        //     this.response = res;
-
-        //     //Success message
-        //     this.uploadMessage = "Uploaded " + this.fileName + " successfully";
-        //     //reset values
-        //     this.progress = 0;
-        //     this.fileName = '';
-        //     //toaster
-        //     iqwerty.toast.Toast(this.uploadMessage, toastOptions);
-
-        // },
-        // onFormProgress: function(el, e) {
-        //     // the form is done, but there could still be errors
-        //     console.log('onFormProgress', el, e);
-        //     // indicate the changes
-        //     this.progress = e.percent;
-        // },
-        // onFormError: function(el, err) {
-        //     // handle errors
-        //     console.log('onFormError', el, err);
-        //     // indicate the changes
-        //     //Failed message
-        //     this.uploadMessage = "Failed uploading" + this.fileName + " file";
-        //     this.response = err;
-
-        //     //toaster
-        //     var toastOptions = {
-        //         style: {
-        //             main: {
-        //                 background: "#f2dede",
-        //                 color: "#a94442",
-        //                 'box-shadow': '0 0 0px'
-        //             }
-        //         }
-        //     };
-        //     iqwerty.toast.Toast(this.uploadMessage, toastOptions);
-        // }
     },
     methods: {
         onformerror: function(err) {

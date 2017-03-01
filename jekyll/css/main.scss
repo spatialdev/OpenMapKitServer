@@ -212,3 +212,22 @@ form{
         font-size: 16px;
         padding: 10px 0;
 }
+.logout {
+        cursor: pointer;
+        color: rgb(63,81,181);
+}
+.authValidation{
+        color: red;
+        padding-top: 30px;
+        font-size: 14px;
+}
+[v-cloak] {
+  display: none;
+}
+.mdl-progress {
+    display: block;
+    position: relative;
+    height: 4px;
+    width: 100%;
+    max-width: 100%;
+}

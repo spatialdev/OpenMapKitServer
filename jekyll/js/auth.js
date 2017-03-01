@@ -4,6 +4,7 @@ var auth =  {
     authenticated: false,
     token: null,
     user: null,
+    expiredDate: null,
     invalid: false,
     required: true,
     url: "http://52.14.154.36:3210"
@@ -13,7 +14,7 @@ var auth =  {
     return context.$http.post( this.user.url +  "/custom/users/authenticate", creds, (data) => {
       //if there's a token property, then its valid
       if(data.token){
-        
+
         localStorage.setItem('id_token', data.token)
 
         localStorage.setItem('user', JSON.stringify(data.user))
@@ -21,7 +22,7 @@ var auth =  {
         this.user.authenticated = true;
         this.user.token = data.token;
         this.user.user = data.user;
-    }
+      }
     }).catch((err) => {
       console.log(err);
     })
@@ -41,8 +42,8 @@ var auth =  {
       this.user.token = jwt;
     }
     else {
-      this.user.authenticated = false;  
-      window.location = '/omk/pages/login';   
+      this.user.authenticated = false;
+      window.location = '/omk/pages/login';
     }
   },
   //Method to return the token from local storage
@@ -53,5 +54,24 @@ var auth =  {
   },
   getUser() {
     return JSON.parse(localStorage.getItem('user') || 'null')
+  },
+  checkIfTokenIsValid () {
+
+    if (!this.user.token){
+      return
+    }
+
+    if( Date.now() >= this.user.expiredDate){
+      localStorage.removeItem('id_token')
+      localStorage.removeItem('user')
+      this.user.authenticated = false;
+      this.user.expiredDate = null
+      this.user.authenticated = false;
+      this.user.token = null;
+
+      window.location = '/omk/pages/login';
+    }
+
+
   }
 }

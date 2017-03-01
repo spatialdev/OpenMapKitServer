@@ -159,6 +159,12 @@ $(function () {
         return false;
     });
 
+    $("#logOut").click(function () {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+            auth.logout();
+            window.location = '/omk/pages/login';
+    });
+
     // if there's no CSV to download, don't download anything
     $(".csv a.download").click(function () {
         return !!$(".csv textarea").val();

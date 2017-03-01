@@ -8,16 +8,20 @@ new Vue({
     el: '#formsPage',
     name: 'FormsPage',
     delimiters: ['[{', '}]'],
-    data: {
-        formList: null,
-        enketo: {
-            enabled: true,
-            omk_url: 'http://52.14.154.36:3210',
-            url: 'http://52.14.154.36:8005/api/v2/survey/offline',
-            api_key: 'enketorules'
-        },
-        auth: auth,
-        user: auth.getUser()
+    mixins: [headerMixin],
+    data() {
+        return {
+            formList: null,
+            enketo: {
+                enabled: true,
+                omk_url: 'http://52.14.154.36:3210',
+                url: 'http://52.14.154.36:8005/api/v2/survey/offline',
+                api_key: 'enketorules'
+            },
+            auth: auth,
+            user: auth.getUser()
+        }
+
     },
     mounted: function () {
 
@@ -25,7 +29,7 @@ new Vue({
         if(auth.user.required){
             auth.checkAuth();
         }
-        
+
 
         this.getFormListData();
 
