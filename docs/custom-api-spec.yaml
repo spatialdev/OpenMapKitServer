@@ -277,6 +277,45 @@ paths:
           schema:
             $ref: '#/definitions/Success'
 
+  /users/user:
+    post:
+      security:
+        - Bearer: []
+      summary: Create a new user
+      description: Creates new user record
+      tags:
+        - users
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                description: username
+              password:
+                type: id
+                description: password
+              first_name:
+                type: string
+                description: first name
+              last_name:
+                type: id
+                description: form id
+              email:
+                type: string
+                description: form user id
+              role:
+                type: string
+                description: user form role - "admin" , "write" , "read"
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+
 definitions:
   Success:
     type: object

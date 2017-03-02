@@ -105,7 +105,6 @@ router.post('/form/role', function (req, res, next){
 
 });
 
-
 /**
  * Delete user form role
  */
@@ -148,6 +147,49 @@ router.delete('/form/role', function (req, res, next){
                 // return new form role info
                 res.status(200).json({message:"success", status:200});
 
+            })
+            .catch(function (error) {
+                // send back error
+                return next(new CustomError(error.message, 400));
+            });
+    } else {
+        next(new CustomError("The user is not authorized to make the request.", 401));
+    }
+
+});
+
+/**
+ * Create user
+ */
+router.post('/user', function (req, res, next){
+
+    // check for authentication settings
+    if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
+        next(new CustomError('Missing authentication settings', 500));
+    }
+
+    // must be an admin
+    if (req.user.role === "admin"){
+        var sql, sqlParams, undefinedBodyPars, db;
+
+        // Make sure all body parameters are defined; if not throw error
+        undefinedBodyPars = [req.body.username, req.body.password, req.body.role]
+            .some(function(bodyPar, key){
+                return typeof bodyPar === 'undefined';
+            });
+
+        if(undefinedBodyPars) {
+            return next(new CustomError('Missing required parameters', 400));
+        }
+
+        db = pgb.getDatabase();
+        sql = "SELECT ___create_user($1,$2,$3,$4,$5,$6,$7);";
+
+        // create user record
+        db.one(sql, [req.user.id, req.body.username, req.body.first_name, req.body.last_name, req.body.email, req.body.password, req.body.role])
+            .then(function (results) {
+                // return success status
+                res.status(200).json({message:"success", status:200});
             })
             .catch(function (error) {
                 // send back error

@@ -177,6 +177,10 @@
 
       
 
+      
+
+      
+
       </ul>
 
       
@@ -261,6 +265,34 @@
             ">DELETE
           </div>
             /users/form/role
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/users/user_post">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #13c20f;
+            ">POST
+          </div>
+            /users/user
         </span>
         </li>
         </a>
@@ -1589,6 +1621,226 @@
                         
                         color: #ffffff;
                         float:left"><a style="color:#FFFFFF" name="/users/form/role_group">/users/form/role GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/users/user
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(19,194,15,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #13c20f;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/user_post">/users/user POST</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Create a new user</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Creates new user record</p>
+                </section>
+                
+                <section>
+                  <h4 style="font-size: 15px;line-height: 1.1;">Parameters</h4>
+
+                  <div style="margin: .3em 0 .5em;">
+                    <table style="width: 100%;border-collapse: collapse;">
+                      <thead>
+                      <tr style="background-color: #f7f7f7; font-size: 14px">
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Name</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">In</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Required</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid; width: 50%;">Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">password</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">password</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">first_name</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">first name</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">last_name</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">email</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form user id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">role</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user form role - &quot;admin&quot; , &quot;write&quot; , &quot;read&quot;</td>
+
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object)</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">status
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">message
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/user_group">/users/user GROUP</a>
                 </div>
               </header>
               <div style="padding: 0 1em; font-size: 13px">
