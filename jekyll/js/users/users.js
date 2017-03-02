@@ -15,7 +15,8 @@ new Vue({
         return {
             auth: auth,
             user: auth.getUser(),
-            userAdded: false
+            userAdded: false,
+            usersList: []
         }
 
     },
@@ -28,10 +29,34 @@ new Vue({
 
         dialog = document.querySelector('dialog');
 
+        this.getFormListData();
+
 
     },
     methods: {
+        getFormListData: function(){
 
+            var url = this.auth.user.url
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+            // GET request
+            this.$http.get(url+ '/tables/omk_users', params).then(function (response) {
+
+                console.log(response);
+
+                //register the mdl menus on each card
+                // setTimeout(function () {
+                //     componentHandler.upgradeAllRegistered();
+                // }, 500);
+
+
+            }, function (response) {
+
+            });
+
+        },
         addUser: function () {
 
             // show dialog
