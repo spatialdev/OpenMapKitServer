@@ -4,6 +4,8 @@
 
 // Vue.config.debug = true;
 
+var dialog;
+
 new Vue({
     el: '#usersPage',
     name: 'UsersPage',
@@ -12,7 +14,8 @@ new Vue({
     data() {
         return {
             auth: auth,
-            user: auth.getUser()
+            user: auth.getUser(),
+            userAdded: false
         }
 
     },
@@ -23,30 +26,26 @@ new Vue({
             auth.checkAuth();
         }
 
+        dialog = document.querySelector('dialog');
+
 
     },
     methods: {
 
         addUser: function () {
 
-            console.log("click")
-            // dialog with link to enketo-express URL
-            var dialog = document.querySelector('dialog');
-
-
-            // if (dialog) {
-                // close dialog
-                dialog.querySelector('.close').addEventListener('click', function () {
-                    dialog.close();
-                });
-            // }
-
             // show dialog
             dialog.showModal();
 
-            dialog.querySelector('#addUser').addEventListener('click', function () {
-                dialog.close();
-            });
+        },
+        closeDialog: function () {
+
+            var vm = this;
+            if (dialog) {
+                    dialog.close();
+                    vm.userAdded = false;
+            }
+
 
         }
 
