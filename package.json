@@ -49,6 +49,7 @@
     "on-finished": "^2.3.0",
     "openrosa-form-submission-middleware": "^1.0.4",
     "openrosa-formlist": "^1.0.1",
+    "path": "^0.12.7",
     "pg-promise": "^5.5.7",
     "python-shell": "^0.2.0",
     "q": "^1.4.1",
@@ -64,6 +65,10 @@
   },
   "devDependencies": {
     "faucet": "0.0.1",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "static-api-docs": "^0.1.10",
     "supertest": "^1.1.0",
     "tape": "^4.2.2"
   }

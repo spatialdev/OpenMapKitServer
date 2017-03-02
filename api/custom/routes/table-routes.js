@@ -4,7 +4,7 @@ var visstaUtil = require('../util/vissta-auth-util');
 var CustomError = require('../../../util/error');
 var visstaAuth = require('./../middlewares/vissta-auth-middleware');
 
-router.post('/:table', [visstaAuth()], function (req, res, next) {
+router.get('/:table', [visstaAuth()], function (req, res, next) {
 
     var table = req.params.table;
     var columns = req.query.columns || null;
@@ -22,6 +22,8 @@ router.post('/:table', [visstaAuth()], function (req, res, next) {
             db.manyOrNone(sql, [table, columns])
                 .then(function (results) {
                     var returnObj = JSON.parse(results[0].___select_all);
+                    // remove any encrypted passwords
+                    returnObj.map(function(o){delete o.password;return o;});
                     res.status(200).json(returnObj);
                 })
                 .catch(function (error) {

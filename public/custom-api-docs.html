@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <meta charset="UTF-8">
+  <title>API</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue_grey-blue.min.css" />
+  <style>
+    .demo-list-icon {
+      width: 300px;
+    }
+
+    html>body {
+      font-family: 'Roboto','Helvetica','Arial',sans-serif!important;
+      background-color: #FAFAFA;
+    }
+
+    .mdl-list__item {
+      font-size: 12px;
+      padding: 10px;
+    }
+
+    .mdl-list__item:hover {
+      background-color: #eee;
+      cursor: pointer;
+    }
+
+    .nav-group-header {
+      font-size: 14px;
+      margin: 0;
+      text-transform: uppercase;
+      padding: 0 10px;
+      font-weight: 500;
+    }
+
+    .nav-group-links{
+      text-decoration: none;
+      text-transform: none;
+    }
+
+  </style>
+</head>
+<body>
+  <!--<div style="font-family: sans-serif;">-->
+
+<!-- No header, and the drawer stays open on larger screens (fixed drawer). -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">OpenMapKit Server</span>
+    <nav class="mdl-navigation navigation">
+
+      
+      <div class="nav-group-header">tables</div>
+
+      <ul class="demo-list-icon mdl-list">
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/tables/omk_forms_get">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #2392f7;
+            ">GET
+          </div>
+            /tables/omk_forms
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/tables/omk_users_get">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #2392f7;
+            ">GET
+          </div>
+            /tables/omk_users
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/tables/omk_user_role_get">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #2392f7;
+            ">GET
+          </div>
+            /tables/omk_user_role
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/tables/omk_user_form_role_get">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #2392f7;
+            ">GET
+          </div>
+            /tables/omk_user_form_role
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      </ul>
+
+      
+      <div class="nav-group-header">users</div>
+
+      <ul class="demo-list-icon mdl-list">
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/users/authenticate_post">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #13c20f;
+            ">POST
+          </div>
+            /users/authenticate
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+        <a class="nav-group-links" href="#/users/form/role_post">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #13c20f;
+            ">POST
+          </div>
+            /users/form/role
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+        <a class="nav-group-links" href="#/users/form/role_delete">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #e30012;
+            ">DELETE
+          </div>
+            /users/form/role
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      </ul>
+
+      
+
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="mdl-js-layout" style="padding: 50px">
+      <h1>OpenMapKit Server</h1>
+
+      <h3>v. 1.0.0</h3>
+
+      <p><strong>Description:</strong></p>
+
+      <p>VISSTA Custom OpenMapKit Server w/ Enekto-Express</p>
+      
+        <p><strong>Base url: </strong> http://52.14.154.36:3210/custom/</p>
+      
+      <div style="list-style-type:none; padding:0; font-family: sans-serif;">
+        <h2>API Endpoints</h2>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/tables/omk_forms
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(35,146,247,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #2392f7;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_forms_get">/tables/omk_forms GET</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Forms - Get all</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Get all forms with all attributes.</p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object[])</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form table id</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">name
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form name</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">label
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form label</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">created_by
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username of admin user who created record</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">updated_by
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username of admin user who edited record</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">created_date
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">Timestamp of record creation</td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_forms_group">/tables/omk_forms GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/tables/omk_users
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(35,146,247,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #2392f7;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_users_get">/tables/omk_users GET</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Users - Get all</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Get all users with all attributes.</p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object[])</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user table id</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">first_name
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">first name</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">last_name
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">last name</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">email
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">email address</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">created_by
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username of admin user who created record</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">updated_by
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username of admin user who edited record</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">created_date
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">Timestamp of record creation</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">active
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">boolean</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">active</td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_users_group">/tables/omk_users GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/tables/omk_user_role
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(35,146,247,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #2392f7;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_user_role_get">/tables/omk_user_role GET</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">User App Level Role - Get all</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Get all user roles</p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object[])</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user id</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">role_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_user_role_group">/tables/omk_user_role GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/tables/omk_user_form_role
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(35,146,247,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #2392f7;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_user_form_role_get">/tables/omk_user_form_role GET</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">User App Level Role - Get all</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Get all user roles</p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object[])</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user id</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">role_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/tables/omk_user_form_role_group">/tables/omk_user_form_role GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/users/authenticate
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(19,194,15,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #13c20f;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/authenticate_post">/users/authenticate POST</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Authenticate User</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Get all user roles</p>
+                </section>
+                
+                <section>
+                  <h4 style="font-size: 15px;line-height: 1.1;">Parameters</h4>
+
+                  <div style="margin: .3em 0 .5em;">
+                    <table style="width: 100%;border-collapse: collapse;">
+                      <thead>
+                      <tr style="background-color: #f7f7f7; font-size: 14px">
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Name</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">In</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Required</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid; width: 50%;">Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">username</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">Account username</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">password</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">Account password</td>
+
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object[])</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">token
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">6 hour Authentication token</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">tokenExpiration
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">timestamp</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">Object</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;username
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;email
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;first_name
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;last_name
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;role
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;formPermissions
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">Object</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;user_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user id</td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;role
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;form_id
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/authenticate_group">/users/authenticate GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="list-style-type:none; padding:0">
+          <header style="font-family: monospace;
+               font-size: 1.5em;
+               margin-bottom: 12px;
+               margin-top: 3px; color:#333">/users/form/role
+          </header>
+          <div style="list-style-type:none; padding:0">
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color: rgba(19,194,15,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #13c20f;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/form/role_post">/users/form/role POST</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Assign user form role</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Create form permission record</p>
+                </section>
+                
+                <section>
+                  <h4 style="font-size: 15px;line-height: 1.1;">Parameters</h4>
+
+                  <div style="margin: .3em 0 .5em;">
+                    <table style="width: 100%;border-collapse: collapse;">
+                      <thead>
+                      <tr style="background-color: #f7f7f7; font-size: 14px">
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Name</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">In</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Required</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid; width: 50%;">Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_user_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form user id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">new_user_role</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user form role - &quot;admin&quot; , &quot;write&quot; , &quot;read&quot;</td>
+
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color:  rgba(227,0,18,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #e30012;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/form/role_delete">/users/form/role DELETE</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Delete form permission record</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Delete user form role</p>
+                </section>
+                
+                <section>
+                  <h4 style="font-size: 15px;line-height: 1.1;">Parameters</h4>
+
+                  <div style="margin: .3em 0 .5em;">
+                    <table style="width: 100%;border-collapse: collapse;">
+                      <thead>
+                      <tr style="background-color: #f7f7f7; font-size: 14px">
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Name</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">In</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Required</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid; width: 50%;">Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_user_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form user id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">role_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">role id</td>
+
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+                    <div>
+                      <h4 style="font-size: 15px;line-height: 1.1;">
+                        Success
+                        200 (Object)</h4>
+                      <table style="width: 100%;border-collapse: collapse;">
+                        <thead>
+                        <tr style="background-color: #f7f7f7;">
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Field</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                          <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">status
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+
+                        
+                        <tr style="border-bottom: 1px solid silver;">
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">message
+                          </td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                          <td style="padding: 12px 8px;border: #e0e0e0 1px solid;"></td>
+
+                        </tr>
+                        
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                     ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/form/role_group">/users/form/role GROUP</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;"></h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;"></p>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+<script>
+  /**
+   * Custom Javascript
+   *
+   */
+
+// close the left mdl drawer on click
+  function close() {
+    var d = document.querySelector('.mdl-layout');
+
+    if(document.querySelector('.mdl-layout.is-small-screen') !== null){
+      d.MaterialLayout.toggleDrawer();
+    }
+  }
+
+  document.querySelector('.mdl-layout__drawer').addEventListener('click', close);
+
+</script>
+</body>
+</html>
+

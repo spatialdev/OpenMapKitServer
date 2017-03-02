@@ -76,7 +76,7 @@ router.post('/form/role', function (req, res, next){
             });
 
         if(undefinedBodyPars) {
-            return next(new CustomError('Required parameters are undefined', 400));
+            return next(new CustomError('Missing required parameters', 400));
         }
 
         var validationErrors = req.validationErrors();
@@ -131,7 +131,7 @@ router.delete('/form/role', function (req, res, next){
             });
 
         if(undefinedBodyPars) {
-            return next(new CustomError('Required parameters are undefined', 400));
+            return next(new CustomError('Missing required parameters', 400));
         }
 
         var validationErrors = req.validationErrors();

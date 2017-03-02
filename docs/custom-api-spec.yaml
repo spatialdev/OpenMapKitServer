@@ -1,0 +1,288 @@
+swagger: '2.0'
+info:
+  title: OpenMapKit Server
+  description: VISSTA Custom OpenMapKit Server w/ Enekto-Express
+  version: 1.0.0
+host: http://52.14.154.36:3210
+schemes:
+  - http
+basePath: /custom
+produces:
+  - application/json
+paths:
+  /tables/omk_forms:
+    get:
+      security:
+        - Bearer: []
+      summary: Forms - Get all
+      description: Get all forms with all attributes.
+      tags:
+        - table
+      responses:
+        '200':
+          description: An array of forms
+          schema:
+            type: array
+            items:
+              type: object
+              description: Form object
+              properties:
+                id:
+                  type: integer
+                  description: form table id
+                form_id:
+                  type: string
+                  descrption: form unique id identifier
+                name:
+                  type: string
+                  description: form name
+                label:
+                  type: string
+                  description: form label
+                created_by:
+                  type: string
+                  description: username of admin user who created record
+                updated_by:
+                  type: string
+                  description: username of admin user who edited record
+                created_date:
+                  type: string
+                  description: Timestamp of record creation
+                updated_by:
+                  type: string
+                  description: Timestamp of record update
+
+  /tables/omk_users:
+    get:
+      security:
+        - Bearer: []
+      summary: Users - Get all
+      description: Get all users with all attributes.
+      tags:
+        - table
+      responses:
+        '200':
+          description: An array of users
+          schema:
+            type: array
+            items:
+              type: object
+              description: User object
+              properties:
+                id:
+                  type: integer
+                  description: user table id
+                username:
+                  type: string
+                  descrption: unique username
+                first_name:
+                  type: string
+                  description: first name
+                last_name:
+                  type: string
+                  description: last name
+                email:
+                  type: string
+                  description: email address
+                created_by:
+                  type: string
+                  description: username of admin user who created record
+                updated_by:
+                  type: string
+                  description: username of admin user who edited record
+                created_date:
+                  type: string
+                  description: Timestamp of record creation
+                updated_by:
+                  type: string
+                  description: Timestamp of record update
+                active:
+                  type: boolean
+                  description: active
+
+  /tables/omk_user_role:
+    get:
+      security:
+        - Bearer: []
+      summary: User App Level Role - Get all
+      description: Get all user roles
+      tags:
+        - table
+      responses:
+        '200':
+          description: An array of user roles
+          schema:
+            type: array
+            items:
+              type: object
+              description: User Role object
+              properties:
+                user_id:
+                  type: integer
+                  description: user id
+                role_id:
+                  type: integer
+                  descrption: role id
+
+  /tables/omk_user_form_role:
+    get:
+      security:
+        - Bearer: []
+      summary: User App Level Role - Get all
+      description: Get all user roles
+      tags:
+        - table
+      responses:
+        '200':
+          description: An array of user roles
+          schema:
+            type: array
+            items:
+              type: object
+              description: User Role object
+              properties:
+                user_id:
+                  type: integer
+                  description: user id
+                role_id:
+                  type: integer
+                  descrption: role id
+                form_id:
+                  type: integer
+                  description: form id
+
+  /users/authenticate:
+    post:
+      security:
+        - Bearer: []
+      summary: Authenticate User
+      description: Get all user roles
+      tags:
+        - users
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                description: Account username
+              password:
+                type: string
+                description: Account password
+
+      responses:
+        '200':
+          description: An array of user roles
+          schema:
+            type: array
+            items:
+              type: object
+              description: User Role object
+              properties:
+                token:
+                  type: string
+                  description: 6 hour Authentication token
+                tokenExpiration:
+                  type: timestamp
+                  descrption: Timestamp of token expiration date
+                user:
+                  type: object
+                  description: form id
+                  properties:
+                    id:
+                      type: integer
+                      descrption: user id
+                    username:
+                      type: string
+                      descrption: username
+                    email:
+                      type: string
+                      descrption: email address
+                    first_name:
+                      type: string
+                      descrption: first name
+                    last_name:
+                      type: string
+                      descrption: last_name
+                    role:
+                      type: string
+                      descrption: user role - "admin" , "write" , "read"
+                    formPermissions:
+                      type: object
+                      descrption: user form permissions
+                      properties:
+                        user_id:
+                          type: integer
+                          description: user id
+                        role:
+                          type: string
+                          descrption: user form role - "admin" , "write" , "read"
+                        form_id:
+                          type: integer
+                          description: form id
+  /users/form/role:
+    post:
+      security:
+        - Bearer: []
+      summary: Assign user form role
+      description: Create form permission record
+      tags:
+        - users
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              form_user_id:
+                type: string
+                description: form user id
+              form_id:
+                type: id
+                description: form id
+              new_user_role:
+                type: string
+                description: user form role - "admin" , "write" , "read"
+    delete:
+      security:
+        - Bearer: []
+      summary: Delete form permission record
+      description: Delete user form role
+      tags:
+        - users
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              form_user_id:
+                type: string
+                description: form user id
+              form_id:
+                type: integer
+                description: form id
+              role_id:
+                type: integer
+                description: role id
+
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+
+definitions:
+  Success:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string

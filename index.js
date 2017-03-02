@@ -27,6 +27,7 @@ var userRoutes = require('./api/custom/routes/user-routes');
 var tableRoutes = require('./api/custom/routes/table-routes');
 var visstaUtil = require('./api/custom/util/vissta-auth-util');
 var expressValidator = require('express-validator');
+var path = require('path');
 
 
 // Enable CORS always.
@@ -68,7 +69,8 @@ if(typeof settings.formAuth !== "undefined" && settings.formAuth.enabled === tru
             // '/omk/data/forms',
             new RegExp("\/omk\/data\/forms\/", "g"),  // TODO add middleware to filter these
             '/custom/users/authenticate',
-            '/submission'
+            '/submission',
+            new RegExp("\/public", "g")
         ]
     }))
 }
@@ -118,6 +120,9 @@ app.use('/omk/data', express.static(settings.dataDir));
 app.use('/omk/data', directory(settings.dataDir));
 app.use('/omk/pages', express.static(settings.pagesDir));
 app.use('/omk/pages', directory(settings.pagesDir));
+
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Handle errors
 // Error Handler
