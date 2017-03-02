@@ -66,8 +66,8 @@ router.post('/form/role', function (req, res, next){
     if (req.user.role === "admin"){
         var sql, sqlParams, undefinedBodyPars, db;
 
-        req.sanitizeParams('form_user_id').toInt();
-        req.sanitizeParams('form_id').toInt();
+        req.sanitizeBody('form_user_id').toInt();
+        req.sanitizeBody('form_id').toInt();
 
         // Make sure all body parameters are defined; if not throw error
         undefinedBodyPars = [req.body.form_user_id, req.body.form_id, req.body.new_user_role]
@@ -119,9 +119,9 @@ router.delete('/form/role', function (req, res, next){
     if (req.user.role === "admin"){
         var sql, sqlParams, undefinedBodyPars, db;
 
-        req.sanitizeParams('form_user_id').toInt();
-        req.sanitizeParams('form_id').toInt();
-        req.sanitizeParams('role_id').toInt();
+        req.sanitizeBody('form_user_id').toInt();
+        req.sanitizeBody('form_id').toInt();
+        req.sanitizeBody('role_id').toInt();
 
         // Make sure all body parameters are defined; if not throw error
         undefinedBodyPars = [req.body.form_user_id, req.body.form_id, req.body.role_id]

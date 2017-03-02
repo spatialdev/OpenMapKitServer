@@ -151,6 +151,76 @@ paths:
                   type: integer
                   description: form id
 
+  /tables/vw_omk_user_details:
+    get:
+      security:
+        - Bearer: []
+      summary: Get user details
+      description: Get all user details
+      tags:
+        - table
+      responses:
+        '200':
+          description: An array of user details
+          schema:
+            type: array
+            items:
+              type: object
+              description: User Role object
+              properties:
+                id:
+                  type: integer
+                  descrption: user id
+                username:
+                  type: string
+                  descrption: username
+                email:
+                  type: string
+                  descrption: email address
+                first_name:
+                  type: string
+                  descrption: first name
+                last_name:
+                  type: string
+                  descrption: last_name
+                role:
+                  type: string
+                  descrption: user role - "admin" , "write" , "read"
+                created_by:
+                  type: string
+                  description: username of admin user who created record
+                updated_by:
+                  type: string
+                  description: username of admin user who edited record
+                created_date:
+                  type: string
+                  description: Timestamp of record creation
+                updated_by:
+                  type: string
+                  description: Timestamp of record update
+                formPermissions:
+                  type: object
+                  descrption: user form permissions
+                  properties:
+                    id:
+                      type: integer
+                      descrption: form id
+                    role:
+                      type: string
+                      descrption: user form role - "admin" , "write" , "read"
+                    form_id:
+                      type: integer
+                      description: unique form name
+                    admin:
+                      type: boolean
+                      description: admin privileges
+                    write:
+                      type: boolean
+                      description: write privileges
+                    read:
+                      type: boolean
+                      description: read privileges
+
   /users/authenticate:
     post:
       security:
@@ -214,15 +284,24 @@ paths:
                       type: object
                       descrption: user form permissions
                       properties:
-                        user_id:
+                        id:
                           type: integer
-                          description: user id
+                          descrption: form id
                         role:
                           type: string
                           descrption: user form role - "admin" , "write" , "read"
                         form_id:
                           type: integer
-                          description: form id
+                          description: unique form name
+                        admin:
+                          type: boolean
+                          description: admin privileges
+                        write:
+                          type: boolean
+                          description: write privileges
+                        read:
+                          type: boolean
+                          description: read privileges
   /users/form/role:
     post:
       security:
