@@ -4,7 +4,7 @@ var auth =  {
     authenticated: false,
     token: null,
     user: null,
-    expiredDate: null,
+    tokenExpiration: null,
     invalid: false,
     required: true,
     url: "http://52.14.154.36:3210"
@@ -36,6 +36,9 @@ var auth =  {
   },
   //Method to check if the local storage contains token
   checkAuth() {
+
+    // this.checkIfTokenIsValid();
+
     var jwt = localStorage.getItem('id_token')
     if(jwt) {
       this.user.authenticated = true;
@@ -57,11 +60,8 @@ var auth =  {
   },
   checkIfTokenIsValid () {
 
-    if (!this.user.token){
-      return
-    }
 
-    if( Date.now() >= this.user.expiredDate){
+    if( Date.now() >= this.user.tokenExpiration){
       localStorage.removeItem('id_token')
       localStorage.removeItem('user')
       this.user.authenticated = false;

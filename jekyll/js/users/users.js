@@ -29,12 +29,11 @@ new Vue({
 
         dialog = document.querySelector('dialog');
 
-        this.getFormListData();
-
+        this.getUsersList();
 
     },
     methods: {
-        getFormListData: function(){
+        getUsersList: function(){
 
             var url = this.auth.user.url
 
@@ -42,9 +41,11 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
             // GET request
-            this.$http.get(url+ '/tables/omk_users', params).then(function (response) {
+            this.$http.get(url + '/custom/tables/omk_users', params).then(function (response) {
 
                 console.log(response);
+
+                this.usersList = response.data;
 
                 //register the mdl menus on each card
                 // setTimeout(function () {
