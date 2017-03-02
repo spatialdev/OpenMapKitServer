@@ -11,8 +11,10 @@ new Vue({
     data() {
         return {
             credentials: {
-                username: '',
-                password: ''
+                // username: '',
+                // password: ''
+                username: 'superuser',
+                password: 'testsuperuser'
             },
             error: '',
             invalid: false,
@@ -47,7 +49,8 @@ new Vue({
 
         getReturnURL: function () {
             var url = location.href.slice(location.href.indexOf("=")+1, location.href.length);
-            return location.href.indexOf("=") > -1 && url.length > 0 ? url : null;
+
+            return location.href.indexOf("=") > -1 && url.length > 0 ? url : null;;
         },
 
         submit() {
@@ -59,22 +62,22 @@ new Vue({
               }
               //this takes the object, credentials and if valid the route it should go
               auth.login(this, credentials)
-              .then(function (response) {
+              .then(response => {
+                // success callback
                 console.log(response);
-
-                    if (!response){
+                if (!response.token){
                         vm.invalid = true;
                         vm.loading = false;
                         return
                     }
 
-                    setTimeout(function () {
+                setTimeout(function () {
 
-                        var tokenExpiration = response.data.tokenExpiration;
+                        var tokenExpiration = response.tokenExpiration;
                         var date = new Date(tokenExpiration);
-                        
+
                         // add token to cookie for enketo-express
-                        document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + date.toGMTString();
+                        document.cookie = 'token='+response.token + ';path=/' + ';expires=' + date.toGMTString();
 
                             if(vm.getReturnURL()){
                                 window.location = vm.getReturnURL();
@@ -82,11 +85,42 @@ new Vue({
                                 window.location = '/omk/pages/forms';
                             }
 
-                        }, 100);
-              })
-              .catch(function (error) {
-                console.log(error);
+                        }, 500);
+
+              }, response => {
+                // error callback
               });
+
+
+              // .then(function (response) {
+
+              //       console.log(response);
+
+              //       if (!response){
+              //           vm.invalid = true;
+              //           vm.loading = false;
+              //           return
+              //       }
+
+              //       setTimeout(function () {
+
+              //           var tokenExpiration = response.data.tokenExpiration;
+              //           var date = new Date(tokenExpiration);
+
+              //           // add token to cookie for enketo-express
+              //           document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + date.toGMTString();
+
+              //               if(vm.getReturnURL()){
+              //                   window.location = vm.getReturnURL();
+              //               } else {
+              //                   window.location = '/omk/pages/forms';
+              //               }
+
+              //           }, 500);
+              // })
+              // .catch(function (error) {
+              //   console.log(error);
+              // });
             }
 
     }

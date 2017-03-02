@@ -11,21 +11,31 @@ var auth =  {
   },
   //call to the API and check against the credentials
   login(context, creds) {
-    return context.$http.post( this.user.url +  "/custom/users/authenticate", creds, (data) => {
-      //if there's a token property, then its valid
-      if(data.token){
 
-        localStorage.setItem('id_token', data.token)
+        return context.$http.post(this.user.url +  "/custom/users/authenticate", creds).then(response => {
 
-        localStorage.setItem('user', JSON.stringify(data.user))
+        //if there's a token property, then its valid
+          if(response.body.token){
 
-        this.user.authenticated = true;
-        this.user.token = data.token;
-        this.user.user = data.user;
-      }
-    }).catch((err) => {
-      console.log(err);
-    })
+            localStorage.setItem('id_token', response.body.token)
+
+            localStorage.setItem('user', JSON.stringify(response.body.user))
+
+            this.user.authenticated = true;
+            this.user.token = response.body.token;
+            this.user.user = response.body.user;
+            this.user.tokenExpiration = response.body.tokenExpiration
+
+            return response.body;
+          }
+
+        // get body data
+        console.log(response.body);
+
+      }, response => {
+        // error callback
+        console.log(err);
+      });
 
   },
   //logging out will remove the token from local storage and auth as false

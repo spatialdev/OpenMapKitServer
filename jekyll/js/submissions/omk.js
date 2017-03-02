@@ -76,7 +76,7 @@ OMK.fetchJSON = function (url,cb) {
             $("#submissionPagespinner").hide();
             $("#alert").text("No data has been submitted for " + form + '.');
             console.log("Error fetching ODK submissions!");
-            console.log(data);        
+            console.log(data);
         }
 
     });
@@ -153,7 +153,7 @@ OMK.getFormMetaData = function (cb) {
             var form = getParam('form');
             console.log("Error fetching ODK form metadata!");
             console.log(data);
-                  
+
         }
 
     });
@@ -184,7 +184,7 @@ OMK.downloadCSV = function (url) {
         },
         error: function (data){
             console.log("Error fetching ODK form metadata!");
-            console.log(data);     
+            console.log(data);
         }
 
     });
@@ -216,7 +216,7 @@ OMK.downloadJSON = function (url) {
         },
         error: function (data){
             console.log("Error fetching ODK form metadata!");
-            console.log(data);     
+            console.log(data);
         }
 
     });

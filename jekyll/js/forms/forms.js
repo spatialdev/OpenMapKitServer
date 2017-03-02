@@ -54,7 +54,7 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
             // GET request
-            this.$http.post(url+ '/formList?json=true', null, params).then(function (response) {
+            this.$http.post("http://52.14.154.36:3210/formList?json=true", null, params).then(function (response) {
 
                 console.log(response);
 
