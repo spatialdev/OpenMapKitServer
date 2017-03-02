@@ -157,7 +157,7 @@ function filterFormsByRole(user, xform, cb) {
 
     } else {
         // return unfiltered form
-        cb(xform)
+        cb(typeof xform.length === "undefined" ? [xform] : xform);
     }
 }
 

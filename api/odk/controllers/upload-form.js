@@ -7,6 +7,8 @@ var settings = require('../../../settings');
 var formsDir = settings.dataDir + '/forms/';
 var visstaUtil = require('../../custom/util/vissta-auth-util');
 var CustomError = require('../../../util/error');
+var parseString = require('xml2js').parseString;
+var pgBinding = require('../../../util/pg-binding');
 
 /**
  * User uploads an XLSForm (Excel ODK Form).
@@ -82,14 +84,60 @@ module.exports = function (req, res, next) {
                     });
                     return;
                 }
-                res.status(201).json({
-                    status: 201,
-                    msg: 'Converted ' + file[0].originalFilename + ' to an XForm and saved both to the forms directory.',
-                    xFormUrl: req.protocol + '://' + req.headers.host + '/omk/data/forms/' + xFormFilename,
-                    xlsFormUrl: req.protocol + '://' + req.headers.host + '/omk/data/forms/' + xlsFilename
+                var filenameWithoutExtentsion = file[0].originalFilename.substring(0, file[0].originalFilename.indexOf("."));
+                // get form id
+                getFormid(xFormPath, filenameWithoutExtentsion, function(formid){
+                    // add form record to database
+
+                    var db = pgBinding.getDatabase();
+                    var sql = "INSERT INTO omk_forms (form_id, created_by) VALUES ($1,$2) RETURNING id";
+
+                    // Request data from the database
+                    db.one(sql, [formid, req.user.username])
+                        .then(function (results) {
+                            if(typeof results.id === "number"){
+                                res.status(201).json({
+                                    status: 201,
+                                    msg: 'Converted ' + file[0].originalFilename + ' to an XForm and saved both to the forms directory.',
+                                    xFormUrl: req.protocol + '://' + req.headers.host + '/omk/data/forms/' + xFormFilename,
+                                    xlsFormUrl: req.protocol + '://' + req.headers.host + '/omk/data/forms/' + xlsFilename
+                                });
+                            } else {
+                                next(CustomError("Unable to create form db record.", 500));
+                            }
+                        })
+                        .catch(function (error) {
+                            return next(error)
+                        });
+
                 });
             });
         });
     }
 
+    function getFormid (path, filename, cb) {
+        // find manifest file
+        fs.readFile(path, function (err, xml) {
+            if(err){
+                res.status(400).json({
+                    status: 400,
+                    err: err,
+                    msg: 'Unable to locate find xls form_id'
+                });
+            } else {
+                parseString(xml, function (err, result) {
+                    var id = result["h:html"]["h:head"][0]["model"][0]["instance"][0][filename][0]["$"]["id"];
+                    if(typeof id === "string" && id.length >0){
+                        cb(id);
+                    } else {
+                        res.status(400).json({
+                            status: 400,
+                            err: err,
+                            msg: 'Unable to locate find xls form_id'
+                        });
+                    }
+                });
+            }
+        });
+    }
 };
