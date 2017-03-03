@@ -165,6 +165,73 @@ a {
 
 
 }
+#userAccount {
+
+        .backLink{
+            padding-top: 40px;
+        }
+        .section{
+            width: 100%;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .mdl-button--fab{
+            background: #7ebc6f;
+            color: #fff;
+            margin-left: 10px;
+            line-height: 0px;
+            padding: 12px 20px;
+        }
+
+        .mdl-button {
+            background: #7ebc6f;
+            color: #fff;
+            margin-left: 10px;
+            line-height: 0px;
+            padding: 12px 20px;
+            border-radius: 5px;
+            height: 45px;
+        }
+
+        .activeButton{
+            background: #2B9BF5;
+        }
+
+
+
+        .search{
+            position: relative;
+            float: right;
+        }
+        .s-icon{
+            position: absolute;
+            right: 0px;
+            top: 22px;
+            color: #B1B1B1;
+        }
+
+        .mdl-radio + .mdl-radio {
+            margin-left: 1.5rem;
+        }
+
+        #addUser{
+
+            .mdl-button {
+                background: none;
+                color: #2B9BF5;
+                margin-left: 10px;
+                line-height: 0px;
+                padding: 12px 20px;
+                border-radius: 5px;
+                height: 45px;
+            }
+
+        }
+
+
+
+}
 
 
 .mdl-list {

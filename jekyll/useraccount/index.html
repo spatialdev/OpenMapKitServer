@@ -7,28 +7,40 @@ mixins: header-mixin
 
 <div class="page-content">
 
-    <div id="userManagement">
+    <div id="userAccount">
 
         <div class="mdl-grid" >
 
-            <a href="/omk/pages/forms/" class="backLink">
-                < Back to forms page
+            <a href="/omk/pages/users/" class="backLink">
+                < Back to user management
             </a>
             <div class="section header">
-                <h3>User Management</h3>
+                <h3>User Account</h3>
+                <div class="editButotn" style="float: right;">
+                  <!-- Colored FAB button -->
+                  <button class="mdl-button mdl-js-button mdl-button--fab" :class="{'activeButton' : editMode}" @click="toggleEditMode()">
+                    <i class="material-icons">mode_edit</i>
+                  </button>
+                </div>
             </div>
-            <div class="section inputs">
-                <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
-                @click="addUser()">
-                  <i class="material-icons">person_add</i> ADD USER
-                </button>
+            <div class="section inputs" v-if="userDetails">
 
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" id="password">
-                    <label class="mdl-textfield__label" for="password">search</label>
-                    <i class="s-icon material-icons">search</i>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left;">
+                    <input class="mdl-textfield__input" type="name" id="name" :disabled="!editMode" v-model="userDetails.first_name">
+                    <label class="mdl-textfield__label" for="name">Name</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                    <input class="mdl-textfield__input" type="email" id="email" :disabled="!editMode" v-model="userDetails.email" >
+                    <label class="mdl-textfield__label" for="email">Email</label>
                   </div>
 
+            </div>
+            <div class="section">
+              <span>List of survey forms this user is assigned to:</span>
+              <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
+                @click="addUser()" style="float: right;">
+                  <i class="material-icons">add</i> ADD FORM
+                </button>
             </div>
             <div class="section table">
 

@@ -16,7 +16,10 @@ new Vue({
             auth: auth,
             user: auth.getUser(),
             userAdded: false,
-            user: null
+            userDetails: null,
+            user: auth.getUser(),
+            editMode: false,
+            isFocused: false
         }
 
     },
@@ -29,10 +32,38 @@ new Vue({
 
         dialog = document.querySelector('dialog');
 
-        this.getUsersList();
+        // this.getUsersList();
+
+
+        componentHandler.upgradeDom();
+
 
     },
+    created() {
+        this.getUsersList();
+    },
     methods: {
+        toggleEditMode: function () {
+            this.editMode = !this.editMode;
+            this.focusingAllInputs();
+            componentHandler.upgradeDom();
+        },
+        focusingAllInputs: function () {
+            var vm = this;
+
+            if(this.editMode){
+
+                componentHandler.upgradeDom();
+                this.isFocused = true;
+                componentHandler.upgradeDom();
+                //register the mdl menus on each card
+                setTimeout(function () {
+                    vm.isFocused = false;
+                    componentHandler.upgradeDom();
+                }, 1000);
+
+            }
+        },
         getUsersList: function(){
 
             var url = this.auth.user.url
@@ -41,22 +72,16 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
             // GET request
-            this.$http.get(url + '/custom/tables/vw_omk_user_details', params).then(function (response) {
+            this.$http.get(url + '/custom/tables/vw_omk_user_details/' + this.user.id, params).then(response => {
+                    console.log(response.body);
+                    this.userDetails = response.body;
 
-                console.log(response);
+                    componentHandler.upgradeDom();
 
-                // this.usersList = response.data;
-
-                //register the mdl menus on each card
-                // setTimeout(function () {
-                //     componentHandler.upgradeAllRegistered();
-                // }, 500);
-
-
-            }, function (response) {
-
-            });
-
+                  }, response => {
+                    // error callback
+                    console.log(err);
+                  });
         },
         addUser: function () {
 

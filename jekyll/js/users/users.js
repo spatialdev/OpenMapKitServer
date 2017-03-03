@@ -16,8 +16,35 @@ new Vue({
             auth: auth,
             user: auth.getUser(),
             userAdded: false,
-            usersList: []
+            usersList: [],
+            user: auth.getUser(),
+            searchQuery: '',
         }
+
+    },
+    computed: {
+
+        tableHeader: function () {
+
+            if(this.usersList.length > 0){
+
+                return Object.keys(this.usersList[0])
+
+            }
+        },
+        filteredData: function () {
+              var filterKey = this.searchQuery && this.searchQuery.toLowerCase()
+              var data = this.usersList
+              if (filterKey) {
+                data = data.filter(function (row) {
+                  return Object.keys(row).some(function (key) {
+                    return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                  })
+                })
+              }
+              return data
+        }
+
 
     },
     mounted: function () {
