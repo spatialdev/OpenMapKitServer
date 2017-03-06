@@ -21,6 +21,8 @@ var auth =  {
 
             localStorage.setItem('user', JSON.stringify(response.body.user))
 
+            localStorage.setItem('tokenExpiration', JSON.stringify(response.body.tokenExpiration))
+
             this.user.authenticated = true;
             this.user.token = response.body.token;
             this.user.user = response.body.user;

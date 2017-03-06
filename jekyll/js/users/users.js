@@ -19,19 +19,20 @@ new Vue({
             usersList: [],
             user: auth.getUser(),
             searchQuery: '',
+            tableHeader: [],
+            newUser: {
+                usernam: null,
+                password: null,
+                first_name: null,
+                last_name: null,
+                email: null,
+                role: "admin"
+            }
         }
 
     },
     computed: {
 
-        tableHeader: function () {
-
-            if(this.usersList.length > 0){
-
-                return Object.keys(this.usersList[0])
-
-            }
-        },
         filteredData: function () {
               var filterKey = this.searchQuery && this.searchQuery.toLowerCase()
               var data = this.usersList
@@ -44,8 +45,6 @@ new Vue({
               }
               return data
         }
-
-
     },
     mounted: function () {
 
@@ -60,6 +59,26 @@ new Vue({
 
     },
     methods: {
+        createTabHeaders: function () {
+
+            var headersToShow = ["created_by", "updated_date", "updated_by", "created_date", "id"]
+
+            if(this.usersList.length > 0){
+
+                function headers(value) {
+                    if (headersToShow.indexOf(value) === -1) {
+                            // element doesn't exist in array
+                        return value
+                    }
+                }
+
+                this.tableHeader =  Object.keys(this.usersList[0]).filter(headers)
+
+                this.tableHeader.push("     ");
+
+            }
+
+        },
         getUsersList: function(){
 
             var url = this.auth.user.url
@@ -68,11 +87,13 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
             // GET request
-            this.$http.get(url + '/custom/tables/omk_users', params).then(function (response) {
+            this.$http.get(url + '/custom/tables/vw_omk_users', params).then(function (response) {
 
                 console.log(response);
 
                 this.usersList = response.data;
+
+                this.createTabHeaders();
 
                 //register the mdl menus on each card
                 // setTimeout(function () {
