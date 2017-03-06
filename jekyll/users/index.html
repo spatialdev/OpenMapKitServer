@@ -80,23 +80,25 @@ mixins: header-mixin
         </h6>
         <div class="mdl-dialog__content">
             <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="name" id="username" v-model="newUser.username">
+              <input class="mdl-textfield__input" type="text" id="username" v-model="newUser.username"
+              pattern="[A-Z,a-z, ]*">
               <label class="mdl-textfield__label" for="username">username</label>
+              <span class="mdl-textfield__error">Letters and spaces only</span>
             </div>
             <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="password" id="password" v-model="newUser.password">
-              <label class="mdl-textfield__label" for="password">email</label>
+              <input class="mdl-textfield__input" type="text" id="password" v-model="newUser.password">
+              <label class="mdl-textfield__label" for="password">password</label>
             </div>
             <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="name" id="first_name" v-model="newUser.first_name">
+              <input class="mdl-textfield__input" type="text" id="first_name" v-model="newUser.first_name">
               <label class="mdl-textfield__label" for="first_name">first name</label>
             </div>
             <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="name" id="last_name" v-model="newUser.last_name">
+              <input class="mdl-textfield__input" type="text" id="last_name" v-model="newUser.last_name">
               <label class="mdl-textfield__label" for="last_name">last name</label>
             </div>
             <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="email" id="email" v-model="newUser.email">
+              <input class="mdl-textfield__input" type="text" id="email" v-model="newUser.email">
               <label class="mdl-textfield__label" for="email">email</label>
             </div>
 
@@ -124,7 +126,8 @@ mixins: header-mixin
         </div>
         <div class="mdl-dialog__actions">
             <a>
-                <button type="button" class="mdl-button mdl-js-button" @click="userAdded = true">SUBMIT</button>
+                <button type="button" class="mdl-button mdl-js-button" @click="createNewUser()"
+                :disabled="!validateUserFrom">SUBMIT</button>
             </a>
             <button type="button" class="mdl-button mdl-js-button" @click="closeDialog()">CANCEL</button>
         </div>

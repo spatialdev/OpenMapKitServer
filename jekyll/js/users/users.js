@@ -33,6 +33,14 @@ new Vue({
     },
     computed: {
 
+        validateUserFrom: function () {
+            if (this.newUser.username !== null && this.newUser.password !== null) {
+                return true
+            }else{
+                return false
+            }
+        },
+
         filteredData: function () {
               var filterKey = this.searchQuery && this.searchQuery.toLowerCase()
               var data = this.usersList
@@ -59,6 +67,32 @@ new Vue({
 
     },
     methods: {
+        createNewUser: function () {
+
+            var vm = this;
+
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+
+            // Get enketo-express URL
+            this.$http.post(this.auth.user.url + "/custom/users/user", this.newUser, params).then(function (response) {
+
+                console.log("create new user", response);
+                vm.userAdded = true;
+                vm.clearUserMeta();
+
+                vm.getUsersList();
+
+            }, function (response) {
+
+                console.log("ERROR new user", response);
+
+            });
+
+
+        },
         createTabHeaders: function () {
 
             var headersToShow = ["created_by", "updated_date", "updated_by", "created_date", "id"]
@@ -113,13 +147,24 @@ new Vue({
 
         },
         closeDialog: function () {
-
             var vm = this;
             if (dialog) {
                     dialog.close();
                     vm.userAdded = false;
             }
+        },
+        clearUserMeta: function () {
 
+            var  resetUser = {
+                                usernam: null,
+                                password: null,
+                                first_name: null,
+                                last_name: null,
+                                email: null,
+                                role: "admin"
+                            }
+
+            this.newUser = resetUser;
 
         }
 
