@@ -201,4 +201,61 @@ router.post('/user', function (req, res, next){
 
 });
 
+/**
+ * Edit user
+ */
+router.patch('/user', function (req, res, next){
+
+    // check for authentication settings
+    if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
+        next(new CustomError('Missing authentication settings', 500));
+    }
+
+    // must be an admin
+    if (req.user.role === "admin"){
+        var sql, sqlParams, undefinedBodyPars, invalidRoleType, db, password;
+
+        req.sanitizeBody('edit_record_id').toInt();
+
+        // Make sure all body parameters are defined; if not throw error
+        undefinedBodyPars = [req.body.edit_record_id, req.body.edit_role, req.body.edit_username]
+            .some(function(bodyPar, key){
+                return typeof bodyPar === 'undefined';
+            });
+
+        invalidRoleType = [req.body.edit_role.toLowerCase()]
+            .some(function(bodyPar, key){
+                return bodyPar !== 'read' && bodyPar !== 'write' && bodyPar !== 'admin'
+            });
+
+        if(undefinedBodyPars) {
+            return next(new CustomError('Missing required parameters', 400));
+        }
+
+        if(invalidRoleType) {
+            return next(new CustomError('Invalid role type. Accepted types are read, write & admin', 400));
+        }
+
+        // if password is missing from body, set to null
+        password = req.body.edit_password || null;
+
+        db = pgb.getDatabase();
+        sql = "  SELECT ___edit_user($1, $2, $3, $4, $5, $6, $7, $8);";
+
+        // create user record
+        db.one(sql, [req.user.id, req.body.edit_record_id, req.body.edit_username, req.body.edit_first_name, req.body.edit_last_name, req.body.edit_email, password, req.body.edit_role.toLowerCase()])
+            .then(function (results) {
+                // return success status
+                res.status(200).json({message:"success", status:200});
+            })
+            .catch(function (error) {
+                // send back error
+                return next(new CustomError(error.message, 400));
+            });
+    } else {
+        next(new CustomError("The user is not authorized to make the request.", 401));
+    }
+
+});
+
 module.exports = router;

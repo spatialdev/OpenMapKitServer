@@ -454,6 +454,46 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/Success'
+    patch:
+      security:
+        - Bearer: []
+      summary: Update an existing user
+      description: Update an existing user record
+      tags:
+        - users
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              edit_record_id:
+                type: string
+                description: username
+              edit_username:
+                type: id
+                description: password
+              edit_first_name:
+                type: string
+                description: first name
+              edit_last_name:
+                type: id
+                description: form id
+              edit_email:
+                type: string
+                description: form user id
+              edit_password:
+                type: string
+                description: form user id
+              edit_role:
+                type: string
+                description: user form role - "admin" , "write" , "read"
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
 
 definitions:
   Success:
