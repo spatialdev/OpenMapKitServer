@@ -1,5 +1,6 @@
 var xform2json = require('xform-to-json');
 var extend = require('xtend');
+var parseString = require('xml2js').parseString;
 
 var defaults = {
     geojson: false
@@ -26,15 +27,30 @@ function ProcessSubmission (options) {
             if (err) return next(err);
             var meta = options.geojson ? form.properties.meta : form.meta;
 
-            req.submission = {
-                json: form,
-                geojson: options.geojson,
-                xml: req.body,
-                formId: meta.formId,
-                instanceId: meta.instanceId.replace(/^uuid:/, '')
-            };
+            parseString(req.body, function (err, result) {
+                if(err) return next(err);
 
-            next();
+                req.submission = {
+                    json: form,
+                    geojson: options.geojson,
+                    xml: req.body,
+                    formId: meta.formId,
+                    instanceId: meta.instanceId.replace(/^uuid:/, '')
+                };
+
+                var formId = Object.keys(result)[0];
+
+                // forms with deprecatedID are EDITS
+                if (typeof result[formId]["meta"][0]["deprecatedID"] === "object") {
+                    req.submission["EDIT"] = {
+                        deprecatedID: result[formId]["meta"][0]["deprecatedID"][0]
+                    }
+                }
+
+                next();
+
+            });
+
         });
     }
 }
