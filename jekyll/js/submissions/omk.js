@@ -60,7 +60,7 @@ OMK.fetchJSON = function (url,cb) {
 
     $.ajax({
         url: url,
-        type: 'post',
+        type: 'get',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('id_token')
         },

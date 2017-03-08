@@ -7,17 +7,19 @@ var patchSubmissions = require('./controllers/patch-submissions');
 var uploadForm = require('./controllers/upload-form');
 var submitChangesets = require('./controllers/submit-changesets');
 var visstaMiddleware = require('./../custom/middlewares/vissta-auth-middleware');
+var getXmlSubmissions = require('./controllers/get-xml-submissions');
 
 /**
  * Aggregate End Points
  */
 
-router.route('/submissions').all(visstaMiddleware()).post(getSubmissionsList);
-router.route('/submissions/:formName.json').all(visstaMiddleware()).post(getJsonSubmissions);
-router.route('/submissions/:formName.csv').all(visstaMiddleware()).post(getCsvSubmissions);
+router.route('/submissions').all(visstaMiddleware()).get(getSubmissionsList);
+router.route('/submissions/:formName.json').all(visstaMiddleware()).get(getJsonSubmissions);
+router.route('/submissions/:formName.csv').all(visstaMiddleware()).get(getCsvSubmissions);
 router.route('/submissions/:formName.osm')
                 .get(getOsmSubmissions)
                 .patch(patchSubmissions);
+router.route('/submissions/:formName.xml').all(visstaMiddleware()).get(getXmlSubmissions);
 
 /**
  * XLSForm Upload Endpoint

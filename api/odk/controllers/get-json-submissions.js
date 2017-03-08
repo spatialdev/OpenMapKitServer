@@ -15,6 +15,8 @@ module.exports = function (req, res, next) {
         offset: req.query.offset
     };
 
+    var submissionId = req.query.submissionId;
+
     if (visstaUtil.isAuthEnabled()) {
 
         // check if user is authorized to access form
@@ -33,6 +35,15 @@ module.exports = function (req, res, next) {
             res.status(err.status).json(err);
             return;
         }
+
+        if(submissionId) {
+            //TODO make sure id exists
+            //TODO filter aggregate results by id
+
+            aggregate = aggregate.filter(function(s){return s.meta.instanceId === submissionId;})
+        }
+
         res.status(200).json(aggregate);
+
     }
 };
