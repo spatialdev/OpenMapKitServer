@@ -204,7 +204,7 @@ router.post('/user', function (req, res, next){
 /**
  * Edit user
  */
-router.patch('/user', function (req, res, next){
+router.patch('/user/:id', function (req, res, next){
 
     // check for authentication settings
     if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
@@ -216,9 +216,10 @@ router.patch('/user', function (req, res, next){
         var sql, sqlParams, undefinedBodyPars, invalidRoleType, db, password;
 
         req.sanitizeBody('edit_record_id').toInt();
+        req.sanitizeParams('id').toInt();
 
         // Make sure all body parameters are defined; if not throw error
-        undefinedBodyPars = [req.body.edit_record_id, req.body.edit_role, req.body.edit_username]
+        undefinedBodyPars = [req.params.id, req.body.edit_role, req.body.edit_username]
             .some(function(bodyPar, key){
                 return typeof bodyPar === 'undefined';
             });
@@ -243,7 +244,7 @@ router.patch('/user', function (req, res, next){
         sql = "  SELECT ___edit_user($1, $2, $3, $4, $5, $6, $7, $8);";
 
         // create user record
-        db.one(sql, [req.user.id, req.body.edit_record_id, req.body.edit_username, req.body.edit_first_name, req.body.edit_last_name, req.body.edit_email, password, req.body.edit_role.toLowerCase()])
+        db.one(sql, [req.user.id, req.params.id, req.body.edit_username, req.body.edit_first_name, req.body.edit_last_name, req.body.edit_email, password, req.body.edit_role.toLowerCase()])
             .then(function (results) {
                 // return success status
                 res.status(200).json({message:"success", status:200});
