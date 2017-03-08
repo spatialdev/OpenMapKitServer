@@ -67,6 +67,15 @@ new Vue({
 
     },
     methods: {
+        formatHeader: function (string) {
+
+            var removeChar = string.replace("_", " ");
+
+            var formattedString = removeChar.charAt(0).toUpperCase() + removeChar.slice(1);
+
+            return formattedString;
+
+        },
         createNewUser: function () {
 
             var vm = this;
@@ -136,6 +145,8 @@ new Vue({
 
 
             }, function (response) {
+
+                console.log("error: ", response);
 
             });
 

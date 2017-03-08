@@ -13,8 +13,8 @@ new Vue({
             credentials: {
                 // username: '',
                 // password: ''
-                username: 'superuser',
-                password: 'testsuperuser'
+                username: 'testuser1',
+                password: 'testuser1'
             },
             error: '',
             invalid: false,

@@ -18,20 +18,29 @@ mixins: header-mixin
                 <h3>User Account</h3>
                 <div class="editButotn" style="float: right;">
                   <!-- Colored FAB button -->
-                  <button class="mdl-button mdl-js-button mdl-button--fab" :class="{'activeButton' : editMode}" @click="toggleEditMode()">
+                  <button class="mdl-button mdl-js-button mdl-button--fab" v-if='!editMode' @click="toggleEditMode()">
                     <i class="material-icons">mode_edit</i>
                   </button>
+
+                  <button class="mdl-button mdl-js-button mdl-button--fab" style="width: 100%;" v-else @click="updateUserDetails()">
+                    Save
+                  </button>
+
                 </div>
             </div>
             <div class="section inputs" v-if="userDetails">
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left;">
-                    <input class="mdl-textfield__input" type="name" id="name" :disabled="!editMode" v-model="userDetails.first_name">
-                    <label class="mdl-textfield__label" for="name">Name</label>
+                    <input class="mdl-textfield__input" type="text" id="first" :disabled="!editMode" v-model="userDetails.first_name">
+                    <label class="mdl-textfield__label" for="first" v-if="userDetails.first_name.length == 0">First Name</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                    <input class="mdl-textfield__input" type="text" id="last" :disabled="!editMode" v-model="userDetails.last_name">
+                    <label class="mdl-textfield__label" for="last" v-if="userDetails.last_name.length == 0">Last name</label>
                   </div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
                     <input class="mdl-textfield__input" type="email" id="email" :disabled="!editMode" v-model="userDetails.email" >
-                    <label class="mdl-textfield__label" for="email">Email</label>
+                    <label class="mdl-textfield__label" for="email" v-if="userDetails.email.length == 0">Email</label>
                   </div>
 
             </div>

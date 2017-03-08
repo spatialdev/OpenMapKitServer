@@ -35,7 +35,7 @@ mixins: header-mixin
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
                   <thead>
                     <tr v-if="tableHeader">
-                      <th v-for='h in tableHeader'>[{h}]</th>
+                      <th v-for='h in tableHeader'>[{formatHeader(h)}]</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -81,7 +81,7 @@ mixins: header-mixin
         <div class="mdl-dialog__content">
             <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="username" v-model="newUser.username"
-              pattern="[A-Z,a-z, ]*">
+              pattern="[A-Z,a-z,0-9]*">
               <label class="mdl-textfield__label" for="username">username</label>
               <span class="mdl-textfield__error">Letters and spaces only</span>
             </div>

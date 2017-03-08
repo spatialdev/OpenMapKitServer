@@ -32,15 +32,12 @@ new Vue({
 
         dialog = document.querySelector('dialog');
 
-        // this.getUsersList();
-
-
         componentHandler.upgradeDom();
 
 
     },
     created() {
-        this.getUsersList();
+        this.getUserDetails();
     },
     methods: {
         toggleEditMode: function () {
@@ -64,7 +61,38 @@ new Vue({
 
             }
         },
-        getUsersList: function(){
+        updateUserDetails: function () {
+            var vm = this;
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+
+            var editedUser = {
+                id: this.userDetails.id,
+                edit_username: this.userDetails.username,
+                edit_first_name: this.userDetails.first_name,
+                edit_last_name: this.userDetails.last_name,
+                edit_email: this.userDetails.email,
+                edit_role: this.userDetails.role
+            }
+
+            // GET request
+            this.$http.patch(this.auth.user.url + '/custom/users/user/' + this.user.id, editedUser,params).then(response => {
+                    console.log(response.body);
+
+                    vm.getUserDetails();
+                    vm.editMode = false;
+
+                    componentHandler.upgradeDom();
+
+                  }, response => {
+                    // error callback
+                    console.log("error: ", response);
+                  });
+
+        },
+        getUserDetails: function(){
 
             var url = this.auth.user.url
 
@@ -80,7 +108,7 @@ new Vue({
 
                   }, response => {
                     // error callback
-                    console.log(err);
+                    console.log("error: ", response);
                   });
         },
         addUser: function () {
