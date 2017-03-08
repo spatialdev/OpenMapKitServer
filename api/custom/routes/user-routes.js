@@ -224,7 +224,7 @@ router.patch('/user/:id', function (req, res, next){
                 return typeof bodyPar === 'undefined';
             });
 
-        invalidRoleType = [req.body.edit_role.toLowerCase()]
+        invalidRoleType = [req.body.edit_role]
             .some(function(bodyPar, key){
                 return bodyPar !== 'read' && bodyPar !== 'write' && bodyPar !== 'admin'
             });
