@@ -148,6 +148,11 @@ a {
             margin-left: 1.5rem;
         }
 
+        .userLink{
+            color: #2B9BF5;
+            cursor: pointer;
+        }
+
         #addUser{
 
             .mdl-button {
@@ -161,10 +166,79 @@ a {
             }
 
         }
+}
+#activeUser {
 
+        .backLink{
+            padding-top: 40px;
+            color: #2B9BF5;
+            cursor: pointer;
+        }
+        .section{
+            width: 100%;
+            position: relative;
+        }
+
+        .mdl-button {
+            background: #7ebc6f;
+            color: #fff;
+            margin-left: 10px;
+            line-height: 0px;
+            padding: 12px 20px;
+            border-radius: 5px;
+            height: 45px;
+        }
+
+        .search{
+            position: relative;
+            float: right;
+        }
+        .s-icon{
+            position: absolute;
+            right: 0px;
+            top: 22px;
+            color: #B1B1B1;
+        }
+
+        .editButotn{
+            right: 10px;
+            position: absolute;
+            top: 10px;
+        }
+
+        .mdl-radio + .mdl-radio {
+            margin-left: 1.5rem;
+        }
+
+        #addUser{
+            .mdl-button {
+                background: none;
+                color: #2B9BF5;
+                margin-left: 10px;
+                line-height: 0px;
+                padding: 12px 20px;
+                border-radius: 5px;
+                height: 45px;
+            }
+        }
 
 
 }
+
+        .fade-enter-active {
+          transition: opacity .15s
+        }
+        .fade-leave-active {
+          transition: opacity .1s
+        }
+        .fade-enter{
+          opacity: 0
+        }
+        .fade-leave-to  {
+            opacity: 0;
+        }
+
+
 #userAccount {
 
         .backLink{

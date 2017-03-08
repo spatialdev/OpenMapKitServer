@@ -2,8 +2,6 @@
  * Created by renerodriguez on 2/27/16.
  */
 
-// Vue.config.debug = true;
-
 var dialog;
 
 new Vue({
@@ -27,9 +25,28 @@ new Vue({
                 last_name: null,
                 email: null,
                 role: "admin"
-            }
+            },
+            activeUser: null,
+            editMode: false,
+            isFocused: false
         }
 
+    },
+    watch: {
+        'activeUser': function () {
+
+            // if (this.activeUser == null) {
+                setTimeout(function () {
+                    dialog = document.querySelector('dialog');
+                    // componentHandler.upgradeAllRegistered();
+                    componentHandler.upgradeDom();
+                }, 500);
+
+            // }
+
+
+
+        }
     },
     computed: {
 
@@ -70,6 +87,10 @@ new Vue({
         formatHeader: function (string) {
 
             var removeChar = string.replace("_", " ");
+
+
+
+            // var formattedString = removeChar.charAt(0).toUpperCase() + removeChar.slice(1);
 
             var formattedString = removeChar.charAt(0).toUpperCase() + removeChar.slice(1);
 
@@ -177,7 +198,87 @@ new Vue({
 
             this.newUser = resetUser;
 
+        },
+
+        /*
+            ACTIVE USER METHODS
+        */
+        toggleEditMode: function () {
+            this.editMode = !this.editMode;
+            this.focusingAllInputs();
+            componentHandler.upgradeDom();
+        },
+        focusingAllInputs: function () {
+            var vm = this;
+
+            if(this.editMode){
+
+                componentHandler.upgradeDom();
+                this.isFocused = true;
+                componentHandler.upgradeDom();
+                //register the mdl menus on each card
+                setTimeout(function () {
+                    vm.isFocused = false;
+                    componentHandler.upgradeDom();
+                }, 1000);
+
+            }
+        },
+        updateUserDetails: function () {
+            var vm = this;
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+
+            var editedUser = {
+                id: this.activeUser.id,
+                edit_username: this.activeUser.username,
+                edit_first_name: this.activeUser.first_name,
+                edit_last_name: this.activeUser.last_name,
+                edit_email: this.activeUser.email,
+                edit_role: this.activeUser.role
+            }
+
+            // GET request
+            this.$http.patch(this.auth.user.url + '/custom/users/user/' + this.activeUser.id, editedUser,params).then(response => {
+                    console.log(response.body);
+
+                    vm.getUserDetails(vm.activeUser.id);
+                    vm.editMode = false;
+
+                    componentHandler.upgradeDom();
+
+                  }, response => {
+                    // error callback
+                    console.log("error: ", response);
+                  });
+
+        },
+        getUserDetails: function(id){
+
+            var url = this.auth.user.url
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+            // GET request
+            this.$http.get(url + '/custom/tables/vw_omk_user_details/' + id, params).then(response => {
+                    console.log(response.body);
+
+                    this.activeUser = response.body;
+
+                    componentHandler.upgradeDom();
+
+                  }, response => {
+                    // error callback
+                    console.log("error: ", response);
+                  });
         }
+
+
+
+
 
     }
 })

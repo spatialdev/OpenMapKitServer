@@ -7,13 +7,14 @@ mixins: header-mixin
 
 <div class="page-content">
 
-    <div id="userManagement">
+<transition name="fade">
 
+    <div id="userManagement"  v-if="activeUser == null">
         <div class="mdl-grid" >
 
-            <a href="/omk/pages/forms/" class="backLink">
-                < Back to forms page
-            </a>
+            <!-- <a href="/omk/pages/forms/" class="backLink">
+                < Back to user management
+            </a> -->
             <div class="section header">
                 <h3>User Management</h3>
             </div>
@@ -42,9 +43,7 @@ mixins: header-mixin
                     <tr v-for="data in filteredData">
                        <template>
 
-                          <!-- <td v-for="header in tableHeader" ">[{data[[header]]}]</td> -->
-
-                          <td v-for="header in tableHeader" >
+                          <td v-for="header in tableHeader">
 
                             <span v-if="header === 'admin'">
                               <i class="material-icons" v-if="data[header]">done</i>
@@ -54,6 +53,9 @@ mixins: header-mixin
                             </span>
                             <span v-else-if="header === 'write'">
                               <i class="material-icons" v-if="data[header]">done</i>
+                            </span>
+                            <span v-else-if="header === 'username'" @click="getUserDetails(data['id'])" class="userLink">
+                              [{data[[header]]}]
                             </span>
                             <span v-else>
                               [{data[[header]]}]
@@ -67,93 +69,219 @@ mixins: header-mixin
                 </table>
 
             </div>
-
         </div>
-
-
         <!-- Enketo Dialog -->
-<dialog id="addUser" class="mdl-dialog">
+      <dialog id="addUser" class="mdl-dialog">
 
-    <div v-show="!userAdded">
-        <h6 class="mdl-dialog__title">
-          <i class="material-icons">person_add</i> Add user
-        </h6>
-        <div class="mdl-dialog__content">
-            <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="username" v-model="newUser.username"
-              pattern="[A-Z,a-z,0-9]*">
-              <label class="mdl-textfield__label" for="username">username</label>
-              <span class="mdl-textfield__error">Letters and spaces only</span>
+          <div v-show="!userAdded">
+              <h6 class="mdl-dialog__title">
+                <i class="material-icons">person_add</i> Add user
+              </h6>
+              <div class="mdl-dialog__content">
+                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="username" v-model="newUser.username"
+                    pattern="[A-Z,a-z,0-9]*">
+                    <label class="mdl-textfield__label" for="username">username</label>
+                    <span class="mdl-textfield__error">Letters and spaces only</span>
+                  </div>
+                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="password" v-model="newUser.password">
+                    <label class="mdl-textfield__label" for="password">password</label>
+                  </div>
+                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="first_name" v-model="newUser.first_name">
+                    <label class="mdl-textfield__label" for="first_name">first name</label>
+                  </div>
+                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="last_name" v-model="newUser.last_name">
+                    <label class="mdl-textfield__label" for="last_name">last name</label>
+                  </div>
+                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="email" v-model="newUser.email">
+                    <label class="mdl-textfield__label" for="email">email</label>
+                  </div>
+
+                  <h5>Permissions:</h5>
+
+                  <div>
+
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                      <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="newUser.role">
+                      <span class="mdl-radio__label">System Admin</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                      <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
+                      v-model="newUser.role">
+                      <span class="mdl-radio__label">Read & edit</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                      <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
+                      v-model="newUser.role">
+                      <span class="mdl-radio__label">Read only</span>
+                    </label>
+
+                  </div>
+
+              </div>
+              <div class="mdl-dialog__actions">
+                  <a>
+                      <button type="button" class="mdl-button mdl-js-button" @click="createNewUser()"
+                      :disabled="!validateUserFrom">SUBMIT</button>
+                  </a>
+                  <button type="button" class="mdl-button mdl-js-button" @click="closeDialog()">CANCEL</button>
+              </div>
+
+          </div>
+          <div v-show="userAdded">
+
+            <h6 class="mdl-dialog__title">
+                <i class="material-icons">person_add</i> Add user
+              </h6>
+              <div class="mdl-dialog__content">
+                <p>The new user has been added.</p>
+              </div>
+              <div class="mdl-dialog__actions">
+                  <button type="button" class="mdl-button mdl-js-button closeDial" @click="closeDialog()">Close</button>
+              </div>
+
+          </div>
+
+      </dialog>
+    </div>
+
+  </transition>
+
+<transition name="fade">
+    <div id="activeUser" v-if="activeUser != null">
+
+      <div class="mdl-grid" >
+
+            <span class="backLink" @click="activeUser = null">
+                < Back to user management
+            </span>
+
+            <div class="section header">
+                <h3>User account</h3>
+                <div class="editButotn" style="float: right;">
+                  <!-- Colored FAB button -->
+                  <button class="mdl-button mdl-js-button mdl-button--fab" v-if='!editMode' @click="toggleEditMode()">
+                    <i class="material-icons">mode_edit</i>
+                  </button>
+                  <button class="mdl-button mdl-js-button mdl-button--fab" style="width: 100%;" v-else @click="updateUserDetails()">
+                    Save
+                  </button>
+                </div>
             </div>
-            <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="password" v-model="newUser.password">
-              <label class="mdl-textfield__label" for="password">password</label>
+            <div class="section inputs" v-if="activeUser != null">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left;">
+                    <input class="mdl-textfield__input" type="text" id="first" :disabled="!editMode" v-model="activeUser.first_name">
+                    <label class="mdl-textfield__label" for="first" v-if="activeUser.first_name != null">First Name</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                    <input class="mdl-textfield__input" type="text" id="last" :disabled="!editMode" v-model="activeUser.last_name">
+                    <label class="mdl-textfield__label" for="last" v-if="activeUser.last_name != null">Last name</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                    <input class="mdl-textfield__input" type="email" id="email" :disabled="!editMode" v-model="activeUser.email" >
+                    <label class="mdl-textfield__label" for="email" v-if="activeUser.email != null">Email</label>
+                  </div>
             </div>
-            <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="first_name" v-model="newUser.first_name">
-              <label class="mdl-textfield__label" for="first_name">first name</label>
-            </div>
-            <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="last_name" v-model="newUser.last_name">
-              <label class="mdl-textfield__label" for="last_name">last name</label>
-            </div>
-            <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="email" v-model="newUser.email">
-              <label class="mdl-textfield__label" for="email">email</label>
+            <div class="section">
+              <span>List of survey forms this user is assigned to:</span>
+              <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
+                @click="" style="float: right;">
+                  <i class="material-icons">add</i> ADD FORM
+                </button>
             </div>
 
-            <h5>Permissions:</h5>
+            <div class="section table">
 
-            <div>
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
+                  <thead>
+                    <tr v-if="tableHeader">
+                      <th>Form Title</th>
+                      <th>Sys Admin</th>
+                      <th>Reader</th>
+                      <th>Writer</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="form in activeUser.formPermissions">
+                       <template>
 
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="newUser.role">
-                <span class="mdl-radio__label">System Admin</span>
-              </label>
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
-                v-model="newUser.role">
-                <span class="mdl-radio__label">Read & edit</span>
-              </label>
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
-                v-model="newUser.role">
-                <span class="mdl-radio__label">Read only</span>
-              </label>
+                       <td>
+                         [{form.form_id}]
+                       </td>
+                       <td>
+                         <div v-show="!editMode">
+                           <i class="material-icons" v-if="form.admin">done</i>
+                         </div>
+                         <div v-show="editMode">
+                           <label class="mdl-radio mdl-js-radio" :for="form.form_id">
+                             <input type="radio" :id="form.form_id" class="mdl-radio__button" name="options" value="1" :checked="form.admin">
+                           </label>
+                         </div>
+
+                       </td>
+                       <td>
+                          <div v-show="!editMode">
+                            <i class="material-icons" v-if="form.read">done</i>
+                          </div>
+                          <div v-show="editMode">
+                            <label class="mdl-radio mdl-js-radio" :for="form.form_id">
+                              <input type="radio" :id="form.form_id" class="mdl-radio__button" name="options" value="1" :checked="form.read">
+                            </label>
+                          </div>
+
+                       </td>
+                       <td>
+                          <div v-show="!editMode">
+                           <i class="material-icons" v-if="form.write">done</i>
+                         </div>
+                         <div v-show="editMode">
+                            <label class="mdl-radio mdl-js-radio" :for="form.form_id">
+                              <input type="radio" :id="form.form_id" class="mdl-radio__button" name="options" value="1" :checked="form.write">
+                            </label>
+                          </div>
+                       </td>
+
+                          <!-- <td v-for="header in tableHeader">
+
+                            <span v-if="header === 'admin'">
+                              <i class="material-icons" v-if="data[header]">done</i>
+                            </span>
+                            <span v-else-if="header === 'read'">
+                              <i class="material-icons" v-if="data[header]">done</i>
+                            </span>
+                            <span v-else-if="header === 'write'">
+                              <i class="material-icons" v-if="data[header]">done</i>
+                            </span>
+                            <span v-else-if="header === 'username'" @click="getUserDetails(data['id'])" class="userLink">
+                              [{data[[header]]}]
+                            </span>
+                            <span v-else>
+                              [{data[[header]]}]
+                            </span> -->
+
+                          <!-- </td> -->
+                          <td ><i class="material-icons">delete</i></td>
+                       </template >
+                    </tr>
+                  </tbody>
+                </table>
+
 
             </div>
 
-        </div>
-        <div class="mdl-dialog__actions">
-            <a>
-                <button type="button" class="mdl-button mdl-js-button" @click="createNewUser()"
-                :disabled="!validateUserFrom">SUBMIT</button>
-            </a>
-            <button type="button" class="mdl-button mdl-js-button" @click="closeDialog()">CANCEL</button>
-        </div>
+
+
+
+
+      </div>
 
     </div>
-    <div v-show="userAdded">
-
-      <h6 class="mdl-dialog__title">
-          <i class="material-icons">person_add</i> Add user
-        </h6>
-        <div class="mdl-dialog__content">
-          <p>The new user has been added.</p>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button mdl-js-button closeDial" @click="closeDialog()">Close</button>
-        </div>
-
-    </div>
-
-
-
-
-</dialog>
-
-
-    </div>
+</transition>
 
 </div>
 
