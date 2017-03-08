@@ -362,7 +362,7 @@ paths:
                         read:
                           type: boolean
                           description: read privileges
-  /users/form/role:
+  /users/{user_id}/form/{form_id}:
     post:
       security:
         - Bearer: []
@@ -371,18 +371,22 @@ paths:
       tags:
         - users
       parameters:
+        - name: form_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid form id"
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid user id"
         - name: body
           in: body
           required: true
           schema:
             type: object
             properties:
-              form_user_id:
-                type: string
-                description: form user id
-              form_id:
-                type: id
-                description: form id
               new_user_role:
                 type: string
                 description: user form role - "admin" , "write" , "read"
@@ -394,21 +398,26 @@ paths:
       tags:
         - users
       parameters:
+        - name: form_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid form id"
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid user id"
         - name: body
           in: body
           required: true
           schema:
             type: object
             properties:
-              form_user_id:
+              role:
                 type: string
-                description: form user id
-              form_id:
-                type: integer
-                description: form id
-              role_id:
-                type: integer
-                description: role id
+                description: user form role - "admin" , "write" , "read"
+
 
       responses:
         '200':
@@ -454,6 +463,8 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/Success'
+
+  /users/user/{id}:
     patch:
       security:
         - Bearer: []
@@ -462,15 +473,17 @@ paths:
       tags:
         - users
       parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: "A valid user id."
         - name: body
           in: body
           required: true
           schema:
             type: object
             properties:
-              edit_record_id:
-                type: string
-                description: username
               edit_username:
                 type: id
                 description: password

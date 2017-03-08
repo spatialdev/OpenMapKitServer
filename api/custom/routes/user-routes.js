@@ -55,7 +55,7 @@ router.post('/authenticate', function (req, res, next) {
 /**
  * Create user form role
  */
-router.post('/form/role', function (req, res, next){
+router.post('/user/:user_id/form/:form_id', function (req, res, next){
 
     // check for authentication settings
     if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
@@ -66,11 +66,8 @@ router.post('/form/role', function (req, res, next){
     if (req.user.role === "admin"){
         var sql, sqlParams, undefinedBodyPars, db;
 
-        req.sanitizeBody('form_user_id').toInt();
-        req.sanitizeBody('form_id').toInt();
-
         // Make sure all body parameters are defined; if not throw error
-        undefinedBodyPars = [req.body.form_user_id, req.body.form_id, req.body.new_user_role]
+        undefinedBodyPars = [req.body.new_user_role]
             .some(function(bodyPar, key){
                 return typeof bodyPar === 'undefined';
             });
@@ -88,7 +85,7 @@ router.post('/form/role', function (req, res, next){
         sql = "SELECT ___assign_user_form ($1,$2,$3,$4)";
 
         // Request data from the database
-        db.one(sql, [req.user.id, req.body.form_user_id, req.body.form_id, req.body.new_user_role])
+        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.new_user_role])
             .then(function (results) {
                 // return new form role info
                 var form_role = JSON.parse(results["___assign_user_form"])[0];
@@ -108,7 +105,7 @@ router.post('/form/role', function (req, res, next){
 /**
  * Delete user form role
  */
-router.delete('/form/role', function (req, res, next){
+router.delete('/user/:user_id/form/:form_id', function (req, res, next){
 
     // check for authentication settings
     if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
@@ -119,12 +116,8 @@ router.delete('/form/role', function (req, res, next){
     if (req.user.role === "admin"){
         var sql, sqlParams, undefinedBodyPars, db;
 
-        req.sanitizeBody('form_user_id').toInt();
-        req.sanitizeBody('form_id').toInt();
-        req.sanitizeBody('role_id').toInt();
-
         // Make sure all body parameters are defined; if not throw error
-        undefinedBodyPars = [req.body.form_user_id, req.body.form_id, req.body.role_id]
+        undefinedBodyPars = [req.body.role]
             .some(function(bodyPar, key){
                 return typeof bodyPar === 'undefined';
             });
@@ -142,11 +135,10 @@ router.delete('/form/role', function (req, res, next){
         sql = "SELECT ___delete_user_form_role ($1,$2,$3,$4)";
 
         // Request data from the database
-        db.one(sql, [req.user.id, req.body.form_user_id, req.body.form_id, req.body.role_id])
+        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.role])
             .then(function (results) {
                 // return new form role info
                 res.status(200).json({message:"success", status:200});
-
             })
             .catch(function (error) {
                 // send back error
@@ -215,7 +207,6 @@ router.patch('/user/:id', function (req, res, next){
     if (req.user.role === "admin"){
         var sql, sqlParams, undefinedBodyPars, invalidRoleType, db, password;
 
-        req.sanitizeBody('edit_record_id').toInt();
         req.sanitizeParams('id').toInt();
 
         // Make sure all body parameters are defined; if not throw error
