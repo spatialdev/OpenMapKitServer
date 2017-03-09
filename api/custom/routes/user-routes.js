@@ -67,7 +67,7 @@ router.post('/user/:user_id/form/:form_id', function (req, res, next){
         var sql, sqlParams, undefinedBodyPars, db;
 
         // Make sure all body parameters are defined; if not throw error
-        undefinedBodyPars = [req.body.new_user_role]
+        undefinedBodyPars = [req.body.role]
             .some(function(bodyPar, key){
                 return typeof bodyPar === 'undefined';
             });
@@ -85,7 +85,7 @@ router.post('/user/:user_id/form/:form_id', function (req, res, next){
         sql = "SELECT ___assign_user_form ($1,$2,$3,$4)";
 
         // Request data from the database
-        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.new_user_role])
+        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.role])
             .then(function (results) {
                 // return new form role info
                 var form_role = JSON.parse(results["___assign_user_form"])[0];
@@ -116,26 +116,11 @@ router.delete('/user/:user_id/form/:form_id', function (req, res, next){
     if (req.user.role === "admin"){
         var sql, sqlParams, undefinedBodyPars, db;
 
-        // Make sure all body parameters are defined; if not throw error
-        undefinedBodyPars = [req.body.role]
-            .some(function(bodyPar, key){
-                return typeof bodyPar === 'undefined';
-            });
-
-        if(undefinedBodyPars) {
-            return next(new CustomError('Missing required parameters', 400));
-        }
-
-        var validationErrors = req.validationErrors();
-        if(validationErrors.length > 0) {
-            return next(new CustomError(validationErrors[0].msg, 400));
-        }
-
         db = pgb.getDatabase();
-        sql = "SELECT ___delete_user_form_role ($1,$2,$3,$4)";
+        sql = "SELECT ___delete_user_form_role ($1,$2,$3)";
 
         // Request data from the database
-        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.role])
+        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id])
             .then(function (results) {
                 // return new form role info
                 res.status(200).json({message:"success", status:200});
@@ -165,7 +150,7 @@ router.patch('/user/:user_id/form/:form_id', function (req, res, next){
         var sql, sqlParams, undefinedBodyPars, db;
 
         // Make sure all body parameters are defined; if not throw error
-        undefinedBodyPars = [req.body.edit_role, req.body.role]
+        undefinedBodyPars = [req.body.role]
             .some(function(bodyPar, key){
                 return typeof bodyPar === 'undefined';
             });
@@ -174,16 +159,11 @@ router.patch('/user/:user_id/form/:form_id', function (req, res, next){
             return next(new CustomError('Missing required parameters', 400));
         }
 
-        var validationErrors = req.validationErrors();
-        if(validationErrors.length > 0) {
-            return next(new CustomError(validationErrors[0].msg, 400));
-        }
-
         db = pgb.getDatabase();
-        sql = "SELECT ___edit_user_form_role ($1,$2,$3,$4,$5)";
+        sql = "SELECT ___edit_user_form_role ($1,$2,$3,$4)";
 
         // Request data from the database
-        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.edit_role, req.body.role])
+        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.role])
             .then(function (results) {
                 // return new form role info
                 res.status(200).json({message:"success", status:200});
