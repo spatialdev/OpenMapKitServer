@@ -34,18 +34,11 @@ new Vue({
     },
     watch: {
         'activeUser': function () {
-
-            // if (this.activeUser == null) {
                 setTimeout(function () {
                     dialog = document.querySelector('dialog');
                     // componentHandler.upgradeAllRegistered();
                     componentHandler.upgradeDom();
                 }, 500);
-
-            // }
-
-
-
         }
     },
     computed: {
@@ -84,6 +77,27 @@ new Vue({
 
     },
     methods: {
+        setOthersToFalse: function (form, type) {
+
+            form[type] = true;
+
+
+            setTimeout(function () {
+
+                var orale = ["admin", "write", "read"]
+
+                    orale.forEach(function(t) {
+                      if (t != type) {
+                        form[t] = false;
+                      }
+                    });
+
+                    componentHandler.upgradeDom();
+
+            }, 100);
+
+
+        },
         formatHeader: function (string) {
 
             var removeChar = string.replace("_", " ");

@@ -199,15 +199,15 @@ mixins: header-mixin
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
                   <thead>
                     <tr v-if="tableHeader">
-                      <th>Form Title</th>
-                      <th>Sys Admin</th>
+                      <th>Form title</th>
+                      <th>Sys admin</th>
                       <th>Reader</th>
                       <th>Writer</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="form in activeUser.formPermissions">
+                    <tr v-for="(form, index) in activeUser.formPermissions">
                        <template>
 
                        <td>
@@ -218,9 +218,8 @@ mixins: header-mixin
                            <i class="material-icons" v-if="form.admin">done</i>
                          </div>
                          <div v-show="editMode">
-                           <label class="mdl-radio mdl-js-radio" :for="form.form_id">
-                             <input type="radio" :id="form.form_id" class="mdl-radio__button" name="options" value="1" :checked="form.admin">
-                           </label>
+                            <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">done</i>
                          </div>
 
                        </td>
@@ -229,42 +228,21 @@ mixins: header-mixin
                             <i class="material-icons" v-if="form.read">done</i>
                           </div>
                           <div v-show="editMode">
-                            <label class="mdl-radio mdl-js-radio" :for="form.form_id">
-                              <input type="radio" :id="form.form_id" class="mdl-radio__button" name="options" value="1" :checked="form.read">
-                            </label>
+                            <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
                           </div>
 
                        </td>
                        <td>
                           <div v-show="!editMode">
-                           <i class="material-icons" v-if="form.write">done</i>
-                         </div>
-                         <div v-show="editMode">
-                            <label class="mdl-radio mdl-js-radio" :for="form.form_id">
-                              <input type="radio" :id="form.form_id" class="mdl-radio__button" name="options" value="1" :checked="form.write">
-                            </label>
+                            <i class="material-icons" v-if="form.write">done</i>
+                          </div>
+                          <div v-show="editMode">
+                            <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
                           </div>
                        </td>
 
-                          <!-- <td v-for="header in tableHeader">
-
-                            <span v-if="header === 'admin'">
-                              <i class="material-icons" v-if="data[header]">done</i>
-                            </span>
-                            <span v-else-if="header === 'read'">
-                              <i class="material-icons" v-if="data[header]">done</i>
-                            </span>
-                            <span v-else-if="header === 'write'">
-                              <i class="material-icons" v-if="data[header]">done</i>
-                            </span>
-                            <span v-else-if="header === 'username'" @click="getUserDetails(data['id'])" class="userLink">
-                              [{data[[header]]}]
-                            </span>
-                            <span v-else>
-                              [{data[[header]]}]
-                            </span> -->
-
-                          <!-- </td> -->
                           <td ><i class="material-icons">delete</i></td>
                        </template >
                     </tr>

@@ -84,6 +84,11 @@ a {
         color: #000;
 }
 
+.mdl-data-table td, .mdl-data-table th {
+    padding: 0 18px 12px 18px;
+    text-align: center;
+}
+
 #headerContainer {
 
     .mdl-button {
