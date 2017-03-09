@@ -151,6 +151,54 @@ router.delete('/user/:user_id/form/:form_id', function (req, res, next){
 });
 
 /**
+ * Patch user form role
+ */
+router.patch('/user/:user_id/form/:form_id', function (req, res, next){
+
+    // check for authentication settings
+    if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
+        next(new CustomError('Missing authentication settings', 500));
+    }
+
+    // must be an admin
+    if (req.user.role === "admin"){
+        var sql, sqlParams, undefinedBodyPars, db;
+
+        // Make sure all body parameters are defined; if not throw error
+        undefinedBodyPars = [req.body.edit_role, req.body.role]
+            .some(function(bodyPar, key){
+                return typeof bodyPar === 'undefined';
+            });
+
+        if(undefinedBodyPars) {
+            return next(new CustomError('Missing required parameters', 400));
+        }
+
+        var validationErrors = req.validationErrors();
+        if(validationErrors.length > 0) {
+            return next(new CustomError(validationErrors[0].msg, 400));
+        }
+
+        db = pgb.getDatabase();
+        sql = "SELECT ___edit_user_form_role ($1,$2,$3,$4,$5)";
+
+        // Request data from the database
+        db.one(sql, [req.user.id, req.params.user_id, req.params.form_id, req.body.edit_role, req.body.role])
+            .then(function (results) {
+                // return new form role info
+                res.status(200).json({message:"success", status:200});
+            })
+            .catch(function (error) {
+                // send back error
+                return next(new CustomError(error.message, 400));
+            });
+    } else {
+        next(new CustomError("The user is not authorized to make the request.", 401));
+    }
+
+});
+
+/**
  * Create user
  */
 router.post('/user', function (req, res, next){

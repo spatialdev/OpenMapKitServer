@@ -343,6 +343,24 @@
 
       
 
+        <a class="nav-group-links" href="#/users/{user_id}/form/{form_id}_patch">
+          <li class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
+             background-color: #ff9000;
+            ">PATCH
+          </div>
+            /users/{user_id}/form/{form_id}
+        </span>
+        </li>
+        </a>
+
+      
+
+      
+
+      
+
       
       
 
@@ -2229,6 +2247,109 @@
                         <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
                         <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
                         <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user form role - &quot;admin&quot; , &quot;write&quot; , &quot;read&quot;</td>
+
+                      </tr>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+                
+                <section>
+                  <div style=" margin: .3em 0 .5em;">
+
+                    
+
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+            <div style="font-family: sans-serif;
+                  list-style-type: none;
+                  border-radius: 3px;
+                  position: relative;
+                  border: 1px solid #949493;
+                  background-color: #fff;
+                  margin-bottom: 30px">
+              <header style="overflow: hidden;
+                     cursor: pointer;
+                     display: table;
+                     width: 100%;
+                     min-height: 31px;
+                      background-color:  rgba(255,144,0,.1);
+                        ">
+                <div style="    font-family: monospace;
+                        font-size: 1pc;
+                        padding: .5em;
+                        display: table-cell;
+                        border-top-left-radius: 1px;
+                        margin-right: .4em;
+                        min-width: 68px;
+                        text-align: center;
+                         background-color: #ff9000;
+                        
+                        color: #ffffff;
+                        float:left"><a style="color:#FFFFFF" name="/users/{user_id}/form/{form_id}_patch">/users/{user_id}/form/{form_id} PATCH</a>
+                </div>
+              </header>
+              <div style="padding: 0 1em; font-size: 13px">
+                <section>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Edit user form role</h4>
+                </section>
+                <section>
+                  <p style="margin: 0 0 12px;">Edit a user&#39;s role with a specifed form</p>
+                </section>
+                
+                <section>
+                  <h4 style="font-size: 15px;line-height: 1.1;">Parameters</h4>
+
+                  <div style="margin: .3em 0 .5em;">
+                    <table style="width: 100%;border-collapse: collapse;">
+                      <thead>
+                      <tr style="background-color: #f7f7f7; font-size: 14px">
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Name</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">In</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Required</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid">Type</th>
+                        <th style="padding: 6px 8px;border: #e0e0e0 1px solid; width: 50%;">Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">path</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">true</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">A valid form id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user_id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">path</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">true</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">A valid user id</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_role</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">The current form role of user  - &quot;admin&quot; , &quot;write&quot; , &quot;read&quot;</td>
+
+                      </tr>
+                      
+                      <tr>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">role</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">The desired form role of user - &quot;admin&quot; , &quot;write&quot; , &quot;read&quot;</td>
 
                       </tr>
                       

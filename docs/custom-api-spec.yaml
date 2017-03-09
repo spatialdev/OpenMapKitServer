@@ -418,6 +418,36 @@ paths:
                 type: string
                 description: user form role - "admin" , "write" , "read"
 
+    patch:
+      security:
+        - Bearer: []
+      summary: Edit user form role
+      description: Edit a user's role with a specifed form
+      tags:
+        - users
+      parameters:
+        - name: form_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid form id"
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid user id"
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              edit_role:
+                type: string
+                description: The current form role of user  - "admin" , "write" , "read"
+              role:
+                type: string
+                description: The desired form role of user - "admin" , "write" , "read"
 
       responses:
         '200':
