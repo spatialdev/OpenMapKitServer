@@ -225,6 +225,33 @@ new Vue({
         /*
             ACTIVE USER METHODS
         */
+        deleteFormAssigment: function (id) {
+            var vm = this;
+
+            // var id = this.formList.find(formID)
+
+            var newFormAssignment = {
+                    form_id: id,
+                    user_id: this.activeUser.id
+                }
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+
+            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id, params).then(function (response) {
+
+                console.log("DELETED createNewFormAssignment", response);
+
+                vm.getUserDetails(vm.activeUser.id);
+
+            }, function (response) {
+
+                console.log("ERROR new user", response);
+
+            });
+
+        },
         createNewFormAssignment: function () {
 
             var vm = this;
@@ -245,7 +272,6 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            // Get enketo-express URL
             this.$http.post(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id.id, newFormAssignment, params).then(function (response) {
 
                 console.log("create createNewFormAssignment", response);

@@ -243,7 +243,7 @@ mixins: header-mixin
                           </div>
                        </td>
 
-                          <td ><i class="material-icons">delete</i></td>
+                          <td ><i class="material-icons" @click="deleteFormAssigment(form.id)" style="color:red;">delete</i></td>
                        </template >
                     </tr>
                   </tbody>
@@ -307,7 +307,7 @@ mixins: header-mixin
           <div v-show="formAdded">
 
             <h6 class="mdl-dialog__title">
-                <i class="material-icons">add</i> Added user
+                <i class="material-icons">add</i> Added Form
               </h6>
               <div class="mdl-dialog__content">
                 <p>The new form has been added to user.</p>
