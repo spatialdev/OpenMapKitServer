@@ -243,6 +243,24 @@ a {
             opacity: 0;
         }
 
+        select {
+          font-family: inherit;
+          background-color: transparent;
+          width: 100%;
+          padding: 20 0;
+          font-size: 16px;
+          // color: $select-color;
+          border: none;
+          border-bottom: 1px solid gray;
+        }
+
+        /* Remove focus */
+        select:focus {
+          outline: none
+        }
+
+
+
 
 #userAccount {
 

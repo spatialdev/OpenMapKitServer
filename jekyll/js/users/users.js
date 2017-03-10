@@ -4,6 +4,8 @@
 
 var dialog;
 
+var formDialog;
+
 new Vue({
     el: '#usersPage',
     name: 'UsersPage',
@@ -28,7 +30,12 @@ new Vue({
             },
             activeUser: null,
             editMode: false,
-            isFocused: false
+            isFocused: false,
+            formAdded: false,
+            formList: [],
+            selectedForm: null,
+            selectedFormRole: 'write'
+
         }
 
     },
@@ -36,8 +43,12 @@ new Vue({
         'activeUser': function () {
                 setTimeout(function () {
                     dialog = document.querySelector('dialog');
+
+                    formDialog = document.querySelector('#addForm-dialog');
                     // componentHandler.upgradeAllRegistered();
                     componentHandler.upgradeDom();
+
+                    console.log("componentHandler.upgradeDom();")
                 }, 500);
         }
     },
@@ -74,6 +85,7 @@ new Vue({
         dialog = document.querySelector('dialog');
 
         this.getUsersList();
+        this.getFormList();
 
     },
     methods: {
@@ -173,12 +185,6 @@ new Vue({
 
                 this.createTabHeaders();
 
-                //register the mdl menus on each card
-                // setTimeout(function () {
-                //     componentHandler.upgradeAllRegistered();
-                // }, 500);
-
-
             }, function (response) {
 
                 console.log("error: ", response);
@@ -191,12 +197,14 @@ new Vue({
             // show dialog
             dialog.showModal();
 
+
         },
         closeDialog: function () {
             var vm = this;
             if (dialog) {
                     dialog.close();
                     vm.userAdded = false;
+                    vm.formAdded = false;
             }
         },
         clearUserMeta: function () {
@@ -217,6 +225,92 @@ new Vue({
         /*
             ACTIVE USER METHODS
         */
+        createNewFormAssignment: function () {
+
+            var vm = this;
+
+            function formID(form) {
+                return form.form_id === vm.selectedForm;
+            }
+
+            var id = this.formList.find(formID)
+
+            var newFormAssignment = {
+                    form_id: id.id,
+                    user_id: this.activeUser.id,
+                    role: this.selectedFormRole
+                }
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+
+            // Get enketo-express URL
+            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id.id, newFormAssignment, params).then(function (response) {
+
+                console.log("create createNewFormAssignment", response);
+                vm.selectedForm = null;
+                vm.selectedFormRole = "write";
+
+                vm.getUserDetails(vm.activeUser.id);
+
+                vm.formAdded = true;
+
+            }, function (response) {
+
+                console.log("ERROR new user", response);
+
+            });
+
+
+
+
+
+        },
+        selectedFormItem: function (form) {
+
+            this.selectedForm = form.form_id
+
+        },
+        getFormList: function(){
+
+            var url = this.auth.user.url
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+            // GET request
+            this.$http.get(url + '/custom/tables/omk_forms', params).then(function (response) {
+
+                console.log("FormList: ", response);
+
+                this.formList = response.data;
+
+            }, function (response) {
+
+                console.log("error: ", response);
+
+            });
+
+        },
+        addForm: function () {
+
+            if(!formDialog){
+                formDialog = document.querySelector('#addForm-dialog');
+            }
+
+
+            // show dialog
+            formDialog.showModal();
+
+            setTimeout(function () {
+                    // componentHandler.upgradeAllRegistered();
+                    componentHandler.upgradeDom();
+
+                    console.log("componentHandler.upgradeDom();")
+                }, 500);
+
+        },
         toggleEditMode: function () {
             this.editMode = !this.editMode;
             this.focusingAllInputs();
