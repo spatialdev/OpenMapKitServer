@@ -6,6 +6,8 @@ var dialog;
 
 var formDialog;
 
+var deleteFormDialog;
+
 new Vue({
     el: '#usersPage',
     name: 'UsersPage',
@@ -45,6 +47,8 @@ new Vue({
                     dialog = document.querySelector('dialog');
 
                     formDialog = document.querySelector('#addForm-dialog');
+
+                    deleteFormDialog = document.querySelector('#deleteForm-dialog');
                     // componentHandler.upgradeAllRegistered();
                     componentHandler.upgradeDom();
 
@@ -225,13 +229,48 @@ new Vue({
         /*
             ACTIVE USER METHODS
         */
-        deleteFormAssigment: function (id) {
+        closeDeleteDialog: function () {
+            if (deleteFormDialog) {
+                    deleteFormDialog.close();
+            }
+        },
+        deleteDialog: function (selectForm) {
+
+            this.selectedForm = selectForm;
+
+
+
+            if(!deleteFormDialog){
+                deleteFormDialog = document.querySelector('#deleteForm-dialog');
+            }
+
+
+            // show dialog
+            deleteFormDialog.showModal();
+
+            setTimeout(function () {
+                    // componentHandler.upgradeAllRegistered();
+                    componentHandler.upgradeDom();
+
+                    console.log("componentHandler.upgradeDom();")
+                }, 500);
+
+        },
+        deleteFormAssigment: function () {
+
             var vm = this;
 
-            // var id = this.formList.find(formID)
+            function formID(form) {
+                return form.form_id === vm.selectedForm;
+            }
+
+            var id = this.formList.find(formID)
+            if(!id){
+                return;
+            }
 
             var newFormAssignment = {
-                    form_id: id,
+                    form_id: id.id,
                     user_id: this.activeUser.id
                 }
 
@@ -239,11 +278,15 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id, params).then(function (response) {
+            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id.id, params).then(function (response) {
 
                 console.log("DELETED createNewFormAssignment", response);
 
+                vm.selectedForm = null;
+
                 vm.getUserDetails(vm.activeUser.id);
+
+                vm.closeDeleteDialog();
 
             }, function (response) {
 

@@ -12,9 +12,7 @@ mixins: header-mixin
     <div id="userManagement"  v-if="activeUser == null">
         <div class="mdl-grid" >
 
-            <!-- <a href="/omk/pages/forms/" class="backLink">
-                < Back to user management
-            </a> -->
+
             <div class="section header">
                 <h3>User Management</h3>
             </div>
@@ -243,7 +241,7 @@ mixins: header-mixin
                           </div>
                        </td>
 
-                          <td ><i class="material-icons" @click="deleteFormAssigment(form.id)" style="color:red;">delete</i></td>
+                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;">delete</i></td>
                        </template >
                     </tr>
                   </tbody>
@@ -251,10 +249,6 @@ mixins: header-mixin
 
 
             </div>
-
-
-
-
 
       </div>
 
@@ -314,6 +308,30 @@ mixins: header-mixin
               </div>
               <div class="mdl-dialog__actions">
                   <button type="button" class="mdl-button mdl-js-button closeDial" @click="closeDialog()">Close</button>
+              </div>
+
+          </div>
+
+      </dialog>
+
+
+      <dialog id="deleteForm-dialog" class="mdl-dialog">
+
+          <div v-if="activeUser != null">
+              <h6 class="mdl-dialog__title">
+                <i class="material-icons">minus</i> Delete form
+              </h6>
+              <div class="mdl-dialog__content">
+
+                  <!-- <h5 v-if="selectedFrom != null">Are you sure you want to delete the [{selectedFrom}]?</h5> -->
+
+              </div>
+              <div class="mdl-dialog__actions">
+                  <a>
+                      <button type="button" class="mdl-button mdl-js-button" @click="deleteFormAssigment()"
+                      >YES</button>
+                  </a>
+                  <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteDialog()">CANCEL</button>
               </div>
 
           </div>
