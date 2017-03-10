@@ -102,12 +102,17 @@ new Vue({
 
                 var orale = ["admin", "write", "read"]
 
-                    orale.forEach(function(t) {
-                      if (t != type) {
-                        form[t] = false;
-                      }
-                    });
-
+                    if(type === "admin"){
+                        orale.forEach(function(t) {
+                            form[t] = true;
+                        });
+                    }else{
+                        orale.forEach(function(t) {
+                          if (t != type ) {
+                            form[t] = false;
+                          }
+                        });
+                    }
                     componentHandler.upgradeDom();
 
             }, 100);
