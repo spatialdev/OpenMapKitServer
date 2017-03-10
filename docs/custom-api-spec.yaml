@@ -362,7 +362,7 @@ paths:
                         read:
                           type: boolean
                           description: read privileges
-  /users/{user_id}/form/{form_id}:
+  /users/user/{user_id}/form/{form_id}:
     post:
       security:
         - Bearer: []
