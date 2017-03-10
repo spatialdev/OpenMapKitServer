@@ -51,36 +51,63 @@ mixins: header-mixin
                   <i class="material-icons">add</i> ADD FORM
                 </button>
             </div>
-            <div class="section table">
 
-                <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+
+            <div class="section table" v-show="userDetails.formPermissions.length > 0">
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
                   <thead>
-                    <tr>
-                      <th class="mdl-data-table__cell--non-numeric">Material</th>
-                      <th>Quantity</th>
-                      <th>Unit price</th>
+                    <tr >
+                      <th>Form title</th>
+                      <th>Sys admin</th>
+                      <th>Reader</th>
+                      <th>Writer</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-                      <td>25</td>
-                      <td>$2.90</td>
-                    </tr>
-                    <tr>
-                      <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-                      <td>50</td>
-                      <td>$1.25</td>
-                    </tr>
-                    <tr>
-                      <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-                      <td>10</td>
-                      <td>$2.35</td>
+                    <tr v-for="(form, index) in userDetails.formPermissions">
+                       <template>
+
+                       <td>
+                         [{form.form_id}]
+                       </td>
+                       <td>
+                         <div v-show="!editMode">
+                           <i class="material-icons" v-if="form.admin">done</i>
+                         </div>
+                         <div v-show="editMode">
+                            <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">done</i>
+                         </div>
+
+                       </td>
+                       <td>
+                          <div v-show="!editMode">
+                            <i class="material-icons" v-if="form.read">done</i>
+                          </div>
+                          <div v-show="editMode">
+                            <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
+                          </div>
+
+                       </td>
+                       <td>
+                          <div v-show="!editMode">
+                            <i class="material-icons" v-if="form.write">done</i>
+                          </div>
+                          <div v-show="editMode">
+                            <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
+                          </div>
+                       </td>
+
+                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;">delete</i></td>
+                       </template >
                     </tr>
                   </tbody>
                 </table>
-
             </div>
+
 
         </div>
 
