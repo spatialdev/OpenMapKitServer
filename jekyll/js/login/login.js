@@ -11,10 +11,9 @@ new Vue({
     data() {
         return {
             credentials: {
-                // username: '',
-                // password: ''
-                username: 'testuser1',
-                password: 'testuser1'
+                username: '',
+                password: ''
+
             },
             error: '',
             invalid: false,

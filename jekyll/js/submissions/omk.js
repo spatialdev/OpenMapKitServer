@@ -66,7 +66,7 @@ OMK.fetchJSON = function (url,cb) {
         },
         dataType: 'json',
         success: function (data){
-            // console.log("Outlet Created");
+            console.log("Success submissions", data);
             doCSV(data);
             if(cb) cb()
         },
@@ -74,7 +74,8 @@ OMK.fetchJSON = function (url,cb) {
             // console.log("Outlet Creation Failed, please try again.");
             var form = getParam('form');
             $("#submissionPagespinner").hide();
-            $("#alert").text("No data has been submitted for " + form + '.');
+            $("#alert").text("No data has been submitted for " + form + '.').show();
+            // $("#backLink").show();
             console.log("Error fetching ODK submissions!");
             console.log(data);
         }

@@ -34,6 +34,16 @@
     font-size: 20px;
 }
 
+#alert{
+    display: none;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.backLink{
+            // padding-top: 40px;
+        }
+
 .mask {
     padding: 0;
     margin: 0;

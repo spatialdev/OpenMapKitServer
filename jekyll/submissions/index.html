@@ -13,8 +13,15 @@ mixins: header-mixin
 
 <div class="page-content">
 
+<div class="mdl-grid" >
+
     <div class="mask">
         <div class="mdl-grid grid-menu mdl-cell mdl-cell--12-col">
+            <div>
+                <a id="backLink" href="/omk/pages/forms/" class="backLink">
+                    < Back to forms page
+                </a>
+            </div>
             <!-- Mdl Card -->
             <div id="submissionCard" class="mdl-cell mdl-cell--12-col mdl-card wide-card mdl-shadow--0dp">
                 <div class="mdl-cell--12-col mdl-card__title">
@@ -26,7 +33,6 @@ mixins: header-mixin
                     <button id="odk-options" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                         ODK Data
                     </button>
-
                     <!-- <button id="osm-options" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                         OSM Data
                     </button> -->
@@ -55,6 +61,7 @@ mixins: header-mixin
             </div>
             <!-- Mdl Card -->
             <div id="submissionPagespinner" class="mdl-spinner mdl-js-spinner is-active"></div>
+            <div id="alert" class=""></div>
         </div>
     </div>
     <div class="mdl-grid grid-lower">
@@ -72,6 +79,7 @@ mixins: header-mixin
             </div>
 
         </section>
+    </div>
     </div>
 </div>
 

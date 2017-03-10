@@ -101,7 +101,7 @@ mixins: header-mixin
                           </div>
                        </td>
 
-                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;">delete</i></td>
+                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;" v-show="editMode">delete</i></td>
                        </template >
                     </tr>
                   </tbody>
@@ -162,6 +162,28 @@ mixins: header-mixin
                       </div>
                       <div class="mdl-dialog__actions">
                           <button type="button" class="mdl-button mdl-js-button closeDial" @click="closeDialog()">Close</button>
+                      </div>
+
+                  </div>
+
+              </dialog>
+
+
+              <dialog id="deleteForm-dialog" class="mdl-dialog">
+
+                  <div v-if="userDetails != null">
+                      <h6 class="mdl-dialog__title">
+                        <i class="material-icons">minus</i> Delete form
+                      </h6>
+                      <div class="mdl-dialog__content">
+
+                      </div>
+                      <div class="mdl-dialog__actions">
+                          <a>
+                              <button type="button" class="mdl-button mdl-js-button" @click="deleteFormAssigment()"
+                              >YES</button>
+                          </a>
+                          <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteDialog()">CANCEL</button>
                       </div>
 
                   </div>

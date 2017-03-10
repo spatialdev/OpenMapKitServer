@@ -94,6 +94,7 @@ new Vue({
     },
     methods: {
         setOthersToFalse: function (form, type) {
+            var vm = this;
 
             form[type] = true;
 
@@ -114,6 +115,8 @@ new Vue({
                         });
                     }
                     componentHandler.upgradeDom();
+
+                    vm.updateFormAssignment(form.id, type);
 
             }, 100);
 
@@ -259,6 +262,33 @@ new Vue({
 
                     console.log("componentHandler.upgradeDom();")
                 }, 500);
+
+        },
+        updateFormAssignment: function (id, type) {
+
+            var vm = this;
+
+            var newFormAssignment = {
+                    form_id: id,
+                    user_id: this.activeUser.id,
+                    role: type
+                }
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+            this.$http.patch(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id, newFormAssignment, params).then(function (response) {
+
+                console.log("UPDATED createNewFormAssignment", response);
+
+                vm.getUserDetails(vm.activeUser.id);
+
+
+            }, function (response) {
+
+                console.log("ERROR new user", response);
+
+            });
 
         },
         deleteFormAssigment: function () {

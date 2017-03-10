@@ -6,6 +6,8 @@
 
 var dialog;
 
+var deleteFormDialog;
+
 new Vue({
     el: '#useraccountPage',
     name: 'UserAccountPage',
@@ -36,6 +38,8 @@ new Vue({
         }
 
         dialog = document.querySelector('dialog');
+
+        deleteFormDialog = document.querySelector('#deleteForm-dialog');
 
 
         this.getFormList();
@@ -141,7 +145,10 @@ new Vue({
         */
         setOthersToFalse: function (form, type) {
 
+            var vm = this;
+
             form[type] = true;
+
             setTimeout(function () {
                 var orale = ["admin", "write", "read"]
 
@@ -157,6 +164,8 @@ new Vue({
                         });
                     }
                     componentHandler.upgradeDom();
+
+                    vm.updateFormAssignment(form.id, type);
 
             }, 100);
         },
@@ -187,6 +196,31 @@ new Vue({
                 }, 500);
 
         },
+        updateFormAssignment: function (id, type) {
+
+            var newFormAssignment = {
+                    form_id: id,
+                    user_id: this.userDetails.id,
+                    role: type
+                }
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+            this.$http.patch(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + id, newFormAssignment, params).then(function (response) {
+
+                console.log("UPDATED createNewFormAssignment", response);
+
+                vm.getUserDetails(vm.userDetails.id);
+
+
+            }, function (response) {
+
+                console.log("ERROR new user", response);
+
+            });
+
+        },
         deleteFormAssigment: function () {
 
             var vm = this;
@@ -202,20 +236,20 @@ new Vue({
 
             var newFormAssignment = {
                     form_id: id.id,
-                    user_id: this.activeUser.id
+                    user_id: this.userDetails.id
                 }
 
             var params = {
                 headers: auth.getAuthHeader()
             }
 
-            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id.id, params).then(function (response) {
+            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + id.id, params).then(function (response) {
 
                 // console.log("DELETED createNewFormAssignment", response);
 
                 vm.selectedForm = null;
 
-                vm.getUserDetails(vm.activeUser.id);
+                vm.getUserDetails(vm.userDetails.id);
 
                 vm.closeDeleteDialog();
 
@@ -238,7 +272,7 @@ new Vue({
 
             var newFormAssignment = {
                     form_id: id.id,
-                    user_id: this.activeUser.id,
+                    user_id: this.userDetails.id,
                     role: this.selectedFormRole
                 }
 
@@ -246,13 +280,13 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id.id, newFormAssignment, params).then(function (response) {
+            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + id.id, newFormAssignment, params).then(function (response) {
 
                 // console.log("create createNewFormAssignment", response);
                 vm.selectedForm = null;
                 vm.selectedFormRole = "write";
 
-                vm.getUserDetails(vm.activeUser.id);
+                vm.getUserDetails(vm.userDetails.id);
 
                 vm.formAdded = true;
 

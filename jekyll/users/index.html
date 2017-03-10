@@ -241,7 +241,7 @@ mixins: header-mixin
                           </div>
                        </td>
 
-                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;">delete</i></td>
+                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;" v-show="editMode">delete</i></td>
                        </template >
                     </tr>
                   </tbody>
