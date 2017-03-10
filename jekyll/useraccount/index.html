@@ -11,8 +11,8 @@ mixins: header-mixin
 
         <div class="mdl-grid" >
 
-            <a href="/omk/pages/users/" class="backLink">
-                < Back to user management
+            <a href="/omk/pages/forms/" class="backLink">
+                < Back to forms page
             </a>
             <div class="section header">
                 <h3>User Account</h3>
@@ -53,8 +53,8 @@ mixins: header-mixin
             </div>
 
 
-            <div class="section table" v-show="userDetails.formPermissions.length > 0">
-              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
+            <div class="section table" v-if="userDetails">
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" v-show="userDetails.formPermissions.length > 0">
                   <thead>
                     <tr >
                       <th>Form title</th>
@@ -107,6 +107,66 @@ mixins: header-mixin
                   </tbody>
                 </table>
             </div>
+
+
+            <dialog id="addForm-dialog" class="mdl-dialog">
+
+                  <div v-show="!formAdded">
+                      <h6 class="mdl-dialog__title">
+                        <i class="material-icons">add</i> Add form
+                      </h6>
+                      <div class="mdl-dialog__content">
+
+                          <select v-model="selectedForm">
+                            <option v-for="(form, index) in formList">[{form.form_id}]</option>
+                          </select>
+
+                          <h5>Permissions:</h5>
+
+                          <div>
+
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="selectedFormRole">
+                              <span class="mdl-radio__label">System Admin</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                              <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
+                              v-model="selectedFormRole">
+                              <span class="mdl-radio__label">Read & edit</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
+                              v-model="selectedFormRole">
+                              <span class="mdl-radio__label">Read only</span>
+                            </label>
+
+                          </div>
+
+                      </div>
+                      <div class="mdl-dialog__actions">
+                          <a>
+                              <button type="button" class="mdl-button mdl-js-button" @click="createNewFormAssignment()"
+                              :disabled="!selectedForm">SUBMIT</button>
+                          </a>
+                          <button type="button" class="mdl-button mdl-js-button" @click="closeDialog()">CANCEL</button>
+                      </div>
+
+                  </div>
+                  <div v-show="formAdded">
+
+                    <h6 class="mdl-dialog__title">
+                        <i class="material-icons">add</i> Added Form
+                      </h6>
+                      <div class="mdl-dialog__content">
+                        <p>The new form has been added to user.</p>
+                      </div>
+                      <div class="mdl-dialog__actions">
+                          <button type="button" class="mdl-button mdl-js-button closeDial" @click="closeDialog()">Close</button>
+                      </div>
+
+                  </div>
+
+              </dialog>
 
 
         </div>

@@ -5,8 +5,6 @@ var headerMixin ={
 
 	  created: function () {
 
-	      console.log("Mixin installed")
-
 	  },
 	  methods: {
 	  	logOut: function () {

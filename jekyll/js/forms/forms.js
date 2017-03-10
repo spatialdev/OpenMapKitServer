@@ -56,8 +56,6 @@ new Vue({
             // GET request
             this.$http.post("http://52.14.154.36:3210/formList?json=true", null, params).then(function (response) {
 
-                console.log(response);
-
                 this.formList = response.data;
 
                 //register the mdl menus on each card
