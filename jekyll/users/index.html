@@ -60,7 +60,7 @@ mixins: header-mixin
                             </span>
 
                           </td>
-                          <td ><i class="material-icons">delete</i></td>
+                          <!-- <td ><i class="material-icons">delete</i></td> -->
                        </template >
                     </tr>
                   </tbody>
@@ -192,7 +192,7 @@ mixins: header-mixin
                 </button>
             </div>
 
-            <div class="section table">
+            <div class="section table" v-show="activeUser.formPermissions.length > 0">
 
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
                   <thead>
