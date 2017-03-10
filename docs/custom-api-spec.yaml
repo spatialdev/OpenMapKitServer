@@ -362,7 +362,7 @@ paths:
                         read:
                           type: boolean
                           description: read privileges
-  /users/{user_id}/form/{form_id}:
+  /users/user/{user_id}/form/{form_id}:
     post:
       security:
         - Bearer: []
@@ -387,7 +387,7 @@ paths:
           schema:
             type: object
             properties:
-              new_user_role:
+              role:
                 type: string
                 description: user form role - "admin" , "write" , "read"
     delete:
@@ -395,6 +395,25 @@ paths:
         - Bearer: []
       summary: Delete form permission record
       description: Delete user form role
+      tags:
+        - users
+      parameters:
+        - name: form_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid form id"
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+          description: "A valid user id"
+
+    patch:
+      security:
+        - Bearer: []
+      summary: Edit user form role
+      description: Edit a user's role with a specifed form
       tags:
         - users
       parameters:
@@ -416,8 +435,7 @@ paths:
             properties:
               role:
                 type: string
-                description: user form role - "admin" , "write" , "read"
-
+                description: The desired form role of user - "admin" , "write" , "read"
 
       responses:
         '200':
