@@ -25,7 +25,7 @@ new Vue({
 
             formAdded: false,
             formList: [],
-            selectedForm: null,
+            selectedForm: "default",
             selectedFormRole: "write"
         }
 
