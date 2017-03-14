@@ -18,11 +18,11 @@ mixins: header-mixin
                 <h3>User Account</h3>
                 <div class="editButotn" style="float: right;">
                   <!-- Colored FAB button -->
-                  <button class="mdl-button mdl-js-button mdl-button--fab" v-if='!editMode' @click="toggleEditMode()">
+                  <button class="mdl-button mdl-js-button mdl-button--fab save" v-if='!editMode' @click="toggleEditMode()">
                     <i class="material-icons">mode_edit</i>
                   </button>
 
-                  <button class="mdl-button mdl-js-button mdl-button--fab" style="width: 100%;" v-else @click="updateUserDetails()">
+                  <button class="mdl-button mdl-js-button mdl-button--fab save" style="width: 100%;" v-else @click="updateUserDetails()">
                     Save
                   </button>
 
@@ -30,7 +30,7 @@ mixins: header-mixin
             </div>
             <div class="section inputs" v-if="userDetails">
 
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left;">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
                     <input class="mdl-textfield__input" type="text" id="first" :disabled="!editMode" v-model="userDetails.first_name">
                     <label class="mdl-textfield__label" for="first" v-if="userDetails.first_name.length == 0">First Name</label>
                   </div>
@@ -46,7 +46,7 @@ mixins: header-mixin
             </div>
             <div class="section">
               <span>List of survey forms this user is assigned to:</span>
-              <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
+              <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
                 @click="addUser()" style="float: right;">
                   <i class="material-icons">add</i> ADD FORM
                 </button>
@@ -58,9 +58,9 @@ mixins: header-mixin
                   <thead>
                     <tr >
                       <th>Form title</th>
-                      <th>Sys admin</th>
-                      <th>Reader</th>
-                      <th>Writer</th>
+                      <th>Admin</th>
+                      <th>Read</th>
+                      <th>Write</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -118,37 +118,50 @@ mixins: header-mixin
                       <div class="mdl-dialog__content">
 
                           <select v-model="selectedForm">
-                            <option v-for="(form, index) in formList">[{form.form_id}]</option>
+                            <option value="default" selected disabled>select your form</option>
+                            <option v-for="(form, index) in formList" :value="form.form_id">[{form.form_id}]</option>
                           </select>
 
-                          <h5>Permissions:</h5>
+                          <div class="perm">Permissions:</div>
 
                           <div>
 
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="selectedFormRole">
-                              <span class="mdl-radio__label">System Admin</span>
-                            </label>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                              <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
-                              v-model="selectedFormRole">
-                              <span class="mdl-radio__label">Read & edit</span>
-                            </label>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
-                              v-model="selectedFormRole">
-                              <span class="mdl-radio__label">Read only</span>
-                            </label>
+                          <ul>
+                              <li>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                                  <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="selectedFormRole">
+                                  <span class="mdl-radio__label">System Admin</span>
+                                </label>
+                              </li>
+                              <li>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                                  <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
+                                  v-model="selectedFormRole">
+                                  <span class="mdl-radio__label">Read & edit</span>
+                                </label>
+                              </li>
+                              <li>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                  <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
+                                  v-model="selectedFormRole">
+                                  <span class="mdl-radio__label">Read only</span>
+                                </label>
+                              </li>
+                          </ul>
+
+
+
+
 
                           </div>
 
                       </div>
                       <div class="mdl-dialog__actions">
                           <a>
-                              <button type="button" class="mdl-button mdl-js-button" @click="createNewFormAssignment()"
+                              <button type="button" class="mdl-button mdl-js-button modalButton" @click="createNewFormAssignment()"
                               :disabled="!selectedForm">SUBMIT</button>
                           </a>
-                          <button type="button" class="mdl-button mdl-js-button" @click="closeDialog()">CANCEL</button>
+                          <button type="button" class="mdl-button mdl-js-button modalButton" @click="closeDialog()">CANCEL</button>
                       </div>
 
                   </div>
