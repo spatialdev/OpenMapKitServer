@@ -58,9 +58,9 @@ mixins: header-mixin
                   <thead>
                     <tr >
                       <th>Form title</th>
-                      <th>Sys admin</th>
-                      <th>Reader</th>
-                      <th>Writer</th>
+                      <th>Admin</th>
+                      <th>Read</th>
+                      <th>Write</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -127,14 +127,12 @@ mixins: header-mixin
                           <div>
 
                           <ul>
-
                               <li>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
                                   <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="selectedFormRole">
                                   <span class="mdl-radio__label">System Admin</span>
                                 </label>
                               </li>
-
                               <li>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
                                   <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
@@ -142,7 +140,6 @@ mixins: header-mixin
                                   <span class="mdl-radio__label">Read & edit</span>
                                 </label>
                               </li>
-
                               <li>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
                                   <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
@@ -150,7 +147,6 @@ mixins: header-mixin
                                   <span class="mdl-radio__label">Read only</span>
                                 </label>
                               </li>
-
                           </ul>
 
 

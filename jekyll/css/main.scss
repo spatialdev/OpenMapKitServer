@@ -66,6 +66,10 @@ html, body {
     line-height: 20px;
 }
 
+.mdl-textfield__input{
+    font-family: "Roboto";
+}
+
 .page-content{
     max-width: 940px;
     margin-left: auto;
@@ -109,14 +113,18 @@ html, body {
 }
 
 .mdl-data-table td, .mdl-data-table th {
-    padding: 0 18px 12px 18px;
+    // padding: 0 18px 12px 18px;
     text-align: center;
+}
+.mdl-data-table tbody tr:hover {
+    background-color: #fff;
 }
 
 .backLink{
             padding-top: 40px;
             font-size: 18px;
             font-weight: 100;
+            color: #2B9BF5;
         }
 
 #headerContainer {
@@ -152,6 +160,25 @@ html, body {
         }
 
 }
+#usersPage{
+    .modalButton {
+            color: #2B9BF5;
+        }
+        .perm{
+            color: #9E9E9E;
+            font-size: 17px;
+            padding: 30px 0px 10px 0px;
+        }
+
+        ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        li{
+            font-size: 15px;
+            color: #2E2E2E;
+        }
+}
 
 #userManagement {
 
@@ -160,6 +187,9 @@ html, body {
         //     font-size: 18px;
         //     font-weight: 100;
         // }
+        h3{
+            font-size: 26px;
+        }
         .section{
             width: 100%;
             position: relative;
@@ -217,6 +247,10 @@ html, body {
         //     cursor: pointer;
         //     font-size: 18px;
         // }
+
+        h3{
+            font-size: 26px;
+        }
         .section{
             width: 100%;
             position: relative;
@@ -264,8 +298,6 @@ html, body {
                 height: 45px;
             }
         }
-
-
 }
 
         .fade-enter-active {
@@ -307,6 +339,10 @@ html, body {
         //     font-size: 18px;
         //     font-weight: 100;
         // }
+
+        h3{
+            font-size: 26px;
+        }
         .section{
             width: 100%;
             position: relative;
@@ -414,7 +450,23 @@ html, body {
         .section{
             width: 100%;
             position: relative;
-            padding-bottom: 50px;
+            padding-bottom: 22px;
+        }
+        .modalButton {
+            color: #2B9BF5;
+        }
+        .perm{
+            color: #9E9E9E;
+            font-size: 17px;
+            padding: 30px 0px 10px 0px;
+        }
+        ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        li{
+            font-size: 15px;
+            color: #2E2E2E;
         }
 }
 #activeUser {
@@ -422,7 +474,7 @@ html, body {
         .section{
             width: 100%;
             position: relative;
-            padding-bottom: 50px;
+            padding-bottom: 22px;
         }
 }
 
@@ -436,6 +488,14 @@ html, body {
 .mdl-card{
         margin: 10px 3px;
         overflow: visible;
+        width: 295px;
+}
+.mdl-card__supporting-text {
+    word-wrap: break-word;
+}
+.mdl-card__title-text {
+    font-size: 18px;
+    font-weight: 300;
 }
 .mdl-card {
         .mdl-card__title {
