@@ -67,12 +67,7 @@ new Vue({
                 if (!response){
                         vm.invalid = true;
                         vm.loading = false;
-                        return
-                    }else{
-                      //Unauthorized user
-                      this.invalid = true;
-                      this.loading = false;
-
+                        return;
                     }
 
                 setTimeout(function () {
