@@ -43,6 +43,14 @@ new Vue({
         // reset cookie
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
 
+        setTimeout(function () {
+
+                    // componentHandler.upgradeAllRegistered();
+                    // componentHandler.upgradeDom();
+
+                    console.log("componentHandler.upgradeDom();")
+                }, 500);
+
     },
     methods: {
 
@@ -93,36 +101,6 @@ new Vue({
                 console.log("err: ", response);
               });
 
-
-              // .then(function (response) {
-
-              //       console.log(response);
-
-              //       if (!response){
-              //           vm.invalid = true;
-              //           vm.loading = false;
-              //           return
-              //       }
-
-              //       setTimeout(function () {
-
-              //           var tokenExpiration = response.data.tokenExpiration;
-              //           var date = new Date(tokenExpiration);
-
-              //           // add token to cookie for enketo-express
-              //           document.cookie = 'token='+response.data.token + ';path=/' + ';expires=' + date.toGMTString();
-
-              //               if(vm.getReturnURL()){
-              //                   window.location = vm.getReturnURL();
-              //               } else {
-              //                   window.location = '/omk/pages/forms';
-              //               }
-
-              //           }, 500);
-              // })
-              // .catch(function (error) {
-              //   console.log(error);
-              // });
             }
 
     }
