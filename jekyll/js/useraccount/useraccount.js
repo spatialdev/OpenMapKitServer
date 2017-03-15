@@ -30,6 +30,16 @@ new Vue({
         }
 
     },
+    watch: {
+        'editMode': function () {
+                setTimeout(function () {
+                    // componentHandler.upgradeAllRegistered();
+                    componentHandler.upgradeDom();
+
+                    console.log("componentHandler.upgradeDom();")
+                }, 500);
+        }
+    },
     mounted: function () {
 
         //Check if authenticated, if not go to log in page
@@ -50,6 +60,7 @@ new Vue({
     },
     created() {
         this.getUserDetails();
+        componentHandler.upgradeDom();
     },
     methods: {
         toggleEditMode: function () {

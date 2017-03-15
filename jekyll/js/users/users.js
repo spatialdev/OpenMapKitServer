@@ -8,6 +8,8 @@ var formDialog;
 
 var deleteFormDialog;
 
+var deleteUserDialog;
+
 new Vue({
     el: '#usersPage',
     name: 'UsersPage',
@@ -23,7 +25,7 @@ new Vue({
             searchQuery: '',
             tableHeader: [],
             newUser: {
-                usernam: null,
+                username: null,
                 password: null,
                 first_name: null,
                 last_name: null,
@@ -36,7 +38,8 @@ new Vue({
             formAdded: false,
             formList: [],
             selectedForm: null,
-            selectedFormRole: 'write'
+            selectedFormRole: 'write',
+            selectedUser: null
 
         }
 
@@ -49,9 +52,17 @@ new Vue({
                     formDialog = document.querySelector('#addForm-dialog');
 
                     deleteFormDialog = document.querySelector('#deleteForm-dialog');
+
+                    deleteUserDialog = document.querySelector('#deleteUser-dialog');
                     // componentHandler.upgradeAllRegistered();
                     componentHandler.upgradeDom();
 
+                    console.log("componentHandler.upgradeDom();")
+                }, 500);
+        },
+        'editMode': function () {
+                setTimeout(function () {
+                    componentHandler.upgradeDom();
                     console.log("componentHandler.upgradeDom();")
                 }, 500);
         }
@@ -140,12 +151,22 @@ new Vue({
             var vm = this;
 
 
+            var newUser = {
+                username: this.newUser.username,
+                password: this.newUser.password,
+                first_name: this.newUser.first_name,
+                last_name: this.newUser.last_name,
+                email: this.newUser.email,
+                role: this.newUser.role
+            }
+
+
             var params = {
                 headers: auth.getAuthHeader()
             }
 
             // Get enketo-express URL
-            this.$http.post(this.auth.user.url + "/custom/users/user", this.newUser, params).then(function (response) {
+            this.$http.post(this.auth.user.url + "/custom/users/user", newUser, params).then(function (response) {
 
                 console.log("create new user", response);
                 vm.userAdded = true;
@@ -231,6 +252,63 @@ new Vue({
                             }
 
             this.newUser = resetUser;
+
+        },
+        closeDeleteUserDialog: function () {
+            if (deleteUserDialog) {
+                    deleteUserDialog.close();
+                    this.editMode = false;
+            }
+        },
+        deleteUserDialog: function (userID) {
+
+            this.selectedUser = userID;
+
+
+
+            if(!deleteUserDialog){
+                deleteUserDialog = document.querySelector('#deleteUser-dialog');
+            }
+
+
+            // show dialog
+            deleteUserDialog.showModal();
+
+            setTimeout(function () {
+                    // componentHandler.upgradeAllRegistered();
+                    componentHandler.upgradeDom();
+
+                    console.log("componentHandler.upgradeDom();")
+                }, 500);
+
+        },
+        deleteUser: function () {
+
+            var vm = this;
+
+            var data = {
+                    user_id: this.selectedUser
+                }
+
+            var params = {
+                headers: auth.getAuthHeader()
+            }
+
+            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.selectedUser, params).then(function (response) {
+
+                console.log("DELETED USER", response);
+
+                vm.selectedUser = null;
+
+                vm.getUsersList();
+
+                vm.closeDeleteUserDialog();
+
+            }, function (response) {
+
+                console.log("ERROR new user", response);
+
+            });
 
         },
 

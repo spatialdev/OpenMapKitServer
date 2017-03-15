@@ -22,30 +22,33 @@ mixins: header-mixin
                     <i class="material-icons">mode_edit</i>
                   </button>
 
-                  <button class="mdl-button mdl-js-button mdl-button--fab save" style="width: 100%;" v-else @click="updateUserDetails()">
-                    Save
+                  <button class="mdl-button mdl-js-button mdl-button--fab save" v-else @click="updateUserDetails()">
+                    <span style="font-size: 12px;" class="saveText">Save</span>
+                    <!-- <i class="material-icons">mode_edit</i> -->
                   </button>
 
                 </div>
             </div>
             <div class="section inputs" v-if="userDetails">
 
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left;">
                     <input class="mdl-textfield__input" type="text" id="first" :disabled="!editMode" v-model="userDetails.first_name">
                     <label class="mdl-textfield__label" for="first" v-if="userDetails.first_name.length == 0">First Name</label>
                   </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 30px;">
                     <input class="mdl-textfield__input" type="text" id="last" :disabled="!editMode" v-model="userDetails.last_name">
                     <label class="mdl-textfield__label" for="last" v-if="userDetails.last_name.length == 0">Last name</label>
                   </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 30px;">
                     <input class="mdl-textfield__input" type="email" id="email" :disabled="!editMode" v-model="userDetails.email" >
                     <label class="mdl-textfield__label" for="email" v-if="userDetails.email.length == 0">Email</label>
                   </div>
 
             </div>
             <div class="section">
-              <span>List of survey forms this user is assigned to:</span>
+            <div>
+            <h3 style="margin-bottom: 35px;">Forms:</h3></div>
+              <span style="font-weight: 200; color: #2e2e2e;">List of survey forms this user is assigned to:</span>
               <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
                 @click="addUser()" style="float: right;">
                   <i class="material-icons">add</i> ADD FORM
@@ -61,7 +64,7 @@ mixins: header-mixin
                       <th>Admin</th>
                       <th>Read</th>
                       <th>Write</th>
-                      <th></th>
+                      <th v-show="editMode"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -76,7 +79,8 @@ mixins: header-mixin
                            <i class="material-icons" v-if="form.admin">done</i>
                          </div>
                          <div v-show="editMode">
-                            <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i>
+                            <!-- <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i> -->
+                            <i class="material-icons boxWithCheck" v-if="editMode" @click="setOthersToFalse(form, 'admin')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">done</i>
                          </div>
 
@@ -86,7 +90,8 @@ mixins: header-mixin
                             <i class="material-icons" v-if="form.read">done</i>
                           </div>
                           <div v-show="editMode">
-                            <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i>
+                            <!-- <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i> -->
+                            <i class="material-icons boxWithCheck" style="right: 30px;" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
                           </div>
 
@@ -96,12 +101,16 @@ mixins: header-mixin
                             <i class="material-icons" v-if="form.write">done</i>
                           </div>
                           <div v-show="editMode">
-                            <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i>
+                            <!-- <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i> -->
+                            <i class="material-icons boxWithCheck" style="right: 32px;" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
                           </div>
                        </td>
 
-                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;" v-show="editMode">delete</i></td>
+                        <td style="background-color: #f1f1f1" v-show="editMode">
+                        <i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;">delete</i>
+                        </td>
+
                        </template >
                     </tr>
                   </tbody>

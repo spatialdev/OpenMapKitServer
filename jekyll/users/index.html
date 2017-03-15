@@ -20,7 +20,7 @@ mixins: header-mixin
                 <h3>User Management</h3>
             </div>
             <div class="section inputs">
-                <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
+                <button class="mdl-button mdl-button--colored mdl-js-button addUserButton" id="menu-lower-left"
                 @click="addUser()">
                   <i class="material-icons">person_add</i> ADD USER
                 </button>
@@ -31,6 +31,15 @@ mixins: header-mixin
                     <i class="s-icon material-icons">search</i>
                   </div>
 
+                  <div class="editButotn" style="float: right;">
+                  <!-- Colored FAB button -->
+                  <button class="mdl-button mdl-js-button mdl-button--fab save" @click="toggleEditMode()">
+                    <i class="material-icons" v-if='!editMode'>mode_edit</i>
+                    <span style="font-size: 12px;" class="saveText" v-else>edit</span>
+                  </button>
+
+                </div>
+
             </div>
             <div class="section table">
 
@@ -38,6 +47,7 @@ mixins: header-mixin
                   <thead>
                     <tr v-if="tableHeader">
                       <th v-for='h in tableHeader'>[{formatHeader(h)}]</th>
+                      <th v-show="editMode"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -63,7 +73,10 @@ mixins: header-mixin
                             </span>
 
                           </td>
-                          <!-- <td ><i class="material-icons">delete</i></td> -->
+                          <td style="background-color: #f1f1f1; cursor: pointer;" v-show="editMode">
+                            <i class="material-icons" @click="deleteUserDialog(data['id'])" style="color:red;"
+                            v-if="user.id !== data.id">delete</i>
+                          </td>
                        </template >
                     </tr>
                   </tbody>
@@ -341,9 +354,6 @@ mixins: header-mixin
                 <i class="material-icons">minus</i> Delete form
               </h6>
               <div class="mdl-dialog__content">
-
-                  <!-- <h5 v-if="selectedFrom != null">Are you sure you want to delete the [{selectedFrom}]?</h5> -->
-
               </div>
               <div class="mdl-dialog__actions">
                   <a>
@@ -351,6 +361,27 @@ mixins: header-mixin
                       >YES</button>
                   </a>
                   <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteDialog()">CANCEL</button>
+              </div>
+
+          </div>
+
+      </dialog>
+
+      <dialog id="deleteUser-dialog" class="mdl-dialog">
+
+          <div>
+              <h6 class="mdl-dialog__title">
+                <i class="material-icons">minus</i> Delete user
+              </h6>
+              <div class="mdl-dialog__content">
+
+              </div>
+              <div class="mdl-dialog__actions">
+                  <a>
+                      <button type="button" class="mdl-button mdl-js-button" @click="deleteUser()"
+                      >YES</button>
+                  </a>
+                  <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteUserDialog()">CANCEL</button>
               </div>
 
           </div>

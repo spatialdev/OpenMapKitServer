@@ -79,6 +79,17 @@ html, body {
     font-family: "Roboto";
 }
 
+.mdl-textfield {
+            position: relative;
+            font-size: 16px;
+            display: inline-block;
+            box-sizing: border-box;
+            width: 205px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px 0;
+        }
+
 .page-content{
     max-width: 940px;
     margin-left: auto;
@@ -121,9 +132,14 @@ html, body {
         color: #fff;
 }
 
+.mdl-data-table td {
+    font-weight: 34px;
+
+}
 .mdl-data-table td, .mdl-data-table th {
     // padding: 0 18px 12px 18px;
     text-align: center;
+
 }
 .mdl-data-table tbody tr:hover {
     background-color: #fff;
@@ -131,10 +147,24 @@ html, body {
 
 .backLink{
             padding-top: 40px;
-            font-size: 18px;
+            font-size: 13px;
             font-weight: 100;
             color: #2B9BF5;
         }
+
+h3 {
+    font-size: 24px;
+    font-family: "Roboto";
+    font-weight: 200;
+    color: #414141;
+}
+
+.boxWithCheck{
+    position: absolute;
+    font-size: 40px;
+    top: 3px;
+    right: 37px;
+}
 
 #headerContainer {
 
@@ -204,14 +234,32 @@ html, body {
             position: relative;
         }
 
-        .mdl-button {
+        .addUserButton {
+            background: #7ebc6f;
+            color: #fff;
+            margin-left: 10px;
+            line-height: 0px;
+            // padding: 12px 20px;
+            border-radius: 5px;
+            height: 35px;
+        }
+
+        .save{
             background: #7ebc6f;
             color: #fff;
             margin-left: 10px;
             line-height: 0px;
             padding: 12px 20px;
-            border-radius: 5px;
-            height: 45px;
+            height: 55px;
+            font-size: 18px;
+            position: absolute;
+            top: -121px;
+            right: 50px;
+        }
+        .saveText{
+                font-size: 12px;
+                position: absolute;
+                left: 14px;
         }
 
         .search{
@@ -246,6 +294,9 @@ html, body {
                 height: 45px;
             }
 
+        }
+        .mdl-data-table td, .mdl-data-table th {
+            padding: 0;
         }
 }
 #activeUser {
@@ -307,6 +358,11 @@ html, body {
                 height: 45px;
             }
         }
+
+        .mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+              .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+                color: #9e9e9e !important;
+                }
 }
 
         .fade-enter-active {
@@ -355,16 +411,8 @@ html, body {
         .section{
             width: 100%;
             position: relative;
-            padding-bottom: 50px;
+            padding-bottom: 25px;
         }
-
-        // .mdl-button--fab{
-        //     background: #7ebc6f;
-        //     color: #fff;
-        //     margin-left: 10px;
-        //     line-height: 0px;
-        //     padding: 12px 20px;
-        // }
 
         .save{
             background: #7ebc6f;
@@ -372,18 +420,25 @@ html, body {
             margin-left: 10px;
             line-height: 0px;
             padding: 12px 20px;
-            border-radius: 5px;
-            height: 45px;
+            height: 55px;
             font-size: 18px;
+            position: absolute;
+            top: -21px;
+            right: 50px;
+        }
+        .saveText{
+                font-size: 12px;
+                position: absolute;
+                left: 14px;
         }
         .addForm{
             background: #7ebc6f;
             color: #fff;
             margin-left: 10px;
             line-height: 0px;
-            padding: 12px 20px;
+            // padding: 12px 20px;
             border-radius: 5px;
-            height: 45px;
+            height: 35px;
             font-size: 16px;
         }
 
@@ -405,15 +460,7 @@ html, body {
             color: #2E2E2E;
         }
 
-        // .mdl-button {
-        //     background: #7ebc6f;
-        //     color: #fff;
-        //     margin-left: 10px;
-        //     line-height: 0px;
-        //     padding: 12px 20px;
-        //     border-radius: 5px;
-        //     height: 45px;
-        // }
+
 
         .activeButton{
             background: #2B9BF5;
@@ -608,7 +655,7 @@ form{
 }
 
 .mdl-layout__header-row {
-        padding: 0 40px 0 0px;
+        padding: 0 15px 0 0px;
 }
 
 .buttonRight {

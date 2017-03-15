@@ -45,11 +45,10 @@ new Vue({
 
         setTimeout(function () {
 
-                    // componentHandler.upgradeAllRegistered();
-                    // componentHandler.upgradeDom();
+                    componentHandler.upgradeDom();
 
                     console.log("componentHandler.upgradeDom();")
-                }, 500);
+                }, 1000);
 
     },
     methods: {
