@@ -1,8 +1,10 @@
-<!--   <header id="headerContainer" class="mdl-layout__header">
+  <header id="headerContainer" class="mdl-layout__header">
 
     <div class="mdl-layout__header-row">
       <div><a href="/omk/pages/forms/"><img id="omkLogo" src="../img/ic_omk_nobg-web.png"></a></div>
+      <!-- Title -->
       <span class="mdl-layout-title"><a href="/omk/pages/forms/" class="pageTitle">{{ site.title }}</a></span>
+      <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
 
       <div v-show="auth.user.authenticated" v-cloak>
@@ -29,36 +31,3 @@
     </div>
   </header>
 
- -->
-
-
- <v-toolbar>
-    <v-toolbar-title>
-      <div><a href="/omk/pages/forms/"><img id="omkLogo" src="../img/ic_omk_nobg-web.png"></a></div>
-      <span class="mdl-layout-title"><a href="/omk/pages/forms/" class="pageTitle">{{ site.title }}</a></span>
-
-
-      <div v-show="auth.user.authenticated" v-cloak>
-        <a href="/omk/pages/upload-form/">
-          <button class="mdl-button mdl-button--colored">
-            UPLOAD FORM
-          </button>
-        </a>
-
-        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left">
-          <i class="material-icons">settings</i> USER ACCOUNT
-        </button>
-
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu-lower-left">
-          <a href="/omk/pages/useraccount/">
-            <li class="mdl-menu__item">My Account</li>
-          </a>
-          <a href="/omk/pages/users/">
-            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">User Management</li>
-          </a>
-          <li class="mdl-menu__item" @click="logOut()">Sign Out</li>
-        </ul>
-      </div>
-
-    </v-toolbar-title>
-  </v-toolbar>
