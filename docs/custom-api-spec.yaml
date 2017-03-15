@@ -483,6 +483,27 @@ paths:
             $ref: '#/definitions/Success'
 
   /users/user/{id}:
+    delete:
+      security:
+        - Bearer: []
+      summary: Delete user
+      description: Delete a user record and all form associations
+      tags:
+        - users
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+          description: id of user to delete
+
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+
+  /users/user/{id}:
     patch:
       security:
         - Bearer: []

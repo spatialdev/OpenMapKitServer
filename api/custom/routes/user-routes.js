@@ -209,7 +209,7 @@ router.post('/user', function (req, res, next){
         db.one(sql, [req.user.id, req.body.username, req.body.first_name, req.body.last_name, req.body.email, req.body.password, req.body.role])
             .then(function (results) {
                 // return success status
-                res.status(200).json({message:"success", status:200});
+                res.status(200).json({message:"success", status:200, id : parseInt(results["___create_user"])});
             })
             .catch(function (error) {
                 // send back error
@@ -266,6 +266,39 @@ router.patch('/user/:id', function (req, res, next){
         db.one(sql, [req.user.id, req.params.id, req.body.edit_username, req.body.edit_first_name, req.body.edit_last_name, req.body.edit_email, password, req.body.edit_role.toLowerCase()])
             .then(function (results) {
                 // return success status
+                res.status(200).json({message:"success", status:200});
+            })
+            .catch(function (error) {
+                // send back error
+                return next(new CustomError(error.message, 400));
+            });
+    } else {
+        next(new CustomError("The user is not authorized to make the request.", 401));
+    }
+
+});
+
+/**
+ * Delete user
+ */
+router.delete('/user/:user_id', function (req, res, next){
+
+    // check for authentication settings
+    if (!settings.formAuth || typeof settings.formAuth.secret !== 'string') {
+        next(new CustomError('Missing authentication settings', 500));
+    }
+
+    // must be an admin
+    if (req.user.role === "admin"){
+        var sql, sqlParams, undefinedBodyPars, db;
+
+        db = pgb.getDatabase();
+        sql = "SELECT ___delete_user ($1,$2)";
+
+        // Request data from the database
+        db.one(sql, [req.user.id, req.params.user_id])
+            .then(function (results) {
+                // return new form role info
                 res.status(200).json({message:"success", status:200});
             })
             .catch(function (error) {

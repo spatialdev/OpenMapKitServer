@@ -399,12 +399,12 @@
 
       
 
-        <a class="nav-group-links" href="#/users/user/{id}_patch">
+        <a class="nav-group-links" href="#/users/user/{id}_delete">
           <li class="mdl-list__item">
         <span class="mdl-list__item-primary-content">
           <div style="display: inline-block; color: #FFF; border-radius: 2px; padding: .5em; margin: 0 10px 0 0;
-             background-color: #ff9000;
-            ">PATCH
+             background-color: #e30012;
+            ">DELETE
           </div>
             /users/user/{id}
         </span>
@@ -2681,7 +2681,7 @@
                      display: table;
                      width: 100%;
                      min-height: 31px;
-                      background-color:  rgba(255,144,0,.1);
+                      background-color:  rgba(227,0,18,.1);
                         ">
                 <div style="    font-family: monospace;
                         font-size: 1pc;
@@ -2691,18 +2691,18 @@
                         margin-right: .4em;
                         min-width: 68px;
                         text-align: center;
-                         background-color: #ff9000;
+                         background-color: #e30012;
                         
                         color: #ffffff;
-                        float:left"><a style="color:#FFFFFF" name="/users/user/{id}_patch">/users/user/{id} PATCH</a>
+                        float:left"><a style="color:#FFFFFF" name="/users/user/{id}_delete">/users/user/{id} DELETE</a>
                 </div>
               </header>
               <div style="padding: 0 1em; font-size: 13px">
                 <section>
-                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Update an existing user</h4>
+                  <h4 style="margin:.75em 0; font-size: 15px;line-height: 1.1;">Delete user</h4>
                 </section>
                 <section>
-                  <p style="margin: 0 0 12px;">Update an existing user record</p>
+                  <p style="margin: 0 0 12px;">Delete a user record and all form associations</p>
                 </section>
                 
                 <section>
@@ -2722,65 +2722,11 @@
                       <tbody>
                       
                       <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user_id</td>
                         <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">path</td>
                         <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">true</td>
                         <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">integer</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">A valid user id.</td>
-
-                      </tr>
-                      
-                      <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_username</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">password</td>
-
-                      </tr>
-                      
-                      <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_first_name</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">first name</td>
-
-                      </tr>
-                      
-                      <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_last_name</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form id</td>
-
-                      </tr>
-                      
-                      <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_email</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form user id</td>
-
-                      </tr>
-                      
-                      <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_password</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">form user id</td>
-
-                      </tr>
-                      
-                      <tr>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">edit_role</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">body</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">false</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">string</td>
-                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">user form role - &quot;admin&quot; , &quot;write&quot; , &quot;read&quot;</td>
+                        <td style="padding: 12px 8px;border: #e0e0e0 1px solid;">id of user to delete</td>
 
                       </tr>
                       
