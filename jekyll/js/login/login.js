@@ -64,10 +64,15 @@ new Vue({
               .then(response => {
                 // success callback
                 console.log(response);
-                if (!response.token){
+                if (!response){
                         vm.invalid = true;
                         vm.loading = false;
                         return
+                    }else{
+                      //Unauthorized user
+                      this.invalid = true;
+                      this.loading = false;
+
                     }
 
                 setTimeout(function () {
@@ -78,7 +83,9 @@ new Vue({
                         // add token to cookie for enketo-express
                         document.cookie = 'token='+response.token + ';path=/' + ';expires=' + date.toGMTString();
 
-                            if(vm.getReturnURL()){
+                        var returnURL = vm.getReturnURL()
+
+                            if(returnURL){
                                 window.location = vm.getReturnURL();
                             } else {
                                 window.location = '/omk/pages/forms';
@@ -88,6 +95,7 @@ new Vue({
 
               }, response => {
                 // error callback
+                console.log("err: ", response);
               });
 
 

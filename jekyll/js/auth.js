@@ -36,7 +36,7 @@ var auth =  {
 
       }, response => {
         // error callback
-        console.log(err);
+        console.log(response);
       });
 
   },
