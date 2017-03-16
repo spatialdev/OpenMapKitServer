@@ -37,9 +37,23 @@ new Vue({
             isFocused: false,
             formAdded: false,
             formList: [],
-            selectedForm: null,
+            selectedForm: {},
             selectedFormRole: 'write',
-            selectedUser: null
+            selectedUser: null,
+            formOptions: [
+                    {
+                        label: 'System admin',
+                        value: 'admin'
+                    },
+                    {
+                        label: 'Read & edit',
+                        value: 'write'
+                    },
+                    {
+                        label: 'Read only',
+                        value: 'read'
+                    }
+                ]
 
         }
 
@@ -403,7 +417,7 @@ new Vue({
 
                 console.log("DELETED createNewFormAssignment", response);
 
-                vm.selectedForm = null;
+                vm.selectedForm = {};
 
                 vm.getUserDetails(vm.activeUser.id);
 
@@ -420,14 +434,8 @@ new Vue({
 
             var vm = this;
 
-            function formID(form) {
-                return form.form_id === vm.selectedForm;
-            }
-
-            var id = this.formList.find(formID)
-
             var newFormAssignment = {
-                    form_id: id.id,
+                    form_id: this.selectedForm.id,
                     user_id: this.activeUser.id,
                     role: this.selectedFormRole
                 }
@@ -436,10 +444,10 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + id.id, newFormAssignment, params).then(function (response) {
+            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.activeUser.id + "/form/" + this.selectedForm.id, newFormAssignment, params).then(function (response) {
 
                 console.log("create createNewFormAssignment", response);
-                vm.selectedForm = null;
+                vm.selectedForm = {};
                 vm.selectedFormRole = "write";
 
                 vm.getUserDetails(vm.activeUser.id);

@@ -17,15 +17,29 @@ mixins: header-mixin
             <div class="section header">
                 <h3>User Account</h3>
                 <div class="editButotn" style="float: right;">
-                  <!-- Colored FAB button -->
-                  <button class="mdl-button mdl-js-button mdl-button--fab save" v-if='!editMode' @click="toggleEditMode()">
+                  <!-- <button class="mdl-button mdl-js-button mdl-button--fab save" v-if='!editMode' @click="toggleEditMode()">
                     <i class="material-icons">mode_edit</i>
                   </button>
 
                   <button class="mdl-button mdl-js-button mdl-button--fab save" v-else @click="updateUserDetails()">
                     <span style="font-size: 12px;" class="saveText">Save</span>
-                    <!-- <i class="material-icons">mode_edit</i> -->
-                  </button>
+                  </button> -->
+
+                  <ui-fab
+                        icon="mode_edit"
+                        size="normal"
+                        class="save"
+                        v-if='!editMode'
+                        @click="toggleEditMode()"
+                    ></ui-fab>
+
+                    <ui-fab
+                        icon="mode_edit"
+                        size="normal"
+                        class="save activeSave"
+                        v-else
+                        @click="updateUserDetails()"
+                    ></ui-fab>
 
                 </div>
             </div>
@@ -149,7 +163,7 @@ mixins: header-mixin
                           </select> -->
                           <ui-select
                               label="Forms:"
-                              placeholder="Select a colour"
+                              placeholder="Select a form"
                               :options="formList"
                               v-model="selectedForm"
                               :keys="{ label: 'form_id', value: 'form.form_id' }"
@@ -159,30 +173,12 @@ mixins: header-mixin
 
                           <div>
 
-                          <ul>
-                              <li>
-                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                  <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="admin" v-model="selectedFormRole">
-                                  <span class="mdl-radio__label">System Admin</span>
-                                </label>
-                              </li>
-                              <li>
-                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                                  <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="read"
-                                  v-model="selectedFormRole">
-                                  <span class="mdl-radio__label">Read & edit</span>
-                                </label>
-                              </li>
-                              <li>
-                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                  <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="write"
-                                  v-model="selectedFormRole">
-                                  <span class="mdl-radio__label">Read only</span>
-                                </label>
-                              </li>
-                          </ul>
-
-
+                          <ui-radio-group
+                              name="options"
+                              vertical
+                              :options="formOptions"
+                              v-model="selectedFormRole"
+                          ></ui-radio-group>
 
 
 

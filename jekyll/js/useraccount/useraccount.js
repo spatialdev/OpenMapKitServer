@@ -25,8 +25,22 @@ new Vue({
 
             formAdded: false,
             formList: [],
-            selectedForm: "default",
-            selectedFormRole: "write"
+            selectedForm: {},
+            selectedFormRole: "write",
+            formOptions: [
+                    {
+                        label: 'System admin',
+                        value: 'admin'
+                    },
+                    {
+                        label: 'Read & edit',
+                        value: 'write'
+                    },
+                    {
+                        label: 'Read only',
+                        value: 'read'
+                    }
+                ]
         }
 
     },
@@ -243,15 +257,6 @@ new Vue({
 
             var vm = this;
 
-            // function formID(form) {
-            //     return form.form_id === vm.selectedForm.;
-            // }
-
-            // var id = this.formList.find(formID)
-            // if(!id){
-            //     return;
-            // }
-
             var newFormAssignment = {
                     form_id: this.selectedForm.id,
                     user_id: this.userDetails.id
@@ -265,9 +270,11 @@ new Vue({
 
                 // console.log("DELETED createNewFormAssignment", response);
 
-                vm.selectedForm = null;
+                vm.selectedForm = {};
 
                 vm.getUserDetails(vm.userDetails.id);
+
+                vm.editMode = false;
 
                 vm.closeDeleteDialog();
 
@@ -301,7 +308,7 @@ new Vue({
             this.$http.post(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + this.selectedForm.id, newFormAssignment, params).then(function (response) {
 
                 // console.log("create createNewFormAssignment", response);
-                vm.selectedForm = null;
+                vm.selectedForm = {};
                 vm.selectedFormRole = "write";
 
                 vm.getUserDetails(vm.userDetails.id);

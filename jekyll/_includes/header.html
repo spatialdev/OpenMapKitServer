@@ -7,26 +7,29 @@
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
 
-      <div v-show="auth.user.authenticated" v-cloak>
+      <div v-if="auth.user.authenticated" v-cloak>
         <a href="/omk/pages/upload-form/">
           <button class="mdl-button mdl-button--colored">
             UPLOAD FORM
           </button>
         </a>
 
-        <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left">
+        <button class="mdl-button popover-trigger" id=""
+                ref="dropdownTrigger"
+                tabindex="0"
+                v-if="auth.user.authenticated" v-cloak>
           <i class="material-icons">settings</i> USER ACCOUNT
         </button>
 
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu-lower-left">
-          <a href="/omk/pages/useraccount/">
-            <li class="mdl-menu__item">My Account</li>
-          </a>
-          <a href="/omk/pages/users/">
-            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">User Management</li>
-          </a>
-          <li class="mdl-menu__item" @click="logOut()">Sign Out</li>
-        </ul>
+        <ui-popover trigger="dropdownTrigger" open-on="hover" ref="dropdown" v-if="auth.user.authenticated" v-cloak>
+            <ui-menu
+                contain-focus
+                :options="menuOptions"
+                @close="$refs.dropdown.close()"
+                @select="selectedMenuOption"
+            ></ui-menu>
+        </ui-popover>
+
       </div>
     </div>
   </header>
