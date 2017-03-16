@@ -24,11 +24,15 @@ mixins: header-mixin
                 @click="addUser()">
                   <i class="material-icons">person_add</i> ADD USER
                 </button>
-
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="searchQuery" id="searchQuery" v-model="searchQuery">
-                    <label class="mdl-textfield__label" for="searchQuery">search</label>
-                    <i class="s-icon material-icons">search</i>
+                  <div class="search">
+                  <ui-textbox
+                      icon="search"
+                      icon-position="right"
+                      floating-label
+                      label="Search"
+                      placeholder="search user"
+                      v-model="searchQuery"
+                  ></ui-textbox>
                   </div>
 
                   <div class="editButotn" style="float: right;">
@@ -92,28 +96,52 @@ mixins: header-mixin
                 <i class="material-icons">person_add</i> Add user
               </h6>
               <div class="mdl-dialog__content">
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <!-- <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="username" v-model="newUser.username"
                     pattern="[A-Z,a-z,0-9]*">
                     <label class="mdl-textfield__label" for="username">username</label>
                     <span class="mdl-textfield__error">Letters and spaces only</span>
-                  </div>
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="password" v-model="newUser.password">
-                    <label class="mdl-textfield__label" for="password">password</label>
-                  </div>
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="first_name" v-model="newUser.first_name">
-                    <label class="mdl-textfield__label" for="first_name">first name</label>
-                  </div>
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="last_name" v-model="newUser.last_name">
-                    <label class="mdl-textfield__label" for="last_name">last name</label>
-                  </div>
-                  <div class="search mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="email" v-model="newUser.email">
-                    <label class="mdl-textfield__label" for="email">email</label>
-                  </div>
+                  </div> -->
+                  <ui-textbox
+                      floating-label
+                      label="Username"
+                      type="text"
+                      placeholder="Enter your username"
+                      :value="ifNullReturnEmptyString(newUser.username)"
+                      v-model="newUser.username"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="Password"
+                      type="text"
+                      placeholder="Enter your password"
+                      :value="ifNullReturnEmptyString(newUser.password)"
+                      v-model="newUser.password"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="First Name"
+                      type="text"
+                      placeholder="Enter your first name"
+                      :value="ifNullReturnEmptyString(newUser.first_name)"
+                      v-model="newUser.first_name"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="Last Name"
+                      type="text"
+                      placeholder="Enter your last name"
+                      :value="ifNullReturnEmptyString(newUser.last_name)"
+                      v-model="newUser.last_name"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="Email"
+                      type="text"
+                      placeholder="Enter your email"
+                      :value="ifNullReturnEmptyString(newUser.email)"
+                      v-model="newUser.email"
+                  ></ui-textbox>
 
                   <div class="perm">Permissions:</div>
 
@@ -195,18 +223,37 @@ mixins: header-mixin
                 </div>
             </div>
             <div class="section inputs" v-if="activeUser != null">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
-                    <input class="mdl-textfield__input" type="text" id="first" :disabled="!editMode" v-model="activeUser.first_name">
-                    <label class="mdl-textfield__label" for="first" v-if="activeUser.first_name != null">First Name</label>
-                  </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
-                    <input class="mdl-textfield__input" type="text" id="last" :disabled="!editMode" v-model="activeUser.last_name">
-                    <label class="mdl-textfield__label" for="last" v-if="activeUser.last_name != null">Last name</label>
-                  </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 20px;">
-                    <input class="mdl-textfield__input" type="email" id="email" :disabled="!editMode" v-model="activeUser.email" >
-                    <label class="mdl-textfield__label" for="email" v-if="activeUser.email != null">Email</label>
-                  </div>
+
+                  <ui-textbox
+                      floating-label
+                      label="First Name"
+                      type="text"
+                      placeholder="Enter your first name"
+                      :value="ifNullReturnEmptyString(activeUser.first_name)"
+                      v-model="activeUser.first_name"
+                      :disabled="!editMode"
+                      :class="{'is-active' : isFocused}"
+                  ></ui-textbox>
+
+                  <ui-textbox
+                      floating-label
+                      label="Last Name"
+                      placeholder="Enter your last name"
+                      :value="ifNullReturnEmptyString(activeUser.last_name)"
+                      v-model="activeUser.last_name"
+                      :disabled="!editMode"
+                      :class="{'is-active' : isFocused}"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="Email"
+                      placeholder="Enter your email"
+                      :value="ifNullReturnEmptyString(activeUser.email)"
+                      v-model="activeUser.email"
+                      :disabled="!editMode"
+                      :class="{'is-active' : isFocused}"
+                  ></ui-textbox>
+
             </div>
             <div class="section">
               <span v-show="activeUser.formPermissions.length > 0">List of survey forms this user is assigned to:</span>

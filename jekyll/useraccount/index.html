@@ -30,19 +30,36 @@ mixins: header-mixin
                 </div>
             </div>
             <div class="section inputs" v-if="userDetails">
-
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left;">
-                    <input class="mdl-textfield__input" type="text" id="first" :disabled="!editMode" v-model="userDetails.first_name">
-                    <label class="mdl-textfield__label" for="first" v-if="userDetails.first_name.length == 0">First Name</label>
-                  </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 30px;">
-                    <input class="mdl-textfield__input" type="text" id="last" :disabled="!editMode" v-model="userDetails.last_name">
-                    <label class="mdl-textfield__label" for="last" v-if="userDetails.last_name.length == 0">Last name</label>
-                  </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" :class="{'is-focused' : isFocused}" style="float: left; margin-left: 30px;">
-                    <input class="mdl-textfield__input" type="email" id="email" :disabled="!editMode" v-model="userDetails.email" >
-                    <label class="mdl-textfield__label" for="email" v-if="userDetails.email.length == 0">Email</label>
-                  </div>
+                  <ui-textbox
+                      floating-label
+                      label="First Name"
+                      placeholder="Enter your first name"
+                      :value="ifNullReturnEmptyString(userDetails.first_name)"
+                      v-model="userDetails.first_name"
+                      style="float: left;"
+                      :disabled="!editMode"
+                      :class="{'is-active' : isFocused}"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="Last Name"
+                      placeholder="Enter your last name"
+                      :value="ifNullReturnEmptyString(userDetails.last_name)"
+                      v-model="userDetails.last_name"
+                      style="float: left; margin-left: 30px;"
+                      :disabled="!editMode"
+                      :class="{'is-active' : isFocused}"
+                  ></ui-textbox>
+                  <ui-textbox
+                      floating-label
+                      label="Email"
+                      placeholder="Enter your email name"
+                      :value="ifNullReturnEmptyString(userDetails.email)"
+                      v-model="userDetails.email"
+                      style="float: left; margin-left: 30px;"
+                      :disabled="!editMode"
+                      :class="{'is-active' : isFocused}"
+                  ></ui-textbox>
 
             </div>
             <div class="section">
@@ -108,7 +125,7 @@ mixins: header-mixin
                        </td>
 
                         <td style="background-color: #f1f1f1" v-show="editMode">
-                        <i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;">delete</i>
+                        <i class="material-icons" @click="deleteDialog(form)" style="color:red;">delete</i>
                         </td>
 
                        </template >
@@ -126,10 +143,17 @@ mixins: header-mixin
                       </h6>
                       <div class="mdl-dialog__content">
 
-                          <select v-model="selectedForm">
+                          <!-- <select v-model="selectedForm">
                             <option value="default" selected disabled>select your form</option>
                             <option v-for="(form, index) in formList" :value="form.form_id">[{form.form_id}]</option>
-                          </select>
+                          </select> -->
+                          <ui-select
+                              label="Forms:"
+                              placeholder="Select a colour"
+                              :options="formList"
+                              v-model="selectedForm"
+                              :keys="{ label: 'form_id', value: 'form.form_id' }"
+                          ></ui-select>
 
                           <div class="perm">Permissions:</div>
 

@@ -63,6 +63,13 @@ new Vue({
         componentHandler.upgradeDom();
     },
     methods: {
+        ifNullReturnEmptyString: function (value) {
+            if(value === null){
+                return ''
+            }else{
+                return value
+            }
+        },
         toggleEditMode: function () {
             this.editMode = !this.editMode;
             this.focusingAllInputs();
@@ -236,17 +243,17 @@ new Vue({
 
             var vm = this;
 
-            function formID(form) {
-                return form.form_id === vm.selectedForm;
-            }
+            // function formID(form) {
+            //     return form.form_id === vm.selectedForm.;
+            // }
 
-            var id = this.formList.find(formID)
-            if(!id){
-                return;
-            }
+            // var id = this.formList.find(formID)
+            // if(!id){
+            //     return;
+            // }
 
             var newFormAssignment = {
-                    form_id: id.id,
+                    form_id: this.selectedForm.id,
                     user_id: this.userDetails.id
                 }
 
@@ -254,7 +261,7 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + id.id, params).then(function (response) {
+            this.$http.delete(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + this.selectedForm.id, params).then(function (response) {
 
                 // console.log("DELETED createNewFormAssignment", response);
 
@@ -275,14 +282,14 @@ new Vue({
 
             var vm = this;
 
-            function formID(form) {
-                return form.form_id === vm.selectedForm;
-            }
+            // function formID(form) {
+            //     return form.form_id === vm.selectedForm;
+            // }
 
-            var id = this.formList.find(formID)
+            // var id = this.formList.find(formID)
 
             var newFormAssignment = {
-                    form_id: id.id,
+                    form_id: this.selectedForm.id,
                     user_id: this.userDetails.id,
                     role: this.selectedFormRole
                 }
@@ -291,7 +298,7 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + id.id, newFormAssignment, params).then(function (response) {
+            this.$http.post(this.auth.user.url + "/custom/users/user/" + this.userDetails.id + "/form/" + this.selectedForm.id, newFormAssignment, params).then(function (response) {
 
                 // console.log("create createNewFormAssignment", response);
                 vm.selectedForm = null;
@@ -306,11 +313,6 @@ new Vue({
                 console.log("ERROR new user", response);
 
             });
-
-
-
-
-
         },
         selectedFormItem: function (form) {
 

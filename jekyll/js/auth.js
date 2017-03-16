@@ -72,8 +72,10 @@ var auth =  {
   },
   checkIfTokenIsValid () {
 
+    var tokenExpiration = localStorage.getItem('id_token')
 
-    if( Date.now() >= this.user.tokenExpiration){
+
+    if( Date.now() > tokenExpiration){
       localStorage.removeItem('id_token')
       localStorage.removeItem('user')
       this.user.authenticated = false;

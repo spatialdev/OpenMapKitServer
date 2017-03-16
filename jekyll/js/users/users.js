@@ -104,6 +104,14 @@ new Vue({
 
     },
     methods: {
+        ifNullReturnEmptyString: function (value) {
+            if(value === null){
+                return ''
+            }else{
+                return value
+            }
+
+        },
         setOthersToFalse: function (form, type) {
             var vm = this;
 
