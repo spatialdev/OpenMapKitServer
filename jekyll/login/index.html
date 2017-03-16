@@ -14,17 +14,32 @@ mixins: header-mixin
         <div class="mdl-cell mdl-cell--4-col" style="margin: auto;">
 
             <h2>Login</h2>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="username" id="username"
                 v-model="credentials.username">
                 <label class="mdl-textfield__label" for="username">username</label>
-              </div>
+              </div> -->
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <ui-textbox
+                  floating-label
+                  label="Username"
+                  placeholder="Enter your username"
+                  v-model="credentials.username"
+              ></ui-textbox>
+
+              <ui-textbox
+                  floating-label
+                  label=Password
+                  placeholder="Enter your password"
+                  v-model="credentials.password"
+                  @keyup.enter.native="submit()"
+              ></ui-textbox>
+
+              <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="password" id="password"
                 v-model="credentials.password" @keyup.enter="submit()">
                 <label class="mdl-textfield__label" for="password">password</label>
-              </div>
+              </div> -->
 
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="submit()"
             :disabled="disabled">
