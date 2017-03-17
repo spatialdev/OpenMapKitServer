@@ -387,10 +387,10 @@ mixins: header-mixin
               </div>
               <div class="mdl-dialog__actions">
                   <a>
-                      <button type="button" class="mdl-button mdl-js-button" @click="deleteFormAssigment()"
+                      <button type="button" class="mdl-button mdl-js-button modalButton" @click="deleteFormAssigment()"
                       >YES</button>
                   </a>
-                  <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteDialog()">CANCEL</button>
+                  <button type="button" class="mdl-button mdl-js-button modalButton" @click="closeDeleteDialog()">CANCEL</button>
               </div>
 
           </div>
@@ -401,17 +401,18 @@ mixins: header-mixin
 
           <div>
               <h6 class="mdl-dialog__title">
-                <i class="material-icons">minus</i> Delete user
+                <!-- <i class="material-icons">minus</i> -->
+                Delete user
               </h6>
               <div class="mdl-dialog__content">
 
               </div>
               <div class="mdl-dialog__actions">
                   <a>
-                      <button type="button" class="mdl-button mdl-js-button" @click="deleteUser()"
+                      <button type="button" class="mdl-button mdl-js-button modalButton" @click="deleteUser()"
                       >YES</button>
                   </a>
-                  <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteUserDialog()">CANCEL</button>
+                  <button type="button" class="mdl-button mdl-js-button modalButton" @click="closeDeleteUserDialog()">CANCEL</button>
               </div>
 
           </div>
