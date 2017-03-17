@@ -197,7 +197,7 @@ mixins: header-mixin
                         <p>The new form has been added to user.</p>
                       </div>
                       <div class="mdl-dialog__actions">
-                          <button type="button" class="mdl-button mdl-js-button closeDial" @click="closeDialog()">Close</button>
+                          <button type="button" class="mdl-button mdl-js-button modalButton" @click="closeDialog()">Close</button>
                       </div>
 
                   </div>
@@ -212,14 +212,11 @@ mixins: header-mixin
                         <i class="material-icons">minus</i> Delete form
                       </h6>
                       <div class="mdl-dialog__content">
-
                       </div>
                       <div class="mdl-dialog__actions">
-                          <a>
-                              <button type="button" class="mdl-button mdl-js-button" @click="deleteFormAssigment()"
-                              >YES</button>
-                          </a>
-                          <button type="button" class="mdl-button mdl-js-button" @click="closeDeleteDialog()">CANCEL</button>
+                          <button type="button" class="mdl-button mdl-js-button modalButton" @click="deleteFormAssigment()"
+                          >YES</button>
+                          <button type="button" class="mdl-button mdl-js-button modalButton" @click="closeDeleteDialog()">CANCEL</button>
                       </div>
 
                   </div>

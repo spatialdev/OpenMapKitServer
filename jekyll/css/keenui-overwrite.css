@@ -25,6 +25,11 @@
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.25), 0 0px 0px 0 rgba(0, 0, 0, 0.2);
 }
 
+.ui-radio__inner-circle {
+    left: 1px !important;
+    top: 1px !important;
+}
+
 #usersPage .ui-textbox{
         width: 205px !important;
         float: left;
