@@ -184,6 +184,15 @@ h3 {
     background: #5a844e;
 }
 
+.trashcan{
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+.trashcan i{
+    color: red;
+    font-size: 28px;
+}
+
 #headerContainer {
 
     .mdl-button {
@@ -372,29 +381,12 @@ h3 {
             margin-left: 1.5rem;
         }
 
-        // #addUser{
-        //     .mdl-button {
-        //         background: none;
-        //         color: #2B9BF5;
-        //         margin-left: 10px;
-        //         line-height: 0px;
-        //         padding: 12px 20px;
-        //         border-radius: 5px;
-        //         height: 45px;
-        //     }
-        // }
-
         .mdl-textfield--floating-label.is-focused .mdl-textfield__label,
               .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
                 color: #9e9e9e !important;
                 }
 
 
-        //         .save{
-        //     position: absolute;
-        //     top: -32px;
-        //     right: 50px;
-        // }
 }
 
         .fade-enter-active {

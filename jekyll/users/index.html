@@ -79,8 +79,8 @@ mixins: header-mixin
                             </span>
 
                           </td>
-                          <td style="background-color: #f1f1f1; cursor: pointer;" v-show="editMode">
-                            <i class="material-icons" @click="deleteUserDialog(data['id'])" style="color:red;"
+                          <td class="trashcan" v-show="editMode">
+                            <i class="material-icons" @click="deleteUserDialog(data['id'])"
                             v-if="user.id !== data.id">delete</i>
                           </td>
                        </template >
@@ -265,7 +265,7 @@ mixins: header-mixin
                       <th>Admin</th>
                       <th>Read</th>
                       <th>Write</th>
-                      <th></th>
+                      <th v-show="editMode"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -311,7 +311,8 @@ mixins: header-mixin
                           </div>
                        </td>
 
-                          <td ><i class="material-icons" @click="deleteDialog(form.form_id)" style="color:red;" v-show="editMode">delete</i></td>
+                          <td class="trashcan" v-show="editMode">
+                          <i class="material-icons" @click="deleteDialog(form.form_id)" v-show="editMode">delete</i></td>
                        </template >
                     </tr>
                   </tbody>

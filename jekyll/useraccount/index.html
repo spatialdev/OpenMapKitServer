@@ -132,8 +132,8 @@ mixins: header-mixin
                           </div>
                        </td>
 
-                        <td style="background-color: #f1f1f1" v-show="editMode">
-                        <i class="material-icons" @click="deleteDialog(form)" style="color:red;">delete</i>
+                        <td class="trashcan" v-show="editMode">
+                        <i class="material-icons" @click="deleteDialog(form)">delete</i>
                         </td>
 
                        </template >
