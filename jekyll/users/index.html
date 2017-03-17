@@ -252,8 +252,11 @@ mixins: header-mixin
 
             </div>
             <div class="section">
-              <span v-show="activeUser.formPermissions.length > 0">List of survey forms this user is assigned to:</span>
-              <button class="mdl-button mdl-button--colored mdl-js-button" id="menu-lower-left"
+            <div>
+            <h3 style="margin-bottom: 35px;">Forms:</h3>
+            </div>
+              <span style="font-weight: 200; color: #2e2e2e;" v-show="activeUser.formPermissions.length > 0">List of survey forms this user is assigned to:</span>
+              <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
                 @click="addForm()" style="float: right;">
                   <i class="material-icons">add</i> ADD FORM
                 </button>
@@ -283,7 +286,9 @@ mixins: header-mixin
                            <i class="material-icons" v-if="form.admin">done</i>
                          </div>
                          <div v-show="editMode">
-                            <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i>
+                            <!-- <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">done</i> -->
+                            <i class="material-icons boxWithCheck" v-if="editMode" @click="setOthersToFalse(form, 'admin')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">done</i>
                          </div>
 
@@ -293,7 +298,9 @@ mixins: header-mixin
                             <i class="material-icons" v-if="form.read">done</i>
                           </div>
                           <div v-show="editMode">
-                            <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i>
+                            <!-- <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i> -->
+                            <i class="material-icons boxWithCheck" style="left: 50px;" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
                           </div>
 
@@ -303,7 +310,9 @@ mixins: header-mixin
                             <i class="material-icons" v-if="form.write">done</i>
                           </div>
                           <div v-show="editMode">
-                            <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i>
+                            <!-- <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i>
+                            <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i> -->
+                            <i class="material-icons boxWithCheck" style="right: 50px;" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
                           </div>
                        </td>

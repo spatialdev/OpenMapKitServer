@@ -17,13 +17,6 @@ mixins: header-mixin
             <div class="section header">
                 <h3>User Account</h3>
                 <div class="editButotn" style="float: right;">
-                  <!-- <button class="mdl-button mdl-js-button mdl-button--fab save" v-if='!editMode' @click="toggleEditMode()">
-                    <i class="material-icons">mode_edit</i>
-                  </button>
-
-                  <button class="mdl-button mdl-js-button mdl-button--fab save" v-else @click="updateUserDetails()">
-                    <span style="font-size: 12px;" class="saveText">Save</span>
-                  </button> -->
 
                   <ui-fab
                         icon="mode_edit"
@@ -78,7 +71,8 @@ mixins: header-mixin
             </div>
             <div class="section">
             <div>
-            <h3 style="margin-bottom: 35px;">Forms:</h3></div>
+            <h3 style="margin-bottom: 35px;">Forms:</h3>
+            </div>
               <span style="font-weight: 200; color: #2e2e2e;">List of survey forms this user is assigned to:</span>
               <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
                 @click="addUser()" style="float: right;">
@@ -122,7 +116,7 @@ mixins: header-mixin
                           </div>
                           <div v-show="editMode">
                             <!-- <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i> -->
-                            <i class="material-icons boxWithCheck" style="right: 30px;" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
+                            <i class="material-icons boxWithCheck" style="left: 62px;" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
                           </div>
 
@@ -133,7 +127,7 @@ mixins: header-mixin
                           </div>
                           <div v-show="editMode">
                             <!-- <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i> -->
-                            <i class="material-icons boxWithCheck" style="right: 32px;" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
+                            <i class="material-icons boxWithCheck" style="right: 63px;" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
                           </div>
                        </td>
