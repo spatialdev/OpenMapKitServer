@@ -19,6 +19,7 @@ new Vue({
             user: auth.getUser(),
             userAdded: false,
             userDetails: null,
+            cachedUserDetails: null,
             user: auth.getUser(),
             editMode: false,
             isFocused: false,
@@ -108,6 +109,12 @@ new Vue({
         updateUserDetails: function () {
             var vm = this;
 
+            //check if there was really a user change
+            if(_.isEqual(this.userDetails, this.cachedUserDetails)){
+                vm.editMode = false;
+                return;
+            }
+
             var params = {
                 headers: auth.getAuthHeader()
             }
@@ -147,6 +154,8 @@ new Vue({
             this.$http.get(url + '/custom/tables/vw_omk_user_details/' + this.user.id, params).then(response => {
                     // console.log(response.body);
                     this.userDetails = response.body;
+
+                    this.cachedUserDetails = _.cloneDeep(response.body);
 
                     componentHandler.upgradeDom();
 

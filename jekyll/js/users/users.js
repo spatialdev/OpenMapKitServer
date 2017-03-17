@@ -33,6 +33,7 @@ new Vue({
                 role: "admin"
             },
             activeUser: null,
+            cachedActiveUser: null,
             editMode: false,
             isFocused: false,
             formAdded: false,
@@ -533,6 +534,12 @@ new Vue({
         updateUserDetails: function () {
             var vm = this;
 
+            //check if there was really a user change
+            if(_.isEqual(this.activeUser, this.cachedActiveUser)){
+                vm.editMode = false;
+                return;
+            }
+
             var params = {
                 headers: auth.getAuthHeader()
             }
@@ -573,6 +580,8 @@ new Vue({
                     console.log(response.body);
 
                     this.activeUser = response.body;
+
+                    this.cachedActiveUser = _.cloneDeep(response.body)
 
                     componentHandler.upgradeDom();
 
