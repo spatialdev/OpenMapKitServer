@@ -300,7 +300,7 @@ mixins: header-mixin
                           <div v-show="editMode">
                             <!-- <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i>
                             <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i> -->
-                            <i class="material-icons boxWithCheck" style="left: 50px;" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
+                            <i class="material-icons boxWithCheck" style="" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
                           </div>
 
@@ -312,7 +312,7 @@ mixins: header-mixin
                           <div v-show="editMode">
                             <!-- <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i>
                             <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i> -->
-                            <i class="material-icons boxWithCheck" style="right: 50px;" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
+                            <i class="material-icons boxWithCheck" style="" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                             <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
                           </div>
                        </td>
