@@ -16,6 +16,17 @@ mixins: header-mixin
                 < Back to forms page
             </a>
 
+            <div class="editButotn" style="float: right;">
+                  <ui-fab
+                      icon="mode_edit"
+                      size="normal"
+                      class="save"
+                      :class= "{'activeSave': editMode}"
+                      @click="toggleEditMode()"
+                  ></ui-fab>
+
+                </div>
+
             <div class="section header">
                 <h3>User Management</h3>
             </div>
@@ -34,22 +45,6 @@ mixins: header-mixin
                       v-model="searchQuery"
                   ></ui-textbox>
                   </div>
-
-                  <div class="editButotn" style="float: right;">
-                  <!-- Colored FAB button -->
-                  <!-- <button class="mdl-button mdl-js-button mdl-button--fab save" @click="toggleEditMode()">
-                    <i class="material-icons" v-if='!editMode'>mode_edit</i>
-                    <span style="font-size: 12px;" class="saveText" v-else>edit</span>
-                  </button> -->
-                  <ui-fab
-                      icon="mode_edit"
-                      size="normal"
-                      class="save"
-                      :class= "{'activeSave': editMode}"
-                      @click="toggleEditMode()"
-                  ></ui-fab>
-
-                </div>
 
             </div>
             <div class="section table">
@@ -196,10 +191,7 @@ mixins: header-mixin
             <span class="backLink" @click="activeUser = null">
                 < Back to user management
             </span>
-
-            <div class="section header">
-                <h3>User account</h3>
-                <div class="editButotn" style="float: right;">
+            <div class="editButotn" style="float: right;">
                     <ui-fab
                         icon="mode_edit"
                         size="normal"
@@ -215,8 +207,10 @@ mixins: header-mixin
                         v-else
                         @click="updateUserDetails()"
                     ></ui-fab>
-
                 </div>
+
+            <div class="section header">
+                <h3>User account</h3>
             </div>
             <div class="section inputs" v-if="activeUser != null">
 

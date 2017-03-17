@@ -169,10 +169,17 @@ h3 {
 .save{
             background: #7ebc6f;
             color: #fff;
-            position: absolute;
-            top: -121px;
-            right: 50px;
+            // position: absolute;
+            // top: -121px;
+            // right: 50px;
         }
+
+.editButotn{
+    position: absolute;
+    right: 50px;
+    top: 45px;
+
+}
 .activeSave{
     background: #5a844e;
 }
@@ -341,7 +348,7 @@ h3 {
             line-height: 0px;
             border-radius: 5px;
             height: 35px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .search{
@@ -355,11 +362,11 @@ h3 {
             color: #B1B1B1;
         }
 
-        .editButotn{
-            right: 10px;
-            position: absolute;
-            top: 10px;
-        }
+        // .editButotn{
+        //     right: 10px;
+        //     position: absolute;
+        //     top: 10px;
+        // }
 
         .mdl-radio + .mdl-radio {
             margin-left: 1.5rem;
@@ -383,11 +390,11 @@ h3 {
                 }
 
 
-                .save{
-            position: absolute;
-            top: -32px;
-            right: 50px;
-        }
+        //         .save{
+        //     position: absolute;
+        //     top: -32px;
+        //     right: 50px;
+        // }
 }
 
         .fade-enter-active {
@@ -427,6 +434,8 @@ h3 {
 
 #userAccount {
 
+    position: relative;
+
         h3{
             font-size: 24px;
         }
@@ -438,9 +447,9 @@ h3 {
 
         .save{
 
-            position: absolute;
-            top: -21px;
-            right: 50px;
+            // position: absolute;
+            // top: -21px;
+            // right: 50px;
         }
 
         .addForm{
@@ -450,7 +459,7 @@ h3 {
             line-height: 0px;
             border-radius: 5px;
             height: 35px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .modalButton {
@@ -514,6 +523,8 @@ h3 {
 
 #userManagement {
 
+    position: relative;
+
         .section{
             width: 100%;
             position: relative;
@@ -537,6 +548,8 @@ h3 {
         }
 }
 #activeUser {
+
+    position: relative;
 
         .section{
             width: 100%;
