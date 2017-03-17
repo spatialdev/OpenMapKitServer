@@ -45,6 +45,17 @@ new Vue({
         }
 
     },
+    computed: {
+
+        orderedFormPermissions: function () {
+
+            if(this.userDetails){
+                return _.orderBy(this.userDetails.formPermissions, 'id')
+            }
+
+          }
+
+    },
     watch: {
         'editMode': function () {
                 setTimeout(function () {
@@ -239,6 +250,8 @@ new Vue({
         },
         updateFormAssignment: function (id, type) {
 
+            var vm = this;
+
             var newFormAssignment = {
                     form_id: id,
                     user_id: this.userDetails.id,
@@ -345,7 +358,7 @@ new Vue({
             // GET request
             this.$http.get(url + '/custom/tables/omk_forms', params).then(function (response) {
 
-                this.formList = response.data;
+                this.formList = _.orderBy(response.data, 'id')
 
             }, function (response) {
 

@@ -84,6 +84,14 @@ new Vue({
     },
     computed: {
 
+        orderedFormPermissions: function () {
+
+            if(this.activeUser){
+                return _.orderBy(this.activeUser.formPermissions, 'id')
+            }
+
+          },
+
         validateUserFrom: function () {
             if (this.newUser.username !== null && this.newUser.password !== null) {
                 return true

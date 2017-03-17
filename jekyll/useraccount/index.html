@@ -87,13 +87,13 @@ mixins: header-mixin
                     <tr >
                       <th>Form title</th>
                       <th>Admin</th>
-                      <th>Read</th>
                       <th>Write</th>
+                      <th>Read</th>
                       <th v-show="editMode"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(form, index) in userDetails.formPermissions">
+                    <tr v-for="(form, index) in orderedFormPermissions">
                        <template>
 
                        <td>
@@ -104,21 +104,10 @@ mixins: header-mixin
                            <i class="material-icons" v-if="form.admin">done</i>
                          </div>
                          <div v-show="editMode">
-                            <!-- <i class="material-icons" v-if="!form.admin" @click="setOthersToFalse(form, 'admin')">crop_3_2</i> -->
-                            <i class="material-icons boxWithCheck" v-if="editMode" @click="setOthersToFalse(form, 'admin')">check_box_outline_blank</i>
-                            <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">done</i>
-                         </div>
 
-                       </td>
-                       <td>
-                          <div v-show="!editMode">
-                            <i class="material-icons" v-if="form.read">done</i>
-                          </div>
-                          <div v-show="editMode">
-                            <!-- <i class="material-icons" v-if="!form.read" @click="setOthersToFalse(form, 'read')">crop_3_2</i> -->
-                            <i class="material-icons boxWithCheck" style="left: 62px;" v-if="editMode" @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
-                            <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">done</i>
-                          </div>
+                            <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">check_box</i>
+                            <i class="material-icons" v-else @click="setOthersToFalse(form, 'admin')">check_box_outline_blank</i>
+                         </div>
 
                        </td>
                        <td>
@@ -126,10 +115,21 @@ mixins: header-mixin
                             <i class="material-icons" v-if="form.write">done</i>
                           </div>
                           <div v-show="editMode">
-                            <!-- <i class="material-icons" v-if="!form.write" @click="setOthersToFalse(form, 'write')">crop_3_2</i> -->
-                            <i class="material-icons boxWithCheck" style="right: 63px;" v-if="editMode" @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
-                            <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">done</i>
+
+                            <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">check_box</i>
+                            <i class="material-icons" v-else @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                           </div>
+                       </td>
+                       <td>
+                          <div v-show="!editMode">
+                            <i class="material-icons" v-if="form.read">done</i>
+                          </div>
+                          <div v-show="editMode">
+
+                            <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">check_box</i>
+                            <i class="material-icons" v-else @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
+                          </div>
+
                        </td>
 
                         <td class="trashcan" v-show="editMode">
@@ -150,11 +150,6 @@ mixins: header-mixin
                         <i class="material-icons">add</i> Add form
                       </h6>
                       <div class="mdl-dialog__content">
-
-                          <!-- <select v-model="selectedForm">
-                            <option value="default" selected disabled>select your form</option>
-                            <option v-for="(form, index) in formList" :value="form.form_id">[{form.form_id}]</option>
-                          </select> -->
                           <ui-select
                               label="Forms:"
                               placeholder="Select a form"
@@ -203,10 +198,7 @@ mixins: header-mixin
                   </div>
 
               </dialog>
-
-
               <dialog id="deleteForm-dialog" class="mdl-dialog">
-
                   <div v-if="userDetails != null">
                       <h6 class="mdl-dialog__title">
                         <i class="material-icons">minus</i> Delete form
