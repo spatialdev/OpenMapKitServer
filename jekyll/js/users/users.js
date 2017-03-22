@@ -187,7 +187,7 @@ new Vue({
                 first_name: this.newUser.first_name,
                 last_name: this.newUser.last_name,
                 email: this.newUser.email,
-                role: this.newUser.role
+                role: this.selectedFormRole
             }
 
 
@@ -195,7 +195,7 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
 
-            // Get enketo-express URL
+            // POST TO CREATE A USER
             this.$http.post(this.auth.user.url + "/custom/users/user", newUser, params).then(function (response) {
 
                 console.log("create new user", response);
