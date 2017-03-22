@@ -7,12 +7,12 @@ var auth =  {
     tokenExpiration: null,
     invalid: false,
     required: true,
-    url: 'http://52.14.157.36:3210'
+    url: 'http://52.14.154.36:3210'
   },
   enketo: {
     enabled: true,
-    omk_url: 'http://52.14.157.36:3210',
-    url: 'http://52.14.157.36:8005/api/v2',
+    omk_url: 'http://52.14.154.36:3210',
+    url: 'http://52.14.154.36:8005/api/v2',
     api_key: 'enketorules'
   },
   //call to the API and check against the credentials
