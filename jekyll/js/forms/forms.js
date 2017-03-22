@@ -14,8 +14,7 @@ new Vue({
             formList: null,
             enketo: auth.enketo,
             auth: auth,
-            user: auth.getUser(),
-            omk: OMK
+            user: auth.getUser()
         }
 
     },
@@ -51,7 +50,7 @@ new Vue({
             }
             // GET request
             this.$http.post(this.$data.auth.user.url + "/formList?json=true", null, params).then(function (response) {
-                
+
                 this.formList = response.data;
 
                 //register the mdl menus on each card
