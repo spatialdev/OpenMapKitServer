@@ -111,16 +111,16 @@ function renderCSV(objects) {
             } else if (OMK.isUserAuthorizedToEdit(formid) && field === "0") {
 
                 var button = document.createElement("button");
-                button.innerHTML = "Edit Form";
-
+                button.innerHTML = "Edit";
                 $(button)
                     .attr("uuid", uuid)
+                    .attr("class", "mdl-button mdl-js-button mdl-button--raised mdl-button--colored")
                     .click(function(e){
                         var uuid = $(e.currentTarget).attr("uuid");
                         var formid = getParam('form');
 
                         // get submission XML
-                        fetchXML('/omk/odk/submissions/' + formid + '.xml' + '?submissionId=' + uuid, function(xml){
+                        fetchXML(AUTH.user.url + '/omk/odk/submissions/' + formid + '.xml' + '?submissionId=' + uuid, function(xml){
 
                             var options = {};
                             options.server_url = AUTH.enketo.omk_url;
@@ -339,7 +339,7 @@ function createHyperLinkIfNeeded(field, object) {
 }
 
 function addEditButtonHeader (rows) {
-    var header = ["editSubmission"];
+    var header = ["edit"];
 
     rows.forEach(function(r){
         header.push(r);
@@ -416,6 +416,22 @@ function fetchEketoEditURL (url, body, cb) {
             // console.log("Outlet Creation Failed, please try again.");
             var form = getParam('form');
             $("#submissionPagespinner").hide();
+
+            // Confirmation Dialog
+            var dialog = document.querySelector('dialog');
+
+            // return error
+            dialog.querySelector('.mdl-dialog__title').innerHTML = "Error";
+            dialog.querySelector('.mdl-dialog__content p').innerHTML = data.responseJSON.message || "Error fetching Enketo URL, make sure enketo is properly enabled in the config.";
+            // disable button
+            dialog.querySelector('#open-enketo-url-submission button').setAttribute('disabled', '');
+            // show dialog
+            dialog.showModal();
+
+            dialog.querySelector('.mdl-dialog__actions button.close').addEventListener('click', function () {
+                dialog.close();
+            });
+
             // $("#backLink").show();
             console.log("Error fetching Submission xml");
             console.log(data);
