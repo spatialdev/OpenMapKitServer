@@ -56,7 +56,7 @@ new Vue({
         getReturnURL: function () {
             var url = location.href.slice(location.href.indexOf("=")+1, location.href.length);
 
-            return location.href.indexOf("=") > -1 && url.length > 0 ? url : null;;
+            return location.href.indexOf("=") > -1 && url.length > 0 ? url : null;
         },
 
         submit() {

@@ -1,3 +1,5 @@
+var AUTH = auth;
+
 function getParam(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -77,6 +79,13 @@ function renderCSV(objects) {
     var thead = document.createElement("thead");
     var tr = document.createElement("tr");
     var header = rows[0];
+    var formid = getParam('form');
+
+    // Add slot for edit button IF user is authorized
+    if(OMK.isUserAuthorizedToEdit(formid)){
+        header = addEditButtonHeader(header);
+    }
+
     for (field in header) {
         var th = document.createElement("th");
         $(th).html(header[field]);
@@ -86,15 +95,78 @@ function renderCSV(objects) {
 
     // render body of table
     var tbody = document.createElement("tbody");
+
     for (var i = 1; i < rows.length; i++) {
+        rows[i] = addEditButtonBody(rows[i]);
         tr = document.createElement("tr");
         for (field in rows[i]) {
             var td = document.createElement("td");
             var cell = createHyperLinkIfNeeded(rows[i][field], objects[i - 1]);
-            $(td)
-                .html(cell)
-                .attr("title", rows[i][field]);
-            tr.appendChild(td);
+            var uuid = getSubmissionUUID(rows[i]);
+            if(field !== "0") {
+                $(td)
+                    .html(cell)
+                    .attr("title", rows[i][field]);
+                tr.appendChild(td);
+            } else if (OMK.isUserAuthorizedToEdit(formid) && field === "0") {
+
+                var button = document.createElement("button");
+                button.innerHTML = "Edit Form";
+
+                $(button)
+                    .attr("uuid", uuid)
+                    .click(function(e){
+                        var uuid = $(e.currentTarget).attr("uuid");
+                        var formid = getParam('form');
+
+                        // get submission XML
+                        fetchXML('/omk/odk/submissions/' + formid + '.xml' + '?submissionId=' + uuid, function(xml){
+
+                            var options = {};
+                            options.server_url = AUTH.enketo.omk_url;
+                            options.form_id = formid;
+                            options.instance_id = uuid;
+                            options.return_url = AUTH.enketo.omk_url + "/omk/pages/submissions/?form="+formid;
+                            options.instance = cleanUpXML(xml);
+
+                            fetchEketoEditURL(AUTH.enketo.url + '/instance', options, function (d) {
+
+                                // Confirmation Dialog
+                                var dialog = document.querySelector('dialog');
+
+                                if (dialog) {
+                                    // close dialog
+                                    dialog.querySelector('.close').addEventListener('click', function () {
+                                        dialog.close();
+                                    });
+                                }
+
+                                if (d.hasOwnProperty("edit_url")) {
+
+                                    var enketoButton = document.querySelector('#open-enketo-url-submission');
+                                    enketoButton.href = d.edit_url;
+
+                                    // show dialog
+                                    dialog.showModal();
+
+                                    dialog.querySelector('#open-enketo-url-submission').addEventListener('click', function () {
+                                        dialog.close();
+                                    });
+                                } else {
+                                    dialog.close();
+                                }
+
+                            })
+
+                        })
+
+                    });
+
+                $(td)
+                    .html(button)
+                    .attr("title", rows[i][field]);
+                tr.appendChild(td);
+            }
         }
         tbody.appendChild(tr);
     }
@@ -102,9 +174,18 @@ function renderCSV(objects) {
     table.appendChild(thead);
     table.appendChild(tbody);
 
-    OMK._dataTable = $('#submission-table').DataTable({
-        "deferRender": true
-    });
+    try {
+        OMK._dataTable = $('#submission-table').DataTable({
+            "deferRender": true
+        });
+    } catch (e) {
+        var form = getParam('form');
+        $("#submissionPagespinner").hide();
+        $("#alert").text("No data has been submitted for " + form + '.').show();
+        $("#submissionCard").html("")
+        $(".csv").html("")
+        console.error (e)
+    }
 }
 
 function createFlatObjects(json) {
@@ -255,4 +336,150 @@ function createHyperLinkIfNeeded(field, object) {
         }
     }
     return field;
+}
+
+function addEditButtonHeader (rows) {
+    var header = ["editSubmission"];
+
+    rows.forEach(function(r){
+        header.push(r);
+    })
+
+    return header
+}
+
+function addEditButtonBody (row) {
+    var body = [""];
+
+    row.forEach(function(r){
+        body.push(r);
+    })
+
+    return body
+}
+
+function getSubmissionUUID (row) {
+    var id;
+
+    row.forEach(function(r){
+        if(r.toString().indexOf("uuid") !== -1){
+            id = r;
+        }
+    })
+
+    return id;
+}
+
+function fetchXML(url, cb) {
+    if (!url) return;
+
+    $.ajax({
+        url: url,
+        type: 'get',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('id_token')
+        },
+        dataType: 'xml',
+        success: function (data){
+            if(cb) cb(xmlToString(data))
+
+
+        },
+        error: function (data){
+            // console.log("Outlet Creation Failed, please try again.");
+            var form = getParam('form');
+            $("#submissionPagespinner").hide();
+            // $("#backLink").show();
+            console.log("Error fetching Submission xml");
+            console.log(data);
+        }
+
+    });
+}
+
+function fetchEketoEditURL (url, body, cb) {
+    $.ajax({
+        url: url,
+        type: 'post',
+        headers: {
+            'Authorization': 'Basic ' + btoa(AUTH.enketo.api_key + ":"),
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: body,
+        dataType: 'json',
+        success: function (data){
+            if(cb) cb(data)
+
+
+        },
+        error: function (data){
+            // console.log("Outlet Creation Failed, please try again.");
+            var form = getParam('form');
+            $("#submissionPagespinner").hide();
+            // $("#backLink").show();
+            console.log("Error fetching Submission xml");
+            console.log(data);
+        }
+
+    });
+}
+
+//http://www.mail-archive.com/jquery-en@googlegroups.com/msg27059.html
+function xmlToString(xmlData) {
+
+    var xmlString;
+    //IE
+    if (window.ActiveXObject){
+        xmlString = xmlData.xml;
+    }
+    // code for Mozilla, Firefox, Opera, etc.
+    else{
+        xmlString = (new XMLSerializer()).serializeToString(xmlData);
+    }
+    return xmlString;
+}
+
+//http://www.textfixer.com/tools/remove-line-breaks.php
+function cleanUpXML (xml){
+
+    var re1 = /<1br \/><1br \/>/gi,
+    re1a = /<1br \/><1br \/><1br \/>/gi, re2, re3, re4;
+
+    xml = xml.replace(/(\r\n|\n|\r)/gm,"<1br />");
+
+    xml = xml.replace(re1a,"<1br /><2br />");
+    xml = xml.replace(re1,"<2br />");
+
+    re2 = /\<1br \/>/gi;
+    xml = xml.replace(re2, " ");
+
+    re3 = /\s+/g;
+    xml = xml.replace(re3," ");
+
+    re4 = /<2br \/>/gi;
+    xml = xml.replace(re4,"\n\n");
+
+    return xml
+}
+
+// check if user is authorzed to edit submissions
+function isUserAuthorizedToEdit () {
+
+    var user = AUTH.getUser();
+    var authorized, result = [];
+    var formid = getParam('form');
+
+    // check if app level admin
+    if (user.role === "admin"){
+        authorized = true;
+    } else if (user.formPermissions.length > 0) {
+        user.formPermissions.forEach(function(f){
+            // ONLY form level admin is authorized
+            if (f.form_id === formid && f.role === "admin") result.push(f)
+        });
+
+        authorized = result.length > 0;
+    }
+
+    return authorized
 }

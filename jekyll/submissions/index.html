@@ -17,7 +17,7 @@ mixins: header-mixin
 
     <div class="mask">
         <div class="mdl-grid grid-menu mdl-cell mdl-cell--12-col">
-            <div>
+            <div class="container-backLink">
                 <a id="backLink" href="/omk/pages/forms/" class="backLink">
                     < Back to forms page
                 </a>
@@ -82,6 +82,20 @@ mixins: header-mixin
     </div>
     </div>
 </div>
+
+<!-- Enketo Dialog -->
+<dialog id="enketo-dialog-submission" class="mdl-dialog">
+    <h6 class="mdl-dialog__title">Enketo Express</h6>
+    <div class="mdl-dialog__content">
+        <p>Edit with Enketo Express</p>
+    </div>
+    <div class="mdl-dialog__actions">
+        <a id="open-enketo-url-submission" href="#" target="_blank">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised">Open</button>
+        </a>
+        <button type="button" class="mdl-button mdl-js-button mdl-button--raised close">Close</button>
+    </div>
+</dialog>
 
 <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>

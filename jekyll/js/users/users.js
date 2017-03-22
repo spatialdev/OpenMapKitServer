@@ -18,7 +18,6 @@ new Vue({
     data() {
         return {
             auth: auth,
-            user: auth.getUser(),
             userAdded: false,
             usersList: [],
             user: auth.getUser(),

@@ -40,10 +40,10 @@ function ProcessSubmission (options) {
 
                 var formId = Object.keys(result)[0];
 
-                // forms with deprecatedID are EDITS
-                if (typeof result[formId]["meta"][0]["deprecatedID"] === "object") {
+                // forms with deprecatedID or instanceId are EDITS
+                if (typeof result[formId]["meta"][0]["instanceId"] === "object") {
                     req.submission["EDIT"] = {
-                        deprecatedID: result[formId]["meta"][0]["deprecatedID"][0]
+                        deprecatedID: result[formId]["meta"][0]["instanceId"][0]
                     }
                 }
 

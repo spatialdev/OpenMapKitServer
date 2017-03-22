@@ -12,14 +12,10 @@ new Vue({
     data() {
         return {
             formList: null,
-            enketo: {
-                enabled: true,
-                omk_url: 'http://52.14.154.36:3210',
-                url: 'http://52.14.154.36:8005/api/v2/survey/offline',
-                api_key: 'enketorules'
-            },
+            enketo: auth.enketo,
             auth: auth,
-            user: auth.getUser()
+            user: auth.getUser(),
+            omk: OMK
         }
 
     },
@@ -54,8 +50,8 @@ new Vue({
                 headers: auth.getAuthHeader()
             }
             // GET request
-            this.$http.post("http://52.14.154.36:3210/formList?json=true", null, params).then(function (response) {
-
+            this.$http.post(this.$data.auth.user.url + "/formList?json=true", null, params).then(function (response) {
+                
                 this.formList = response.data;
 
                 //register the mdl menus on each card
@@ -78,12 +74,12 @@ new Vue({
                 headers: {
                     // base-64 encoded api key
                     'Authorization': 'Basic ' + btoa(this.$data.enketo.api_key + ":"),
-                    'Content-Type': 'application/json'}
+                    'Content-Type': 'application/json'
+                }
             };
 
             // dialog with link to enketo-express URL
             var dialog = document.querySelector('dialog');
-
 
             if (dialog) {
                 // close dialog
@@ -93,9 +89,8 @@ new Vue({
             }
 
             // Get enketo-express URL
-            this.$http.post(this.$data.enketo.url, data, options).then(function (response) {
-
-
+            this.$http.post(this.$data.enketo.url + '/survey/offline', data, options).then(function (response) {
+                
                 if (response.data.hasOwnProperty("offline_url")) {
 
                     if (!dialog.showModal) {

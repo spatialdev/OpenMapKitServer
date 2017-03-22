@@ -5,8 +5,6 @@ OMK._PAGINATION_LIMIT = 5000;
 
 OMK._Auth = auth;
 
-console.log(OMK);
-
 OMK.fetch = function (cb) {
     OMK.getFormMetaData(function(metadata) {
 
@@ -262,3 +260,23 @@ OMK.downloadOSM = function (url, element) {
     });
 };
 
+// check if user is authorized to edit a specific form
+OMK.isUserAuthorizedToEdit  = function (formid) {
+
+    var user = AUTH.getUser();
+    var authorized, result = [];
+
+    // check if app level admin
+    if (user.role === "admin"){
+        authorized = true;
+    } else if (user.formPermissions.length > 0) {
+        user.formPermissions.forEach(function(f){
+            // ONLY form level admin is authorized
+            if (f.form_id === formid && f.role === "admin") result.push(f)
+        });
+
+        authorized = result.length > 0;
+    }
+
+    return authorized
+}

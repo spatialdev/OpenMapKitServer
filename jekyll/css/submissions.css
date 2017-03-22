@@ -18,7 +18,7 @@
 .grid-lower{
     position: relative;
     z-index: 1;
-    top: 95px;
+    top: 135px;
 }
 
 .wide-card {
@@ -47,6 +47,10 @@
             font-weight: 100;
             color: #2B9BF5;
         }
+
+.container-backLink {
+    width: 100%;
+}
 
 .mask {
     padding: 0;
