@@ -231,11 +231,11 @@ router.patch('/user/:id', function (req, res, next){
         next(new CustomError('Missing authentication settings', 500));
     }
 
-    // must be an admin
-    if (req.user.role === "admin"){
-        var sql, sqlParams, undefinedBodyPars, invalidRoleType, db, password;
+    req.sanitizeParams('id').toInt();
 
-        req.sanitizeParams('id').toInt();
+    // must be an admin
+    if (req.user.role === "admin" || req.user.id === req.params.id){
+        var sql, sqlParams, undefinedBodyPars, invalidRoleType, db, password;
 
         // Make sure all body parameters are defined; if not throw error
         undefinedBodyPars = [req.params.id, req.body.edit_role, req.body.edit_username]
@@ -260,7 +260,7 @@ router.patch('/user/:id', function (req, res, next){
         password = req.body.edit_password || null;
 
         db = pgb.getDatabase();
-        sql = "  SELECT ___edit_user($1, $2, $3, $4, $5, $6, $7, $8);";
+        sql = "SELECT ___edit_user($1, $2, $3, $4, $5, $6, $7, $8);";
 
         // create user record
         db.one(sql, [req.user.id, req.params.id, req.body.edit_username, req.body.edit_first_name, req.body.edit_last_name, req.body.edit_email, password, req.body.edit_role.toLowerCase()])
