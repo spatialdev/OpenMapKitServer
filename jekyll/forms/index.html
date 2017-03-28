@@ -44,7 +44,7 @@ mixins: header-mixin
                         </a>
                     </li>
                     <li id="get-enketo-url" class="mdl-menu__item"
-                        v-if="enketo.enabled === true && user.role == 'admin'" v-on:click="getEnketoURL(val.formID)">
+                        v-if="enketo.enabled === true && formPermissionUserLevel(val.formID)" v-on:click="getEnketoURL(val.formID)">
                         <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Fetch Enketo URL</div>
                     </li>
 

@@ -30,6 +30,14 @@ new Vue({
 
     },
     methods: {
+        formPermissionUserLevel: function (formName) {
+            var formPermission = _.find(this.user.formPermissions, function(o) { return o.form_id === formName; });
+            if(formPermission){
+                return formPermission.admin
+            }else{
+                return false
+            }
+        },
         getHrefForm: function (id, ext) {
             return '/omk/data/forms/' + id + "." + ext;
         },
@@ -89,7 +97,7 @@ new Vue({
 
             // Get enketo-express URL
             this.$http.post(this.$data.enketo.url + '/survey/offline', data, options).then(function (response) {
-                
+
                 if (response.data.hasOwnProperty("offline_url")) {
 
                     if (!dialog.showModal) {
