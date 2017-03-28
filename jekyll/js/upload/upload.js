@@ -146,7 +146,8 @@ var uploadFile = new Vue({
             fileName: null,
             hovering: true,
             auth: auth,
-            type: 'json'
+            type: 'json',
+            user: auth.getUser()
         }
     },
     computed: {

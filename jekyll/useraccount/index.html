@@ -69,13 +69,14 @@ mixins: header-mixin
                   ></ui-textbox>
 
             </div>
-            <div class="section">
+            <div class="section" v-if="user.role === 'Admin'">
             <div>
             <h3 style="margin-bottom: 35px;">Forms:</h3>
             </div>
               <span style="font-weight: 200; color: #2e2e2e;">List of survey forms this user is assigned to:</span>
               <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
-                @click="addUser()" style="float: right;">
+                @click="addUser()"
+                style="float: right;">
                   <i class="material-icons">add</i> ADD FORM
                 </button>
             </div>

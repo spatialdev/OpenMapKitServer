@@ -11,7 +11,8 @@ new Vue({
     mixins: [headerMixin],
     data() {
         return {
-            auth: auth
+            auth: auth,
+            user: auth.getUser()
         }
     },
     mounted: function () {
