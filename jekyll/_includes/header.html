@@ -8,7 +8,7 @@
       <div class="mdl-layout-spacer"></div>
 
       <div v-if="auth.user.authenticated" v-cloak>
-        <a href="/omk/pages/upload-form/">
+        <a href="/omk/pages/upload-form/" v-if="user.role === 'admin'">
           <button class="mdl-button mdl-button--colored">
             UPLOAD FORM
           </button>
