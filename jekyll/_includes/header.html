@@ -18,7 +18,8 @@
                 ref="dropdownTrigger"
                 tabindex="0"
                 v-if="auth.user.authenticated" v-cloak>
-          <i class="material-icons">settings</i> USER ACCOUNT
+          <i class="material-icons">settings</i>
+          <span style="text-transform: uppercase;">[{user.username}]</span>
         </button>
 
         <ui-popover trigger="dropdownTrigger" open-on="hover" ref="dropdown" v-if="auth.user.authenticated" v-cloak>

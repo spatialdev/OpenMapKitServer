@@ -27,7 +27,12 @@ var headerMixin ={
 	  	}
 	  },
 
-	  created: function () {
+	  mounted: function () {
+
+	  	//remove User Management link for non Admin users
+	  	if(this.user.role !== 'admin'){
+	  		_.remove(this.menuOptions, {label: 'User Management'});
+	  	}
 
 	  },
 	  methods: {
