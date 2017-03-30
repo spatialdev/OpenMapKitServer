@@ -34,6 +34,8 @@ new Vue({
             var formPermission = _.find(this.user.formPermissions, function(o) { return o.form_id === formName; });
             if(formPermission){
                 return formPermission.admin
+            }else if (this.user.role === 'admin'){
+                return true
             }else{
                 return false
             }
