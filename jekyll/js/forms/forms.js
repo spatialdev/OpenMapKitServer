@@ -32,13 +32,20 @@ new Vue({
     methods: {
         formPermissionUserLevel: function (formName) {
             var formPermission = _.find(this.user.formPermissions, function(o) { return o.form_id === formName; });
+
             if(formPermission){
-                return formPermission.admin
+                if (this.user.role !== 'admin'){
+                    return formPermission.admin
+                }else{
+                    return true
+                }
             }else if (this.user.role === 'admin'){
                 return true
             }else{
                 return false
             }
+
+
         },
         getHrefForm: function (id, ext) {
             return '/omk/data/forms/' + id + "." + ext;

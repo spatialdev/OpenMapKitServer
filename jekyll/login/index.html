@@ -25,6 +25,7 @@ mixins: header-mixin
               <ui-textbox
                   floating-label
                   label=Password
+                  type="password"
                   placeholder="Enter your password"
                   v-model="credentials.password"
                   @keyup.enter.native="submit()"
