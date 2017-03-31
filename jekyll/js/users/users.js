@@ -61,7 +61,8 @@ new Vue({
     watch: {
         'activeUser': function () {
                 setTimeout(function () {
-                    dialog = document.querySelector('dialog');
+
+                    dialog = document.querySelector('#addUser-dialog');
 
                     formDialog = document.querySelector('#addForm-dialog');
 
@@ -127,7 +128,7 @@ new Vue({
     },
     methods: {
         ifNullReturnEmptyString: function (value) {
-            if(value === null){
+            if(value === null || typeof value == "undefined"){
                 return ''
             }else{
                 return value
@@ -214,6 +215,11 @@ new Vue({
         },
         createTabHeaders: function () {
 
+            //If tab headers have been created already, DONT CREATE AGAIN.
+            if(this.tableHeader.length > 0){
+                return;
+            }
+
             var headersToShow = ["created_by", "updated_date", "updated_by", "created_date", "id"]
 
             if(this.usersList.length > 0){
@@ -248,6 +254,8 @@ new Vue({
 
                 this.createTabHeaders();
 
+                console.log("LIST OF USERS: ", response.data);
+
             }, function (response) {
 
                 console.log("error: ", response);
@@ -258,6 +266,9 @@ new Vue({
         addUser: function () {
 
             // show dialog
+            if(!dialog){
+                dialog = document.querySelector('#addUser-dialog');
+            }
             dialog.showModal();
 
 
@@ -265,9 +276,9 @@ new Vue({
         closeDialog: function () {
             var vm = this;
             if (dialog) {
+                        vm.userAdded = false;
+                        vm.formAdded = false;
                     dialog.close();
-                    vm.userAdded = false;
-                    vm.formAdded = false;
             }
         },
         clearUserMeta: function () {

@@ -91,9 +91,9 @@ mixins: header-mixin
             </div>
         </div>
         <!-- Enketo Dialog -->
-      <dialog id="addUser" class="mdl-dialog">
+      <dialog id="addUser-dialog" class="mdl-dialog">
 
-          <div v-show="!userAdded">
+          <div v-if="!userAdded">
               <h6 class="mdl-dialog__title">
                 <i class="material-icons">person_add</i> Add user
               </h6>
@@ -164,7 +164,7 @@ mixins: header-mixin
               </div>
 
           </div>
-          <div v-show="userAdded">
+          <div v-else="userAdded">
 
             <h6 class="mdl-dialog__title">
                 <i class="material-icons">person_add</i> Added user
