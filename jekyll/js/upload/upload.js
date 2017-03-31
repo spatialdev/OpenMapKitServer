@@ -180,7 +180,7 @@ var uploadFile = new Vue({
             //toaster
             var toastOptions = {
                 settings: {
-                    duration: 300e3
+                    duration: 10000
                 },
                 style: {
                     main: {
