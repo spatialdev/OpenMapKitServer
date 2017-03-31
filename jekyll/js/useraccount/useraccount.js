@@ -350,10 +350,6 @@ new Vue({
         },
         getFormList: function(){
 
-            if(this.user.role !== 'Admin'){
-                return;
-            }
-
             var url = this.auth.user.url
 
             var params = {
