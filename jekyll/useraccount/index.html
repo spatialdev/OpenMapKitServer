@@ -203,9 +203,11 @@ mixins: header-mixin
                   <div v-if="userDetails != null">
                       <h6 class="mdl-dialog__title">
                         <!-- <i class="material-icons">minus</i>  -->
-                        Delete form
+                        Delete form:
                       </h6>
+
                       <div class="mdl-dialog__content">
+                      <span style="font-size: 18px;">[{selectedForm.form_id}]</span>
                       </div>
                       <div class="mdl-dialog__actions">
                           <button type="button" class="mdl-button mdl-js-button modalButton" @click="deleteFormAssigment()"
