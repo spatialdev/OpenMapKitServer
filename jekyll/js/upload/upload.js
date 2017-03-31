@@ -78,7 +78,7 @@ Vue.component('ajax-form', {
                         this.fileName = null;
                     } else {
                         // this.$dispatch('onFormError', this, xhr.statusText);
-                        this.$emit('onformerror', xhr.statusText)
+                        this.$emit('onformerror', xhr.response)
 
                     }
                 }
@@ -174,11 +174,14 @@ var uploadFile = new Vue({
             console.log('onFormError', err);
             // indicate the changes
             //Failed message
-            this.uploadMessage = "Failed uploading " + this.fileName + " file";
+            this.uploadMessage =  "Failed uploading " + this.fileName + ": " + (err.message || err.msg );
             this.response = err;
 
             //toaster
             var toastOptions = {
+                settings: {
+                    duration: 300e3
+                },
                 style: {
                     main: {
                         background: "#f2dede",
