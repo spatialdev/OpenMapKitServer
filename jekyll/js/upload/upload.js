@@ -167,6 +167,8 @@ var uploadFile = new Vue({
         }
 
         componentHandler.upgradeDom();
+
+        // console.log(this)
     },
     methods: {
         onformerror: function(err) {
@@ -191,6 +193,15 @@ var uploadFile = new Vue({
                 }
             };
             iqwerty.toast.Toast(this.uploadMessage, toastOptions);
+
+            this.fileName = null
+            this.showProgess = false
+            this.progress = 0;
+
+            this.$children[0].fileName = ''
+            this.$children[0].fileData = null
+
+            document.getElementById("id").reset();
         },
         onformprogress: function(e) {
             // the form is done, but there could still be errors
@@ -230,6 +241,18 @@ var uploadFile = new Vue({
                 }
             };
             iqwerty.toast.Toast(this.uploadMessage, toastOptions);
+
+            this.fileName = null
+            this.showProgess = false
+            this.progress = 0;
+            document.getElementById("id").reset();
+        },
+        cancelUpload:function () {
+
+            this.fileName = null
+            this.showProgess = false
+            this.progress = 0;
+            document.getElementById("id").reset();
         }
 
     }
