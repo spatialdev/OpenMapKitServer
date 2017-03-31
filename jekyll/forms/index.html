@@ -27,10 +27,10 @@ mixins: header-mixin
                    :href="getHrefSubmissions(val.formID)">
                     View Submissions
                 </a>
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                   :href="getHrefForm(val.formID, 'xlsx')">
-                    XLSX Form
-                </a>
+                <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                   v-if="enketo.enabled === true && formPermissionUserLevel(val.formID)" v-on:click="getEnketoURL(val.formID)">
+                    Fetch Enketo URL
+                </div>
 
                 <button :id="val.formID"
                         class="mdl-button mdl-js-button mdl-button--icon buttonRight">
@@ -40,12 +40,13 @@ mixins: header-mixin
                     <li class="mdl-menu__item">
                         <a target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                            :href="getHrefForm(val.formID, 'xml')">
-                            Download XForm XML
+                            View XForm XML
                         </a>
                     </li>
-                    <li id="get-enketo-url" class="mdl-menu__item"
-                        v-if="enketo.enabled === true && formPermissionUserLevel(val.formID)" v-on:click="getEnketoURL(val.formID)">
-                        <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Fetch Enketo URL</div>
+                    <li id="get-enketo-url" class="mdl-menu__item">
+                        <a :href="getHrefForm(val.formID, 'xlsx')">
+                        <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Download XLSX Form</div>
+                        </a>
                     </li>
 
                 </ul>

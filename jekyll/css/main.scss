@@ -564,8 +564,13 @@ h3 {
 .mdl-card{
         margin: 10px 3px;
         overflow: visible;
-        width: 295px;
+        width: 293px;
 }
+
+.mdl-card .mdl-button {
+    padding: 0px 5px;
+}
+
 .mdl-card__supporting-text {
     word-wrap: break-word;
 }
