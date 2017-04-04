@@ -140,37 +140,12 @@ new Vue({
 
             form[type] = true;
 
-
-            setTimeout(function () {
-
-                var orale = ["admin", "write", "read"]
-
-                    if(type === "admin"){
-                        orale.forEach(function(t) {
-                            form[t] = true;
-                        });
-                    }else{
-                        orale.forEach(function(t) {
-                          if (t != type ) {
-                            form[t] = false;
-                          }
-                        });
-                    }
-                    componentHandler.upgradeDom();
-
-                    vm.updateFormAssignment(form.id, type);
-
-            }, 100);
-
+            vm.updateFormAssignment(form.id, type);
 
         },
         formatHeader: function (string) {
 
             var removeChar = string.replace("_", " ");
-
-
-
-            // var formattedString = removeChar.charAt(0).toUpperCase() + removeChar.slice(1);
 
             var formattedString = removeChar.charAt(0).toUpperCase() + removeChar.slice(1);
 

@@ -272,37 +272,37 @@ mixins: header-mixin
                        <td>
                          [{form.form_id}]
                        </td>
-                       <td>
+                       <td :class= "{'editMode': editMode}">
                          <div v-show="!editMode">
                            <i class="material-icons" v-if="form.admin">done</i>
                          </div>
                          <div v-show="editMode">
-                            <i class="material-icons" v-if="form.admin" @click="setOthersToFalse(form, 'admin')">check_box</i>
+                            <i class="material-icons" v-if="form.role === 'admin'" @click="setOthersToFalse(form, 'admin')">check_box</i>
                             <i class="material-icons" v-else @click="setOthersToFalse(form, 'admin')">check_box_outline_blank</i>
                          </div>
 
                        </td>
-                       <td>
+                       <td :class= "{'editMode': editMode}">
                           <div v-show="!editMode">
                             <i class="material-icons" v-if="form.write">done</i>
                           </div>
                           <div v-show="editMode">
 
-                            <i class="material-icons" v-if="form.write" @click="setOthersToFalse(form, 'write')">check_box</i>
+                            <i class="material-icons" v-if="form.role === 'write'" @click="setOthersToFalse(form, 'write')">check_box</i>
                             <i class="material-icons" v-else @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                           </div>
                        </td>
-                       <td>
+                       <td :class= "{'editMode': editMode}">
                           <div v-show="!editMode">
                             <i class="material-icons" v-if="form.read">done</i>
                           </div>
                           <div v-show="editMode">
 
-                            <i class="material-icons" v-if="form.read" @click="setOthersToFalse(form, 'read')">check_box</i>
+                            <i class="material-icons" v-if="form.role === 'read'" @click="setOthersToFalse(form, 'read')">check_box</i>
                             <i class="material-icons" v-else @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
                           </div>
 
-                       </td>
+                       </td :class= "{'editMode': editMode}">
 
                           <td class="trashcan" v-show="editMode">
                           <i class="material-icons" @click="deleteDialog(form.form_id)" v-show="editMode">delete</i></td>
