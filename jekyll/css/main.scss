@@ -648,6 +648,7 @@ h3 {
     .section{
         width: 940px;
         padding-top: 50px;
+        position: relative;
     }
 
     .section.table{
@@ -662,6 +663,27 @@ h3 {
             color: rgb(46, 46, 46);
             padding-top: 8px;
             position: absolute;
+        }
+
+    #downloads a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .addForm{
+            background: #7ebc6f;
+            color: #fff;
+            margin-left: 10px;
+            line-height: 0px;
+            border-radius: 5px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        #downloads{
+            position: absolute;
+            right: 0px;
+            top: 45px;
         }
 }
 

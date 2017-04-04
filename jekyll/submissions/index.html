@@ -25,60 +25,37 @@ mixins: header-mixin
                     <h2 class="rows count mdl-card__title-text"></h2>
                 </div>
             </div>
+
+            <div id="downloads">
+
+
+
+            <button id="menu-lower-left" class="mdl-button mdl-button--colored mdl-js-button addForm"
+            style="float: right;">
+                <a id="downloadJson" download="data.json" href="#">
+                  JSON
+                </a>
+            </button>
+
+            <button id="menu-lower-left" class="mdl-button mdl-button--colored mdl-js-button addForm"
+            style="float: right;">
+                <a id="downloadCsv" href="#" class="download">
+                  CSV
+                </a>
+            </button>
+
+            <span style="float: right; line-height: 35px; font-weight: 500;">Download:</span>
+
+
+
+            </div>
+
+
+
             <!-- Mdl Card -->
             <div id="submissionPagespinner" class="mdl-spinner mdl-js-spinner is-active"></div>
             <div id="alert" class=""></div>
         </div>
-
-        <!-- <div class="section inputs" v-if="dataShowedUp">
-                  <div class="search">
-                  <ui-textbox
-                      icon="search"
-                      icon-position="right"
-                      floating-label
-                      label="Search"
-                      placeholder="search user"
-                      v-model="searchQuery"
-                  ></ui-textbox>
-                  </div>
-
-            </div>
- -->
-
-        <!-- <div class="section table" v-if="dataShowedUp">
-
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
-                  <thead>
-                    <tr>
-                        <th>edit</th>
-                        <th v-for='h in tableHeaders'>[{h}]</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="data in filteredData">
-                       <template>
-
-                          <td class="trashcan editButton">
-                            <span v-if="isUserAuthorizedToEdit(data['meta.formId'])">
-                              edit
-                            </span>
-                          </td>
-
-                          <td v-for="header in tableHeaders">
-                          [{data[[header]]}]
-                          </td>
-                       </template >
-                    </tr>
-                  </tbody>
-                </table>
-
-            </div>
- -->
-
-
-
-
-
 
     <div class="grid-lower">
         <section class="csv">

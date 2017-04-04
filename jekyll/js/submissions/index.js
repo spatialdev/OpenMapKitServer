@@ -86,7 +86,7 @@ function renderCSV(objects) {
     var header = rows[0];
 
     v_tableHeaders = rows[0];
-    console.log("rows: ", rows);
+    // console.log("rows: ", rows);
 
     var formid = getParam('form');
 
@@ -262,11 +262,11 @@ $(function () {
         return false;
     });
 
-    $("#logOut").click(function () {
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
-            auth.logout();
-            window.location = '/omk/pages/login';
-    });
+    // $("#logOut").click(function () {
+    //         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+    //         auth.logout();
+    //         window.location = '/omk/pages/login';
+    // });
 
     // if there's no CSV to download, don't download anything
     $(".csv a.download").click(function () {
@@ -274,9 +274,9 @@ $(function () {
     });
 
     // go away
-    $("body").click(function () {
-        $(".drop").hide();
-    });
+    // $("body").click(function () {
+    //     $(".drop").hide();
+    // });
 
     // add href to submit changeset button
     $("#submit-OSM-changesets")
@@ -456,7 +456,7 @@ function fetchEketoEditURL (url, body, cb) {
 
             // $("#backLink").show();
             console.log("Error fetching Submission xml");
-            console.log(data);
+            // console.log(data);
         }
 
     });

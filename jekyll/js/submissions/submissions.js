@@ -25,18 +25,7 @@ new Vue({
         }
     },
     computed: {
-        filteredData: function () {
-              var filterKey = this.searchQuery && this.searchQuery.toLowerCase()
-              var data = this.tableData
-              if (filterKey) {
-                data = data.filter(function (row) {
-                  return Object.keys(row).some(function (key) {
-                    return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-                  })
-                })
-              }
-              return data
-        }
+
     },
     mounted: function () {
         var vm = this;
@@ -45,38 +34,8 @@ new Vue({
             auth.checkAuth();
         }
 
-
-        //wait till data is processed from omk.js
-        setTimeout(function(){
-            vm.tableHeaders = v_tableHeaders
-            console.log("setTimeout:")
-            vm.tableData = v_tableData;
-            vm.getParam = v_getParam
-            vm.dataShowedUp = true;
-         }, 5000);
-
-        console.log("mounted:")
     },
     methods: {
-        isUserAuthorizedToEdit: function (formid) {
 
-            // var user = AUTH.getUser();
-            var authorized, result = [];
-            // var formid = getParam('form');
-
-            // check if app level admin
-            if (this.user.role === "admin"){
-                authorized = true;
-            } else if (this.user.formPermissions.length > 0) {
-                this.user.formPermissions.forEach(function(f){
-                    // ONLY form level admin is authorized
-                    if (f.form_id === formid && f.role === "admin") result.push(f)
-                });
-
-                authorized = result.length > 0;
-            }
-            console.log("authorized: ", authorized)
-            return authorized
-        }
     }
 })
