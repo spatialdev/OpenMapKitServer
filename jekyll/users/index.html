@@ -274,7 +274,7 @@ mixins: header-mixin
                        </td>
                        <td :class= "{'editMode': editMode}">
                          <div v-show="!editMode">
-                           <i class="material-icons" v-if="form.admin">done</i>
+                           <i class="material-icons" v-if="form.role === 'admin'">done</i>
                          </div>
                          <div v-show="editMode">
                             <i class="material-icons" v-if="form.role === 'admin'" @click="setOthersToFalse(form, 'admin')">check_box</i>
@@ -284,7 +284,7 @@ mixins: header-mixin
                        </td>
                        <td :class= "{'editMode': editMode}">
                           <div v-show="!editMode">
-                            <i class="material-icons" v-if="form.write">done</i>
+                            <i class="material-icons" v-if="form.role === 'write'">done</i>
                           </div>
                           <div v-show="editMode">
 
@@ -294,7 +294,7 @@ mixins: header-mixin
                        </td>
                        <td :class= "{'editMode': editMode}">
                           <div v-show="!editMode">
-                            <i class="material-icons" v-if="form.read">done</i>
+                            <i class="material-icons" v-if="form.role === 'read'">done</i>
                           </div>
                           <div v-show="editMode">
 
