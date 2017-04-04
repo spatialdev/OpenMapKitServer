@@ -29,6 +29,11 @@ var headerMixin ={
 
 	  mounted: function () {
 
+	  	//Check if authenticated, if not go to log in page
+        if(auth.user.required){
+            auth.checkAuth();
+        }
+
 	  	//remove User Management link for non Admin users
 	  	if(this.user.role !== 'admin'){
 	  		_.remove(this.menuOptions, {label: 'User Management'});

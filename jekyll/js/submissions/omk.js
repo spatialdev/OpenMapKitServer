@@ -142,7 +142,7 @@ OMK.getFormMetaData = function (cb) {
             // get title and total submissions
             var title = data.xforms.xform[0].name;
             var total = data.xforms.xform[0].totalSubmissions;
-            $("h2.rows.count").text(title + " (" + total + ")");
+            $("h2.rows.count").text(title);
             cb({
                 title: title,
                 total: total

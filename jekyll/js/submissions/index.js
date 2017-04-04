@@ -68,6 +68,10 @@ function showCSV(rendered) {
 // renders them into a small table as an example
 function renderCSV(objects) {
     var rows = $.csv.fromObjects(objects, {justArrays: true});
+
+
+
+
     if (rows.length < 1) return;
 
     // find CSV table
@@ -79,6 +83,10 @@ function renderCSV(objects) {
     var thead = document.createElement("thead");
     var tr = document.createElement("tr");
     var header = rows[0];
+
+    tableHeaders = rows[0];
+    console.log("rows: ", rows);
+
     var formid = getParam('form');
 
     // Add slot for edit button IF user is authorized
@@ -110,11 +118,11 @@ function renderCSV(objects) {
                 tr.appendChild(td);
             } else if (OMK.isUserAuthorizedToEdit(formid) && field === "0") {
 
-                var button = document.createElement("button");
+                var button = document.createElement("span");
                 button.innerHTML = "Edit";
                 $(button)
                     .attr("uuid", uuid)
-                    .attr("class", "mdl-button mdl-js-button mdl-button--raised mdl-button--colored")
+                    .attr("class", "editButton")
                     .click(function(e){
                         var uuid = $(e.currentTarget).attr("uuid");
                         var formid = getParam('form');
@@ -204,7 +212,12 @@ function doCSV(json) {
     var csv = $.csv.fromObjects(flatObjects);
     // excerpt and render first 10 rows
     renderCSV(flatObjects);
+
+    tableData = flatObjects
+
     showCSV(true);
+
+    console.log("flatObjects: ", flatObjects );
 
     // show raw data if people really want it
     $(".csv textarea").val(csv);

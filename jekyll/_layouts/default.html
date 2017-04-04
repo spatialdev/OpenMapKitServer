@@ -37,6 +37,8 @@
       <script type="text/javascript" src="../js/vendor/vue-resource.min.js"></script>
       <script src="../js/vendor/keen-ui.min.js"></script>
 
+      <script src="../js/vendor/moment.min.js"></script>
+
       <script type="text/javascript" src="../js/vendor/toast.min.js"></script>
       <script type="text/javascript" src="../js/vendor/dialog-polyfill.js"></script>
 
@@ -44,20 +46,6 @@
       {% if page.auth %}
 
       <script src="../js/{{page.auth | downcase}}.js"></script>
-
-      {% endif %}
-
-      <!--Inject MIXINS to template-->
-      {% if page.mixins %}
-
-      <script src="../js/{{page.mixins | downcase}}.js"></script>
-
-      {% endif %}
-
-      <!--Inject Vue JS dependency if template-->
-      {% if page.controllerjs %}
-
-      <script src="../js/{{page.controllerjs | downcase}}/{{page.controllerjs | downcase}}.js"></script>
 
       {% endif %}
 
@@ -74,6 +62,23 @@
       <script src="../js/submissions/{{page.datatable-material | downcase}}.js"></script>
 
       {% endif %}
+
+
+      <!--Inject MIXINS to template-->
+      {% if page.mixins %}
+
+      <script src="../js/{{page.mixins | downcase}}.js"></script>
+
+      {% endif %}
+
+      <!--Inject Vue JS dependency if template-->
+      {% if page.controllerjs %}
+
+      <script src="../js/{{page.controllerjs | downcase}}/{{page.controllerjs | downcase}}.js"></script>
+
+      {% endif %}
+
+
 
 
 

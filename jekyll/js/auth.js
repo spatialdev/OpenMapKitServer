@@ -55,7 +55,7 @@ var auth =  {
   //Method to check if the local storage contains token
   checkAuth() {
 
-    // this.checkIfTokenIsValid();
+    this.checkIfTokenIsValid();
 
     var jwt = localStorage.getItem('id_token')
     if(jwt) {
@@ -78,12 +78,15 @@ var auth =  {
   },
   checkIfTokenIsValid () {
 
-    var tokenExpiration = localStorage.getItem('id_token')
+    var tokenExpiration = JSON.parse(localStorage.getItem('tokenExpiration'))
+    var newExp = moment(tokenExpiration).valueOf();
 
+    var dateNow = moment().unix();
 
-    if( Date.now() > tokenExpiration){
+    if( dateNow > newExp){
       localStorage.removeItem('id_token')
       localStorage.removeItem('user')
+      localStorage.removeItem('tokenExpiration')
       this.user.authenticated = false;
       this.user.expiredDate = null
       this.user.authenticated = false;

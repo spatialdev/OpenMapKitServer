@@ -18,7 +18,7 @@
 .grid-lower{
     position: relative;
     z-index: 1;
-    top: 135px;
+    // top: 135px;
 }
 
 .wide-card {
@@ -76,5 +76,6 @@ ul a {
 }
 
 .mdl-button {
-    padding: 0 13px
+    padding: 0 13px;
+    color: #2B9BF5;
 }

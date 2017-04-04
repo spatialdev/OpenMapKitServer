@@ -85,8 +85,13 @@ new Vue({
 
     },
     created() {
-        this.getUserDetails();
-        componentHandler.upgradeDom();
+        //Check if authenticated, if not go to log in page
+        if(auth.user.required){
+            auth.checkAuth();
+            this.getUserDetails();
+        }
+
+        // componentHandler.upgradeDom();
     },
     methods: {
         ifNullReturnEmptyString: function (value) {

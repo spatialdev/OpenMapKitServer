@@ -15,7 +15,9 @@ mixins: header-mixin
 <div class="page-content">
 
 <div class="mdl-grid" >
-        <div class="section">
+
+    <div class="mask">
+        <div class="mdl-grid grid-menu mdl-cell mdl-cell--12-col">
             <div class="container-backLink">
                 <a id="backLink" href="/omk/pages/forms/" class="backLink">
                     < Back to forms page
@@ -31,55 +33,8 @@ mixins: header-mixin
             <div id="submissionPagespinner" class="mdl-spinner mdl-js-spinner is-active"></div>
             <div id="alert" class=""></div>
         </div>
-        <div class="section inputs" v-if="dataShowedUp">
-                  <div class="search">
-                  <ui-textbox
-                      icon="search"
-                      icon-position="right"
-                      floating-label
-                      label="Search"
-                      placeholder="search user"
-                      v-model="searchQuery"
-                  ></ui-textbox>
-                  </div>
-
-            </div>
-
-
-        <div class="section table" v-if="dataShowedUp">
-
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
-                  <thead>
-                    <tr>
-                        <th>edit</th>
-                        <th v-for='h in tableHeaders'>[{h}]</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="data in filteredData">
-                       <template>
-
-                            <td class="trashcan editButton">
-                            edit
-                          </td>
-
-                          <td v-for="header in tableHeaders">
-                          [{data[[header]]}]
-                          </td>
-                       </template >
-                    </tr>
-                  </tbody>
-                </table>
-
-            </div>
-
-
-
-
-
-
-
-    <div class="grid-lower">
+    </div>
+    <div class="mdl-grid grid-lower">
         <section class="csv">
 
             <div class="table rendered">
@@ -88,13 +43,12 @@ mixins: header-mixin
                 </table>
             </div>
 
-            <!-- <div class="areas">
+            <div class="areas">
                 <textarea class="editing" readonly></textarea>
-            </div> -->
+            </div>
 
         </section>
     </div>
-
     </div>
 </div>
 
@@ -106,9 +60,9 @@ mixins: header-mixin
     </div>
     <div class="mdl-dialog__actions">
         <a id="open-enketo-url-submission" href="#" target="_blank">
-            <button type="button" class="mdl-button mdl-js-button">Open</button>
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised">Open</button>
         </a>
-        <button type="button" class="mdl-button mdl-js-button close">Close</button>
+        <button type="button" class="mdl-button mdl-js-button mdl-button--raised close">Close</button>
     </div>
 </dialog>
 
