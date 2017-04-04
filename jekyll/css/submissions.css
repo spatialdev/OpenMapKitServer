@@ -48,8 +48,12 @@
             color: #2B9BF5;
         }
 
-.container-backLink {
+#backLink {
     width: 100%;
+    padding-top: 50px;
+    font-size: 13px;
+    font-weight: 100;
+    color: #2B9BF5;
 }
 
 .mask {
@@ -68,6 +72,10 @@ ul a {
 
 #submissionPagespinner {
     // margin: 40px auto;
+    margin: auto 0;
+    width: 100px;
+    position: absolute;
+    left: 46%;
 
 }
 

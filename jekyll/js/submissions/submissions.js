@@ -4,8 +4,9 @@
 
 // Vue.config.debug = true;
 
-var tableHeaders = []
-var tableData = []
+var v_tableHeaders = []
+var v_tableData = []
+var v_getParam;
 
 new Vue({
     el: '#submissionsPage',
@@ -19,7 +20,8 @@ new Vue({
             dataShowedUp: false,
             tableHeaders: [],
             tableData:{},
-            searchQuery: ''
+            searchQuery: '',
+            getParam: null
         }
     },
     computed: {
@@ -46,13 +48,35 @@ new Vue({
 
         //wait till data is processed from omk.js
         setTimeout(function(){
-            vm.tableHeaders = tableHeaders
+            vm.tableHeaders = v_tableHeaders
             console.log("setTimeout:")
-            vm.tableData = tableData;
+            vm.tableData = v_tableData;
+            vm.getParam = v_getParam
             vm.dataShowedUp = true;
-         }, 2000);
+         }, 5000);
 
         console.log("mounted:")
+    },
+    methods: {
+        isUserAuthorizedToEdit: function (formid) {
 
+            // var user = AUTH.getUser();
+            var authorized, result = [];
+            // var formid = getParam('form');
+
+            // check if app level admin
+            if (this.user.role === "admin"){
+                authorized = true;
+            } else if (this.user.formPermissions.length > 0) {
+                this.user.formPermissions.forEach(function(f){
+                    // ONLY form level admin is authorized
+                    if (f.form_id === formid && f.role === "admin") result.push(f)
+                });
+
+                authorized = result.length > 0;
+            }
+            console.log("authorized: ", authorized)
+            return authorized
+        }
     }
 })

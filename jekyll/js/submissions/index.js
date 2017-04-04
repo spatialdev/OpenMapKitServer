@@ -4,6 +4,7 @@ function getParam(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
+        v_getParam = results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
@@ -84,7 +85,7 @@ function renderCSV(objects) {
     var tr = document.createElement("tr");
     var header = rows[0];
 
-    tableHeaders = rows[0];
+    v_tableHeaders = rows[0];
     console.log("rows: ", rows);
 
     var formid = getParam('form');
@@ -213,11 +214,19 @@ function doCSV(json) {
     // excerpt and render first 10 rows
     renderCSV(flatObjects);
 
-    tableData = flatObjects
+    v_tableData = flatObjects
 
     showCSV(true);
 
-    console.log("flatObjects: ", flatObjects );
+    if(flatObjects.length < 10){
+        $("#submission-table_paginate").hide();
+        $("#submission-table_info").hide();
+    }else{
+        $("#submission-table_paginate").show();
+        $("#submission-table_info").show();
+    }
+
+
 
     // show raw data if people really want it
     $(".csv textarea").val(csv);

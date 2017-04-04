@@ -16,11 +16,9 @@ mixins: header-mixin
 
 <div class="mdl-grid" >
         <div class="section">
-            <div class="container-backLink">
                 <a id="backLink" href="/omk/pages/forms/" class="backLink">
                     < Back to forms page
                 </a>
-            </div>
             <!-- Mdl Card -->
             <div id="submissionCard" class="mdl-cell mdl-cell--12-col mdl-card wide-card mdl-shadow--0dp">
                 <div class="mdl-cell--12-col mdl-card__title">
@@ -31,7 +29,8 @@ mixins: header-mixin
             <div id="submissionPagespinner" class="mdl-spinner mdl-js-spinner is-active"></div>
             <div id="alert" class=""></div>
         </div>
-        <div class="section inputs" v-if="dataShowedUp">
+
+        <!-- <div class="section inputs" v-if="dataShowedUp">
                   <div class="search">
                   <ui-textbox
                       icon="search"
@@ -44,9 +43,9 @@ mixins: header-mixin
                   </div>
 
             </div>
+ -->
 
-
-        <div class="section table" v-if="dataShowedUp">
+        <!-- <div class="section table" v-if="dataShowedUp">
 
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" >
                   <thead>
@@ -59,8 +58,10 @@ mixins: header-mixin
                     <tr v-for="data in filteredData">
                        <template>
 
-                            <td class="trashcan editButton">
-                            edit
+                          <td class="trashcan editButton">
+                            <span v-if="isUserAuthorizedToEdit(data['meta.formId'])">
+                              edit
+                            </span>
                           </td>
 
                           <td v-for="header in tableHeaders">
@@ -72,7 +73,7 @@ mixins: header-mixin
                 </table>
 
             </div>
-
+ -->
 
 
 
@@ -81,7 +82,7 @@ mixins: header-mixin
 
     <div class="grid-lower">
         <section class="csv">
-
+        <span class="label">List of submissions:</span>
             <div class="table rendered">
                 <table id="submission-table"
                 class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">

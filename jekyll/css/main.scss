@@ -643,10 +643,11 @@ h3 {
     }
 
     .grid-lower{
-        display: none !important;
+        // display: none !important;
     }
     .section{
         width: 940px;
+        padding-top: 50px;
     }
 
     .section.table{
@@ -655,6 +656,12 @@ h3 {
     .search{
             position: relative;
             float: right;
+        }
+        .label{
+            font-weight: 200;
+            color: rgb(46, 46, 46);
+            padding-top: 8px;
+            position: absolute;
         }
 }
 
