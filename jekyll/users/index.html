@@ -215,7 +215,6 @@ mixins: header-mixin
             <div class="section inputs" v-if="activeUser != null">
 
                   <ui-textbox
-                      floating-label
                       label="First Name"
                       type="text"
                       placeholder="Enter your first name"
@@ -226,7 +225,6 @@ mixins: header-mixin
                   ></ui-textbox>
 
                   <ui-textbox
-                      floating-label
                       label="Last Name"
                       placeholder="Enter your last name"
                       :value="ifNullReturnEmptyString(activeUser.last_name)"
@@ -235,9 +233,8 @@ mixins: header-mixin
                       :class="{'is-active' : isFocused}"
                   ></ui-textbox>
                   <ui-textbox
-                      floating-label
                       label="Email"
-                      placeholder="Enter your email"
+                      placeholder="Enter your email address"
                       :value="ifNullReturnEmptyString(activeUser.email)"
                       v-model="activeUser.email"
                       :disabled="!editMode"
