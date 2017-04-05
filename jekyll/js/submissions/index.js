@@ -227,13 +227,11 @@ function doCSV(json) {
         $("#submission-table_info").show();
     }
 
-
-
+    
     // show raw data if people really want it
     $(".csv textarea").val(csv);
 
-    // $("#downloadCsv").attr("href", OMK.csvUrl()).attr("download", getParam('form') + ".csv");
-    // $("#downloadJson").attr("href", OMK.jsonUrl()).attr("download", getParam('form') + ".json");
+
     $("#downloadCsv").attr("href", "#");
     $("#downloadJson").attr("href", "#");
 }
