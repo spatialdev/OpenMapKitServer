@@ -74,6 +74,10 @@ new Vue({
 
                     console.log("componentHandler.upgradeDom();")
                 }, 500);
+
+                //ensure that when switching pages, the edit mode is to false
+                this.editMode = false;
+
         },
         'editMode': function () {
                 setTimeout(function () {
