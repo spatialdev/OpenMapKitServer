@@ -16,9 +16,12 @@
 }
 
 .grid-lower{
-    position: relative;
+    position: absolute;
     z-index: 1;
     // top: 135px;
+    top: 200px;
+    left: 20px;
+    right: 20px;
 }
 
 .wide-card {
@@ -76,7 +79,7 @@ ul a {
     width: 100px;
     position: absolute;
     left: 46%;
-
+    top: 165px;
 }
 
 #submissionCard {

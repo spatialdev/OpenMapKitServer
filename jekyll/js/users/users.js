@@ -490,18 +490,16 @@ new Vue({
             if(!formDialog){
                 formDialog = document.querySelector('#addForm-dialog');
             }
-
-
             // show dialog
             formDialog.showModal();
+        },
+        closeAddFormDialog: function () {
 
-            setTimeout(function () {
-                    // componentHandler.upgradeAllRegistered();
-                    componentHandler.upgradeDom();
+            // console.log("closing Add form dialog: ", formDialog)
 
-                    console.log("componentHandler.upgradeDom();")
-                }, 500);
-
+            if (formDialog) {
+                    formDialog.close();
+            }
         },
         toggleEditMode: function () {
             this.editMode = !this.editMode;
