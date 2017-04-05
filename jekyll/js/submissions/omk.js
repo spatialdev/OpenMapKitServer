@@ -163,7 +163,7 @@ OMK.downloadCSV = function (url) {
 
     $.ajax({
         url: url,
-        type: 'post',
+        type: 'get',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('id_token')
         },
@@ -174,8 +174,9 @@ OMK.downloadCSV = function (url) {
             var downloadLink = document.createElement("a");
             var blob = new Blob(["\ufeff", data]);
             var url = URL.createObjectURL(blob);
+            var formId = getParam("form");
             downloadLink.href = url;
-            downloadLink.download = "data.csv";
+            downloadLink.download = formId + ".csv";
 
             document.body.appendChild(downloadLink);
             downloadLink.click();
@@ -194,7 +195,7 @@ OMK.downloadJSON = function (url) {
 
     $.ajax({
         url: url,
-        type: 'post',
+        type: 'get',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('id_token')
         },
@@ -206,8 +207,9 @@ OMK.downloadJSON = function (url) {
             // var blob = new Blob(["\ufeff", data]);
             // var url = URL.createObjectURL(blob);
             var url = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+            var formId = getParam("form");
             downloadLink.href = url;
-            downloadLink.download = "data.json";
+            downloadLink.download = formId + ".json";
 
             document.body.appendChild(downloadLink);
             downloadLink.click();
