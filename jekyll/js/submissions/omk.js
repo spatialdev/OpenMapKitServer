@@ -74,6 +74,7 @@ OMK.fetchJSON = function (url,cb) {
             $("#submissionPagespinner").hide();
             $("#alert").text("No data has been submitted for " + form + '.').show();
             // $("#backLink").show();
+            $("#downloads").hide();
             console.log("Error fetching ODK submissions!");
             console.log(data);
         }

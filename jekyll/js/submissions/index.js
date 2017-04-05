@@ -193,6 +193,7 @@ function renderCSV(objects) {
         $("#alert").text("No data has been submitted for " + form + '.').show();
         $("#submissionCard").html("")
         $(".csv").html("")
+        $("#downloads").hide();
         console.error (e)
     }
 }
