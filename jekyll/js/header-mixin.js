@@ -23,10 +23,10 @@ var headerMixin ={
 
 	  data() {
 	  	return {
-	  		menuOptions
+	  		menuOptions,
+	  		showHeaderMenu: false
 	  	}
 	  },
-
 	  mounted: function () {
 
 	  	//Check if authenticated, if not go to log in page
@@ -34,10 +34,18 @@ var headerMixin ={
             auth.checkAuth();
         }
 
+        console.log("orale");
+
+        console.log("orale: ", this.user.role);
+
 	  	//remove User Management link for non Admin users
-	  	if(this.user.role !== 'admin'){
+	  	if(this.user.role == 'write' || this.user.role == 'read'){
 	  		_.remove(this.menuOptions, {label: 'User Management'});
 	  	}
+
+	  	console.log("orale2: ", this.menuOptions);
+
+	  	this.showHeaderMenu = true;
 
 	  },
 	  methods: {

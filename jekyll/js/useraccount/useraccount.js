@@ -78,7 +78,10 @@ new Vue({
         deleteFormDialog = document.querySelector('#deleteForm-dialog');
 
 
-        this.getFormList();
+        if(this.user.role === 'admin'){
+            this.getFormList();
+        }
+
 
         componentHandler.upgradeDom();
 

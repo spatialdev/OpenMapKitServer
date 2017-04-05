@@ -80,7 +80,7 @@ mixins: header-mixin
             </div>
 
 
-            <div class="section table" v-cloak>
+            <div class="section table" v-cloak v-if="userDetails">
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" v-show="userDetails.formPermissions.length > 0">
                   <thead>
                     <tr >

@@ -22,7 +22,7 @@
           <span style="text-transform: uppercase;">[{user.username}]</span>
         </button>
 
-        <ui-popover trigger="dropdownTrigger" open-on="hover" ref="dropdown" v-if="auth.user.authenticated" v-cloak style="z-index: 100;">
+        <ui-popover trigger="dropdownTrigger" open-on="hover" ref="dropdown" v-if="auth.user.authenticated && showHeaderMenu" v-cloak style="z-index: 100;">
             <ui-menu
                 contain-focus
                 :options="menuOptions"
