@@ -76,7 +76,7 @@ new Vue({
                 }, 500);
 
                 //ensure that when switching pages, the edit mode is to false
-                this.editMode = false;
+                // this.editMode = false;
 
         },
         'editMode': function () {
@@ -335,6 +335,10 @@ new Vue({
         /*
             ACTIVE USER METHODS
         */
+        removeActiveUser: function () {
+            this.activeUser = null;
+            this.editMode = false;
+        },
         closeDeleteDialog: function () {
             if (deleteFormDialog) {
                     deleteFormDialog.close();
@@ -564,6 +568,11 @@ new Vue({
 
         },
         getUserDetails: function(id){
+
+            //turn off editMode
+            if(this.activeUser == null && this.editMode == true){
+                this.editMode = false;
+            }
 
             var url = this.auth.user.url
 
