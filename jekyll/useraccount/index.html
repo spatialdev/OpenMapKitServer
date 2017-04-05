@@ -74,7 +74,7 @@ mixins: header-mixin
               <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
                 @click="addUser()"
                 style="float: right;"
-                v-if="user.role !== 'admin'">
+                v-if="user.role === 'write'">
                   <i class="material-icons">add</i> ADD FORM
                 </button>
             </div>
