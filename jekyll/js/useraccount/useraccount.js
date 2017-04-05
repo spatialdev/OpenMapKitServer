@@ -206,25 +206,27 @@ new Vue({
 
             form[type] = true;
 
-            setTimeout(function () {
-                var orale = ["admin", "write", "read"]
+            vm.updateFormAssignment(form.id, type);
 
-                    if(type === "admin"){
-                        orale.forEach(function(t) {
-                            form[t] = true;
-                        });
-                    }else{
-                        orale.forEach(function(t) {
-                          if (t != type ) {
-                            form[t] = false;
-                          }
-                        });
-                    }
-                    componentHandler.upgradeDom();
+            // setTimeout(function () {
+            //     var orale = ["admin", "write", "read"]
 
-                    vm.updateFormAssignment(form.id, type);
+            //         if(type === "admin"){
+            //             orale.forEach(function(t) {
+            //                 form[t] = true;
+            //             });
+            //         }else{
+            //             orale.forEach(function(t) {
+            //               if (t != type ) {
+            //                 form[t] = false;
+            //               }
+            //             });
+            //         }
+            //         componentHandler.upgradeDom();
 
-            }, 100);
+            //         vm.updateFormAssignment(form.id, type);
+
+            // }, 100);
         },
         closeDeleteDialog: function () {
             if (deleteFormDialog) {
