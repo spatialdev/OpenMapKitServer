@@ -217,7 +217,6 @@ mixins: header-mixin
                   <ui-textbox
                       label="First Name"
                       type="text"
-                      placeholder="Enter your first name"
                       :value="ifNullReturnEmptyString(activeUser.first_name)"
                       v-model="activeUser.first_name"
                       :disabled="!editMode"
@@ -226,7 +225,6 @@ mixins: header-mixin
 
                   <ui-textbox
                       label="Last Name"
-                      placeholder="Enter your last name"
                       :value="ifNullReturnEmptyString(activeUser.last_name)"
                       v-model="activeUser.last_name"
                       :disabled="!editMode"
@@ -234,7 +232,6 @@ mixins: header-mixin
                   ></ui-textbox>
                   <ui-textbox
                       label="Email"
-                      placeholder="Enter your email address"
                       :value="ifNullReturnEmptyString(activeUser.email)"
                       v-model="activeUser.email"
                       :disabled="!editMode"

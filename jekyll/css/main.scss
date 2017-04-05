@@ -205,6 +205,12 @@ h3 {
     cursor: pointer;
 }
 
+.ui-textbox.is-disabled .ui-textbox__input, .ui-textbox.is-disabled .ui-textbox__textarea {
+    border-bottom-style: dotted;
+    border-bottom-width: 0px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
 #headerContainer {
 
     .mdl-button {
@@ -564,6 +570,12 @@ h3 {
             position: relative;
             padding-bottom: 22px;
         }
+
+        // .ui-textbox.is-disabled {
+        //     border-bottom-style: dotted;
+        //     border-bottom-width: 0px !important;
+        //     color: rgba(0, 0, 0, 0.38);
+        // }
 }
 
 .mdl-list {
@@ -654,10 +666,12 @@ h3 {
         // display: none !important;
     }
     .section{
-        width: 940px;
-        padding-top: 50px;
+        // width: 940px;
+        width:100%;
+        margin-top: 50px;
         position: relative;
         // height: 100px;
+        padding: 0 20px;
     }
 
     .section.table{
@@ -691,8 +705,15 @@ h3 {
 
         #downloads{
             position: absolute;
-            right: 0px;
+            right: 20px;
             top: 45px;
+        }
+
+        .page-content {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            padding: 0 20px;
         }
 }
 
