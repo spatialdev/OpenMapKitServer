@@ -30,7 +30,7 @@ mixins: header-mixin
                         class="save activeSave"
                         v-else
                         @click="updateUserDetails()"
-                    ></ui-fab>
+                    >save</ui-fab>
 
                 </div>
             <div class="section header">
@@ -73,13 +73,14 @@ mixins: header-mixin
               <span style="font-weight: 200; color: #2e2e2e;">List of survey forms this user is assigned to:</span>
               <button class="mdl-button mdl-button--colored mdl-js-button addForm" id="menu-lower-left"
                 @click="addUser()"
-                style="float: right;">
+                style="float: right;"
+                v-if="user.role !== 'admin'">
                   <i class="material-icons">add</i> ADD FORM
                 </button>
             </div>
 
 
-            <div class="section table" v-if="userDetails && user.role === 'admin'" v-cloak>
+            <div class="section table" v-cloak>
               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%" v-show="userDetails.formPermissions.length > 0">
                   <thead>
                     <tr >
@@ -87,7 +88,7 @@ mixins: header-mixin
                       <th>Admin</th>
                       <th>Write</th>
                       <th>Read</th>
-                      <th v-show="editMode"></th>
+                      <th v-show="user.role !== 'admin' && editMode"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -98,31 +99,30 @@ mixins: header-mixin
                          [{form.form_id}]
                        </td>
                        <td>
-                         <div v-show="!editMode">
+                          <div v-if="user.role === 'admin' || !editMode">
                            <i class="material-icons" v-if="form.role === 'admin'">done</i>
-                         </div>
-                         <div v-show="editMode">
+                          </div>
 
+                          <div v-else>
                             <i class="material-icons" v-if="form.role === 'admin'" @click="setOthersToFalse(form, 'admin')">check_box</i>
                             <i class="material-icons" v-else @click="setOthersToFalse(form, 'admin')">check_box_outline_blank</i>
-                         </div>
-
+                          </div>
                        </td>
                        <td>
-                          <div v-show="!editMode">
+                          <div v-if="user.role === 'admin' || !editMode">
                             <i class="material-icons" v-if="form.role === 'write'">done</i>
                           </div>
-                          <div v-show="editMode">
+                          <div v-else>
 
                             <i class="material-icons" v-if="form.role === 'write'" @click="setOthersToFalse(form, 'write')">check_box</i>
                             <i class="material-icons" v-else @click="setOthersToFalse(form, 'write')">check_box_outline_blank</i>
                           </div>
                        </td>
                        <td>
-                          <div v-show="!editMode">
+                          <div v-if="user.role === 'admin' || !editMode">
                             <i class="material-icons" v-if="form.role === 'read'">done</i>
                           </div>
-                          <div v-show="editMode">
+                          <div v-else>
 
                             <i class="material-icons" v-if="form.role === 'read'" @click="setOthersToFalse(form, 'read')">check_box</i>
                             <i class="material-icons" v-else @click="setOthersToFalse(form, 'read')">check_box_outline_blank</i>
@@ -130,7 +130,7 @@ mixins: header-mixin
 
                        </td>
 
-                        <td class="trashcan" v-show="editMode">
+                        <td class="trashcan" v-show="user.role !== 'admin' && editMode">
                         <i class="material-icons" @click="deleteDialog(form)">delete</i>
                         </td>
 
