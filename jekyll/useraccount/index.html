@@ -66,7 +66,7 @@ mixins: header-mixin
                   ></ui-textbox>
 
             </div>
-            <div class="section" v-if="user.role === 'admin'" v-cloak>
+            <div class="section" v-cloak>
             <div>
             <h3 style="margin-bottom: 35px;">Forms:</h3>
             </div>
@@ -88,7 +88,7 @@ mixins: header-mixin
                       <th>Admin</th>
                       <th>Write</th>
                       <th>Read</th>
-                      <th v-show="user.role !== 'admin' && editMode"></th>
+                      <th v-show="user.role !== 'admin' && user.role !== 'read' && editMode"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -99,7 +99,7 @@ mixins: header-mixin
                          [{form.form_id}]
                        </td>
                        <td>
-                          <div v-if="user.role === 'admin' || !editMode">
+                          <div v-if="user.role === 'admin' || user.role === 'read' || !editMode">
                            <i class="material-icons" v-if="form.role === 'admin'">done</i>
                           </div>
 
@@ -109,7 +109,7 @@ mixins: header-mixin
                           </div>
                        </td>
                        <td>
-                          <div v-if="user.role === 'admin' || !editMode">
+                          <div v-if="user.role === 'admin' || user.role === 'read' || !editMode">
                             <i class="material-icons" v-if="form.role === 'write'">done</i>
                           </div>
                           <div v-else>
@@ -119,7 +119,7 @@ mixins: header-mixin
                           </div>
                        </td>
                        <td>
-                          <div v-if="user.role === 'admin' || !editMode">
+                          <div v-if="user.role === 'admin'  || user.role === 'read'|| !editMode">
                             <i class="material-icons" v-if="form.role === 'read'">done</i>
                           </div>
                           <div v-else>
@@ -130,7 +130,7 @@ mixins: header-mixin
 
                        </td>
 
-                        <td class="trashcan" v-show="user.role !== 'admin' && editMode">
+                        <td class="trashcan" v-show="user.role !== 'admin' && user.role !== 'read' && editMode">
                         <i class="material-icons" @click="deleteDialog(form)">delete</i>
                         </td>
 
