@@ -42,7 +42,7 @@ new Vue({
             selectedUser: null,
             formOptions: [
                     {
-                        label: 'System admin',
+                        label: 'Admin',
                         value: 'admin'
                     },
                     {
