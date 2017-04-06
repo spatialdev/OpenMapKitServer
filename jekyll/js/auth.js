@@ -79,11 +79,11 @@ var auth =  {
   checkIfTokenIsValid () {
 
     var tokenExpiration = JSON.parse(localStorage.getItem('tokenExpiration'))
-    var newExp = moment(tokenExpiration).valueOf();
+    var convTokenExp = moment(tokenExpiration).valueOf();
 
     var dateNow = moment().unix();
 
-    if( dateNow > newExp){
+    if( (convTokenExp/1000) < dateNow){
       localStorage.removeItem('id_token')
       localStorage.removeItem('user')
       localStorage.removeItem('tokenExpiration')

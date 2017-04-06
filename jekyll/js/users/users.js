@@ -117,12 +117,13 @@ new Vue({
               return data
         }
     },
-    mounted: function () {
-
+    created() {
         //Check if authenticated, if not go to log in page
         if(auth.user.required){
             auth.checkAuth();
         }
+    },
+    mounted: function () {
 
         dialog = document.querySelector('dialog');
 

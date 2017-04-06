@@ -31,12 +31,10 @@ var headerMixin ={
 
 	  	//Check if authenticated, if not go to log in page
         if(auth.user.required){
+
             auth.checkAuth();
+
         }
-
-        console.log("orale");
-
-        console.log("orale: ", this.user.role);
 
 	  	//remove User Management link for non Admin users
 	  	if(this.user.role == 'write' || this.user.role == 'read'){
