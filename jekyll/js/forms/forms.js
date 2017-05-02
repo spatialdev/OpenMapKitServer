@@ -35,7 +35,8 @@ new Vue({
 
             if(formPermission){
                 if (this.user.role !== 'admin'){
-                    return formPermission.admin
+                    // write users should return true as well...
+                    return formPermission.admin || formPermission.write
                 }else{
                     return true
                 }

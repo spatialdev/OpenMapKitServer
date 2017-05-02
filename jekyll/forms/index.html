@@ -29,7 +29,7 @@ mixins: header-mixin
                 </a>
                 <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                    v-if="enketo.enabled === true && formPermissionUserLevel(val.formID)" v-on:click="getEnketoURL(val.formID)">
-                    Fetch Enketo URL
+                    Open Form
                 </div>
 
                 <button :id="val.formID"
