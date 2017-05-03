@@ -70,9 +70,6 @@ function showCSV(rendered) {
 function renderCSV(objects) {
     var rows = $.csv.fromObjects(objects, {justArrays: true});
 
-
-
-
     if (rows.length < 1) return;
 
     // find CSV table
@@ -90,9 +87,10 @@ function renderCSV(objects) {
 
     var formid = getParam('form');
 
-    // Add slot for edit button IF user is authorized
+    // Add slot for edit AND delete button IF user is authorized
     if(OMK.isUserAuthorizedToEdit(formid)){
         header = addEditButtonHeader(header);
+        header = addDeleteButtonHeader(header);
     }
 
     for (field in header) {
@@ -106,18 +104,103 @@ function renderCSV(objects) {
     var tbody = document.createElement("tbody");
 
     for (var i = 1; i < rows.length; i++) {
+        // add table body for edit & delete columns
         rows[i] = addEditButtonBody(rows[i]);
+        rows[i] = addDeleteButtonBody(rows[i]);
+
         tr = document.createElement("tr");
         for (field in rows[i]) {
             var td = document.createElement("td");
             var cell = createHyperLinkIfNeeded(rows[i][field], objects[i - 1]);
             var uuid = getSubmissionUUID(rows[i]);
-            if(field !== "0") {
+
+            // skip first two columns
+            if(field !== "0" && field !== "1") {
                 $(td)
                     .html(cell)
                     .attr("title", rows[i][field]);
                 tr.appendChild(td);
-            } else if (OMK.isUserAuthorizedToEdit(formid) && field === "0") {
+
+                // create delete button and ajax to endpoint
+            } else if (OMK.isUserAuthorizedToEdit(formid) && (field === "0")) {
+
+                var button = document.createElement("div");
+                button.innerHTML = 'Delete';
+
+                $(button)
+                    .attr("uuid", uuid)
+                    .attr("class", "deleteButton")
+                    .click(function(e){
+                        var uuid = $(e.currentTarget).attr("uuid");
+
+                        // remove leading "uuid:"
+                        uuid = uuid.slice(uuid.indexOf(":")+1, uuid.length);
+
+                        // show delete confirmation dialog
+                        // Confirmation Dialog
+                        var dialog = document.querySelector('dialog');
+
+                        // hide spinner
+                        $("#enketo-dialog-submission .mdl-spinner.mdl-js-spinner.is-active").hide();
+
+                        // enable button
+                        dialog.querySelector('#dialog-confirm button.confirm').removeAttribute('disabled');
+
+                        // update dialog copy
+                        dialog.querySelector('.mdl-dialog__title').innerHTML = "Delete Form Submission";
+                        dialog.querySelector('.mdl-dialog__content p').innerHTML = "Are you sure you want to Delete this submission? This action is permanent and cannot be undone!"
+
+                        dialog.querySelector('.mdl-dialog__actions button.confirm').innerHTML = "Confirm";
+                        dialog.querySelector('.mdl-dialog__actions button.cancel').innerHTML = "Cancel";
+
+                        // remove target attribute
+                        dialog.querySelector('#dialog-confirm').removeAttribute('target');
+
+                        // remove href link
+                        document.querySelector('#dialog-confirm').href = '#';
+
+                        // show dialog
+                        dialog.showModal();
+
+                        dialog.querySelector('.mdl-dialog__actions button.cancel').addEventListener('click', function () {
+                            dialog.close();
+                        });
+
+                        dialog.querySelector('.mdl-dialog__actions button.confirm').addEventListener('click', function () {
+                            // show spinner
+                            $("#enketo-dialog-submission .mdl-spinner.mdl-js-spinner.is-active").show();
+
+                            deleteSubmission(uuid, function() {
+                                dialog.close();
+                                // hide spinner
+                                $("#enketo-dialog-submission .mdl-spinner.mdl-js-spinner.is-active").hide();
+
+                                // destroy data table
+                                $('#submission-table').DataTable().destroy();
+
+                                // clear html
+                                clearTable();
+
+                                // show page spinner
+                                $("#submissionPagespinner").show();
+
+                                // get form name & number of submission
+                                OMK.fetch(function () {
+                                    $("#submissionPagespinner").hide();
+                                });
+
+                            })
+                        });
+
+                    });
+
+                $(td)
+                    .html(button)
+                    .attr("title", rows[i][field]);
+                tr.appendChild(td);
+
+                // create edit button and ajax to endpoint
+            } else if (OMK.isUserAuthorizedToEdit(formid) && (field === "1")) {
 
                 var button = document.createElement("span");
                 button.innerHTML = "Edit";
@@ -127,6 +210,9 @@ function renderCSV(objects) {
                     .click(function(e){
                         var uuid = $(e.currentTarget).attr("uuid");
                         var formid = getParam('form');
+
+                        // hide spinner
+                        $("#enketo-dialog-submission .mdl-spinner.mdl-js-spinner.is-active").hide();
 
                         // get submission XML
                         fetchXML(AUTH.user.url + '/omk/odk/submissions/' + formid + '.xml' + '?submissionId=' + uuid, function(xml){
@@ -143,22 +229,32 @@ function renderCSV(objects) {
                                 // Confirmation Dialog
                                 var dialog = document.querySelector('dialog');
 
+                                // add target attribute
+                                dialog.querySelector('#dialog-confirm').setAttribute('target', '_blank');
+
+                                // update dialog copy
+                                dialog.querySelector('.mdl-dialog__title').innerHTML = "Enketo Express";
+                                dialog.querySelector('.mdl-dialog__content p').innerHTML = "Edit form with Enketo Express";
+
+                                dialog.querySelector('.mdl-dialog__actions button.confirm').innerHTML = "Open";
+                                dialog.querySelector('.mdl-dialog__actions button.cancel').innerHTML = "Close";
+
                                 if (dialog) {
                                     // close dialog
-                                    dialog.querySelector('.close').addEventListener('click', function () {
+                                    dialog.querySelector('.mdl-dialog__actions button.cancel').addEventListener('click', function () {
                                         dialog.close();
                                     });
                                 }
 
                                 if (d.hasOwnProperty("edit_url")) {
 
-                                    var enketoButton = document.querySelector('#open-enketo-url-submission');
+                                    var enketoButton = document.querySelector('#dialog-confirm');
                                     enketoButton.href = d.edit_url;
 
                                     // show dialog
                                     dialog.showModal();
 
-                                    dialog.querySelector('#open-enketo-url-submission').addEventListener('click', function () {
+                                    dialog.querySelector('.mdl-dialog__actions button.confirm').addEventListener('click', function () {
                                         dialog.close();
                                     });
                                 } else {
@@ -369,6 +465,26 @@ function addEditButtonHeader (rows) {
     return header
 }
 
+function addDeleteButtonHeader (rows) {
+    var header = ["delete"];
+
+    rows.forEach(function(r){
+        header.push(r);
+    })
+
+    return header
+}
+
+function addDeleteButtonBody (row) {
+    var body = [""];
+
+    row.forEach(function(r){
+        body.push(r);
+    })
+
+    return body
+}
+
 function addEditButtonBody (row) {
     var body = [""];
 
@@ -445,17 +561,58 @@ function fetchEketoEditURL (url, body, cb) {
             dialog.querySelector('.mdl-dialog__title').innerHTML = "Error";
             dialog.querySelector('.mdl-dialog__content p').innerHTML = data.responseJSON.message || "Error fetching Enketo URL, make sure enketo is properly enabled in the config.";
             // disable button
-            dialog.querySelector('#open-enketo-url-submission button').setAttribute('disabled', '');
+            dialog.querySelector('#dialog-confirm button').setAttribute('disabled', '');
             // show dialog
             dialog.showModal();
 
-            dialog.querySelector('.mdl-dialog__actions button.close').addEventListener('click', function () {
+            dialog.querySelector('.mdl-dialog__actions button.cancel').addEventListener('click', function () {
                 dialog.close();
             });
 
             // $("#backLink").show();
             console.log("Error fetching Submission xml");
             // console.log(data);
+        }
+
+    });
+}
+
+function deleteSubmission (submissionID, cb) {
+    var formName = getParam('form');
+
+    $.ajax({
+        url: AUTH.user.url + '/omk/odk/submissions/' + submissionID + '/' + formName,
+        type: 'delete',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('id_token'),
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (data){
+            if(cb) cb(data)
+        },
+        error: function (data){
+            // console.log("Outlet Creation Failed, please try again.");
+            var form = getParam('form');
+            $("#enketo-dialog-submission .mdl-spinner.mdl-js-spinner.is-active").hide();
+
+            // Confirmation Dialog
+            var dialog = document.querySelector('dialog');
+
+            // return error
+            dialog.querySelector('.mdl-dialog__title').innerHTML = "Error";
+            dialog.querySelector('.mdl-dialog__content p').innerHTML = data.responseJSON.message || "Error deleting form submission.";
+
+            // disable button
+            dialog.querySelector('#dialog-confirm button').setAttribute('disabled', '');
+            // show dialog
+            dialog.showModal();
+
+            dialog.querySelector('.mdl-dialog__actions button.cancel').addEventListener('click', function () {
+                dialog.close();
+            });
+
+            console.log("Error deleting submission");
         }
 
     });
@@ -519,4 +676,8 @@ function isUserAuthorizedToEdit () {
     }
 
     return authorized
+}
+
+function clearTable () {
+    $("#submission-table").html("");
 }

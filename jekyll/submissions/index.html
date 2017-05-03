@@ -78,13 +78,14 @@ mixins: header-mixin
 <dialog id="enketo-dialog-submission" class="mdl-dialog">
     <h6 class="mdl-dialog__title">Enketo Express</h6>
     <div class="mdl-dialog__content">
-        <p>Edit with Enketo Express</p>
+        <p>Edit form with Enketo Express</p>
+        <div class="mdl-spinner mdl-js-spinner is-active"></div>
     </div>
     <div class="mdl-dialog__actions">
-        <a id="open-enketo-url-submission" href="#" target="_blank">
-            <button type="button" class="mdl-button mdl-js-button">Open</button>
+        <a id="dialog-confirm" href="#" target="_blank">
+            <button type="button" class="mdl-button mdl-js-button confirm">Open</button>
         </a>
-        <button type="button" class="mdl-button mdl-js-button close">Close</button>
+        <button type="button" class="mdl-button mdl-js-button cancel">Close</button>
     </div>
 </dialog>
 

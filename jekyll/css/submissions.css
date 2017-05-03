@@ -90,3 +90,8 @@ ul a {
     padding: 0 13px;
     color: #2B9BF5;
 }
+
+.deleteButton {
+    color: #ff0000;
+    cursor: pointer;
+}

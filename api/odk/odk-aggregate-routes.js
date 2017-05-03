@@ -8,6 +8,7 @@ var uploadForm = require('./controllers/upload-form');
 var submitChangesets = require('./controllers/submit-changesets');
 var visstaMiddleware = require('./../custom/middlewares/vissta-auth-middleware');
 var getXmlSubmissions = require('./controllers/get-xml-submissions');
+var deleteSubmissions = require('./controllers/delete-submissions');
 
 /**
  * Aggregate End Points
@@ -33,5 +34,11 @@ router.route('/upload-form').all(visstaMiddleware()).post(uploadForm);
 router.route('/submit-changesets/:formName')
                 .get(submitChangesets)
                 .put(submitChangesets);
+
+/**
+ * Custom submission endpoints
+ */
+
+router.route('/submissions/:submissionID/:formName').all(visstaMiddleware()).delete(deleteSubmissions)
 
 module.exports = router;
