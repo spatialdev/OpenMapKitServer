@@ -14,6 +14,23 @@ util.hasAccessToForm = function(user, formid){
     return formids.indexOf(formid) > -1 || user.role === "admin";
 };
 
+/**
+ * Take user and form id & return user's permission to form, or null if no access
+ * @param user
+ * @param formid
+ */
+util.getFormPermission = function (user, formid) {
+    var form = user.formPermissions.filter(function(f){return f.form_id === formid})[0];
+
+    if (user.role === "admin"){
+        return "admin";
+    } else if (typeof form === "object"){
+        return form.role;
+    } else {
+        return null
+    }
+};
+
 util.isAuthEnabled = function () {
     return typeof settings.formAuth === "object" && settings.formAuth.enabled === true
 };
