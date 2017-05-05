@@ -39,12 +39,12 @@ mixins: header-mixin
                 <ul class="mdl-menu mdl-menu--top-right mdl-js-menu" :for="val.formID">
                     <li class="mdl-menu__item">
                         <a target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                           :href="getHrefForm(val.formID, 'xml')">
+                           :href="getHrefForm(val.downloadUrl, 'xml')">
                             View XForm XML
                         </a>
                     </li>
                     <li id="get-enketo-url" class="mdl-menu__item">
-                        <a :href="getHrefForm(val.formID, 'xlsx')">
+                        <a :href="getHrefForm(val.downloadUrl, 'xlsx')">
                         <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Download XLSX Form</div>
                         </a>
                     </li>

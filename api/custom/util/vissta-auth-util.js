@@ -1,6 +1,8 @@
 var settings = require('../../../settings');
 var util = {};
 var jsonwebtoken = require('jsonwebtoken');
+var parseString = require('xml2js').parseString;
+var fs = require('fs');
 
 /**
  * Check if user has access to single formId
@@ -65,5 +67,24 @@ util.getCookieToken = function (headers) {
     
     return token;
 };
+
+util.getFormId = function (path, filename, cb) {
+    // find manifest file
+    fs.readFile(path, function (err, xml) {
+        if(err){
+            cb(err)
+        } else {
+            parseString(xml, function (err, result) {
+                var id = result["h:html"]["h:head"][0]["model"][0]["instance"][0][filename][0]["$"]["id"];
+                if(typeof id === "string" && id.length >0){
+                    cb(null, id);
+                } else {
+                    cb(err)
+                }
+            });
+        }
+    });
+};
+
 
 module.exports = util;

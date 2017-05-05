@@ -48,8 +48,9 @@ new Vue({
 
 
         },
-        getHrefForm: function (id, ext) {
-            return '/omk/data/forms/' + id + "." + ext;
+        getHrefForm: function (url, ext) {
+            var filename = url.slice(url.lastIndexOf("/"), url.lastIndexOf("xml")) + ext;
+            return '/omk/data/forms/' + filename;
         },
         getHrefSubmissions: function (id) {
             return "/omk/pages/submissions/?form=" + id
