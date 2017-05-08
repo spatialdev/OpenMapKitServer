@@ -89,8 +89,8 @@ function renderCSV(objects) {
 
     // Add slot for edit AND delete button IF user is authorized
     if(OMK.isUserAuthorizedToEdit(formid)){
-        header = addTableHeader(header, "edit");
-        header = addTableHeader(header, "delete");
+        header = addTableHeader(header, "");
+        header = addTableHeader(header, "");
     }
 
     for (field in header) {
