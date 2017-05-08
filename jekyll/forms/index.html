@@ -48,6 +48,9 @@ mixins: header-mixin
                         <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Download XLSX Form</div>
                         </a>
                     </li>
+                    <li id="delete-form" class="mdl-menu__item" v-on:click="deleteForm(val)" v-if="user.role === 'admin'">
+                        <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Delete Form</div>
+                    </li>
 
                 </ul>
             </div>
@@ -62,10 +65,11 @@ mixins: header-mixin
     <h6 class="mdl-dialog__title">Enketo Express</h6>
     <div class="mdl-dialog__content">
         <p>Fill out survey online with Enketo Express</p>
+        <div id="formDialogSpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
     </div>
     <div class="mdl-dialog__actions">
         <a id="open-enketo-url" href="#" target="_blank">
-            <button type="button" class="mdl-button mdl-js-button modalButton">Open</button>
+            <button type="button" class="mdl-button mdl-js-button confirm modalButton">Open</button>
         </a>
         <button type="button" class="mdl-button mdl-js-button close modalButton">Close</button>
     </div>

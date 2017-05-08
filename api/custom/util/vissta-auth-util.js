@@ -47,6 +47,16 @@ util.isCustomRoute = function (table) {
     return filter.length == 1
 };
 
+util.isFlyByRoute = function (table) {
+    var flyByRoutes = settings.flyByRoutes;
+
+    var filter = flyByRoutes.filter(function(item){
+        return (item === table)
+    });
+
+    return filter.length == 1
+}
+
 /**
  * Get token from header cookie
  * @param headers

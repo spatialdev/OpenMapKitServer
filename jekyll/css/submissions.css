@@ -95,3 +95,7 @@ ul a {
     color: #ff0000;
     cursor: pointer;
 }
+
+.deleteColumn {
+    padding: 0 !important;
+}

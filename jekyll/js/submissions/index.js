@@ -89,8 +89,8 @@ function renderCSV(objects) {
 
     // Add slot for edit AND delete button IF user is authorized
     if(OMK.isUserAuthorizedToEdit(formid)){
-        header = addEditButtonHeader(header);
-        header = addDeleteButtonHeader(header);
+        header = addTableHeader(header, "edit");
+        header = addTableHeader(header, "delete");
     }
 
     for (field in header) {
@@ -105,8 +105,8 @@ function renderCSV(objects) {
 
     for (var i = 1; i < rows.length; i++) {
         // add table body for edit & delete columns
-        rows[i] = addEditButtonBody(rows[i]);
-        rows[i] = addDeleteButtonBody(rows[i]);
+        rows[i] = addTableData(rows[i]);
+        rows[i] = addTableData(rows[i]);
 
         tr = document.createElement("tr");
         for (field in rows[i]) {
@@ -118,14 +118,14 @@ function renderCSV(objects) {
             if(field !== "0" && field !== "1") {
                 $(td)
                     .html(cell)
-                    .attr("title", rows[i][field]);
+                    .attr("title", rows[i][field])
                 tr.appendChild(td);
 
                 // create delete button and ajax to endpoint
             } else if (OMK.isUserAuthorizedToEdit(formid) && (field === "0")) {
 
                 var button = document.createElement("div");
-                button.innerHTML = 'Delete';
+                button.innerHTML = '<i class="material-icons">delete</i>';
 
                 $(button)
                     .attr("uuid", uuid)
@@ -148,7 +148,7 @@ function renderCSV(objects) {
 
                         // update dialog copy
                         dialog.querySelector('.mdl-dialog__title').innerHTML = "Delete Form Submission";
-                        dialog.querySelector('.mdl-dialog__content p').innerHTML = "Are you sure you want to Delete this submission? This action is permanent and cannot be undone!"
+                        dialog.querySelector('.mdl-dialog__content p').innerHTML = "Are you sure you want to Delete this submission? This action is <span class='font-important'>permanent</span> and cannot be undone!"
 
                         dialog.querySelector('.mdl-dialog__actions button.confirm').innerHTML = "Confirm";
                         dialog.querySelector('.mdl-dialog__actions button.cancel').innerHTML = "Cancel";
@@ -196,7 +196,8 @@ function renderCSV(objects) {
 
                 $(td)
                     .html(button)
-                    .attr("title", rows[i][field]);
+                    .attr("title", rows[i][field])
+                    .attr("class", "deleteColumn");
                 tr.appendChild(td);
 
                 // create edit button and ajax to endpoint
@@ -455,8 +456,8 @@ function createHyperLinkIfNeeded(field, object) {
     return field;
 }
 
-function addEditButtonHeader (rows) {
-    var header = ["edit"];
+function addTableHeader (rows, title) {
+    var header = [title];
 
     rows.forEach(function(r){
         header.push(r);
@@ -465,27 +466,7 @@ function addEditButtonHeader (rows) {
     return header
 }
 
-function addDeleteButtonHeader (rows) {
-    var header = ["delete"];
-
-    rows.forEach(function(r){
-        header.push(r);
-    })
-
-    return header
-}
-
-function addDeleteButtonBody (row) {
-    var body = [""];
-
-    row.forEach(function(r){
-        body.push(r);
-    })
-
-    return body
-}
-
-function addEditButtonBody (row) {
+function addTableData (row) {
     var body = [""];
 
     row.forEach(function(r){

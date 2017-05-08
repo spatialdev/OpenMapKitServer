@@ -14,7 +14,8 @@ router.get('/:table', [visstaAuth()], function (req, res, next) {
     var columns = req.query.columns || null;
     var user = req.user;
 
-    if (req.user.role === "admin") {
+    // user must be admin unless table is listed as a "fly by route"
+    if (req.user.role === "admin" || visstaUtil.isFlyByRoute(table)) {
 
         // Check if table/view is listen under "customRoutes"
         if (!visstaUtil.isCustomRoute(table)) {

@@ -25,7 +25,7 @@ var unless = require('express-unless');
 var jsonwebtoken = require('jsonwebtoken');
 var userRoutes = require('./api/custom/routes/user-routes');
 var tableRoutes = require('./api/custom/routes/table-routes');
-var customTableOmkForms  = require('./api/custom/routes/omk_forms')
+var customTableOmkFormsDelete  = require('./api/custom/routes/omk_forms_delete')
 var visstaUtil = require('./api/custom/util/vissta-auth-util');
 var expressValidator = require('express-validator');
 var path = require('path');
@@ -91,7 +91,7 @@ app.use('/', odkOpenRosa);
 
 // Custom user routes
 app.use('/custom/users', userRoutes);
-app.use('/custom/tables', tableRoutes, customTableOmkForms);
+app.use('/custom/tables', tableRoutes, customTableOmkFormsDelete);
 
 /**
  * Authentication routes.
