@@ -82,7 +82,7 @@ new Vue({
                 var formids = this.formListTable.map(function(t){return t.form_id})
 
                 response.body.xforms.xform= response.body.xforms.xform.filter(function(o){
-                    return o.formID.indexOf(formids) !== -1
+                    return formids.indexOf(o.formID) !== -1
                 });
 
                 this.formList = response.data;
