@@ -48,8 +48,8 @@ mixins: header-mixin
                         <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Download XLSX Form</div>
                         </a>
                     </li>
-                    <li id="delete-form" class="mdl-menu__item" v-on:click="deleteForm(val)" v-if="user.role === 'admin'">
-                        <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Delete Form</div>
+                    <li id="delete-form" class="mdl-menu__item mdl-color-text--red" v-on:click="deleteForm(val)" v-if="user.role === 'admin'">
+                        <div class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--red">Delete Form</div>
                     </li>
 
                 </ul>
